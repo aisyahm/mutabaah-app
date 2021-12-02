@@ -20,8 +20,9 @@ class CreateUsersTable extends Migration
             $table->string("username")->unique();
             $table->string('email')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->string("gender");
+            $table->string('password')->nullable();
+            $table->string('avatar')->nullable();
+            $table->string("gender")->nullable();
             $table->boolean("is_mentor")->default(false);
             
             $table->rememberToken();
