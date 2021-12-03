@@ -42,7 +42,7 @@
     <div class="login">
         <a class="btn-border" href="{{route('user.login.google')}}">
             <img src="ic_google.svg" class="icon" alt="">
-            Sign In with Google
+            Continue with Google
         </a>
     </div>
 
