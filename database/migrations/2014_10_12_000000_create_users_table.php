@@ -17,11 +17,12 @@ class CreateUsersTable extends Migration
             $table->id();
 
             $table->string('name');
-            $table->string("username")->unique();
+            $table->string("username")->unique()->nullable();
             $table->string('email')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->string("gender");
+            $table->string('password')->nullable();
+            $table->string('avatar')->nullable();
+            $table->string("gender")->nullable();
             $table->boolean("is_mentor")->default(false);
             
             $table->rememberToken();
