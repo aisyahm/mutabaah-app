@@ -33,6 +33,6 @@ class UserController extends Controller
         //     Mail::to($user->email)->send(new AfterRegister($user));
         // }
         Auth::login($user, true);
-        return view('dashboard');
+        return view('welcome');
     }
 }

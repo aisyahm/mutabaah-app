@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Mutabaah</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -86,15 +86,36 @@
                 </ul>
 
                 {{-- Sign In/Sign Up --}}
-                <div class="d-flex btn btn-get-started btn-get-started-blue text-white" >
+                
                     @if (Route::has('login'))                    
+                        {{-- @auth
+                            <a href="{{ url('/dashboard') }}">Dashboard</a> --}}
                         @auth
-                            <a href="{{ url('/dashboard') }}">Dashboard</a>
+                        <div class="d-flex user-logged nav-item dropdown no-arrow">
+                            <a href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none; color: #124442;">
+                            Halo, {{Auth::user()->name}}!
+                            @if (Auth::user()->avatar)
+                                <img src="{{Auth::user()->avatar}}" class="user-photo" alt="" style="border-radius: 50%; width:15%">
+                            @else
+                                <img src="https://ui-avatars.com/api/?name=Admin" class="user-photo" alt="" style="border-radius: 50%; width:15%">
+                            @endif
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="right: 0; left: auto">
+                                    <li>
+                                        <a href="#" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit()">Sign Out</a>
+                                        <form id="logout-form" action="{{route('logout')}}" method="post" style="display: none">
+                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        </form>
+                                    </li>
+                                </ul>
+                            </a>                   
+                        </div>
                         @else
+                        <div class="d-flex btn btn-get-started btn-get-started-blue text-white" >
                             <a href="{{ route('login') }}" class="sign">Sign In / Sign Up</a>
+                        </div>
                         @endauth
                     @endif
-                </div>
+                
 
               </div>
             </div>
