@@ -29,6 +29,8 @@
       
           <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
         </form>
+        <br>
+        <h6>Or login by <a href={{ route("google") }}>Google</a></h6>
       </main>
     </div>
   </div>
