@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-use Laravel\Socialite\Facades\Socialite;
+use App\Models\User;
 
 use Illuminate\Http\Request;
-use App\Models\User;
-use Auth;
+use Illuminate\Support\Facades\Auth;
+use Laravel\Socialite\Facades\Socialite;
 
 class UserController extends Controller
 {
@@ -27,12 +27,8 @@ class UserController extends Controller
         ];
 
         $user = User::firstOrCreate(['email' => $data['email']], $data);
-        // $user = User::whereEmail($data['email'])->first();
-        // if (!$user) {
-        //     $user = User::create($data);
-        //     Mail::to($user->email)->send(new AfterRegister($user));
-        // }
         Auth::login($user, true);
-        return view('dashboard');
+
+        return redirect(route("dashboard"));
     }
 }
