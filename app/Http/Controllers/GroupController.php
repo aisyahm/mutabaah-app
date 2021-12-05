@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Group;
+use App\Models\User;
 use App\Models\UserGroup;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,7 +11,9 @@ use Illuminate\Support\Facades\Auth;
 class GroupController extends Controller
 {
     public function index() {
-      $groups = Auth::user()->usergroup;
+      // $groups = Auth::user()->usergroup;
+      $groups = UserGroup::with("group")->where("user_id", Auth::user()->id)->get();
+      // dd($groups);
       $groupsIn = [];
       $groupsOut = [];
 
@@ -26,14 +29,52 @@ class GroupController extends Controller
       ]);
     }
 
-    public function groups($slug) {
-      $group = Group::where("name", $slug)->first();
-      $usersIn = $group->usergroup->where("is_accept", true);
-      $usersOut = $group->usergroup->where("is_accept", false);
+    // public function groups($slug) {
+    //   $group = Group::where("name", $slug)->first();
+    //   $usersIn = $group->usergroup->where("is_accept", true);
+    //   $usersOut = $group->usergroup->where("is_accept", false);
 
-      $admin = $group->usergroup->where("group_id", $group->id);
+    //   $admin = $group->usergroup->where("group_id", $group->id);
+    //   $mentors = [];
+    //   foreach ($admin as $mentor) {
+    //     if ($mentor->user->is_mentor && $mentor->user->id != Auth::user()->id) {
+    //       $mentors[] = $mentor->user->name;
+    //     }
+    //   }
+
+    //   $membersIn = [];
+    //   foreach ($usersIn as $user) {
+    //     $user->user->is_mentor == false ? $membersIn[] = $user->user : "";
+    //   }
+
+    //   if (Auth::user()->is_mentor == false) {
+    //     return view("member.groups.detail", [
+    //       "membersIn" => $membersIn,
+    //       "group" => $group,
+    //       "mentors" => $mentors
+    //     ]);
+    //   }
+
+    //   $membersOut = [];
+    //   foreach ($usersOut as $user) {
+    //     $membersOut[] = $user->user;
+    //   }
+
+    //   return view("mentor.groups.detail", [
+    //     "membersIn" => $membersIn,
+    //     "membersOut" => $membersOut,
+    //     "group" => $group,
+    //     "mentors" => $mentors
+    //   ]);
+    // }
+
+    public function groups($group) {
+      $groupId = Group::where("name", $group)->first();
+      $usersIn = UserGroup::with("user")->where("group_id", $groupId->id)->where("is_accept", true)->get();
+      $usersOut = UserGroup::with("user")->where("group_id", $groupId->id)->where("is_accept", false)->get();
+
       $mentors = [];
-      foreach ($admin as $mentor) {
+      foreach ($usersIn as $mentor) {
         if ($mentor->user->is_mentor && $mentor->user->id != Auth::user()->id) {
           $mentors[] = $mentor->user->name;
         }
@@ -47,7 +88,7 @@ class GroupController extends Controller
       if (Auth::user()->is_mentor == false) {
         return view("member.groups.detail", [
           "membersIn" => $membersIn,
-          "group" => $group,
+          "group" => $groupId,
           "mentors" => $mentors
         ]);
       }
@@ -60,7 +101,7 @@ class GroupController extends Controller
       return view("mentor.groups.detail", [
         "membersIn" => $membersIn,
         "membersOut" => $membersOut,
-        "group" => $group,
+        "group" => $groupId,
         "mentors" => $mentors
       ]);
     }

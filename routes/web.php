@@ -24,5 +24,6 @@ Route::post('/create', [GroupController::class, 'storeCreate']);
 Route::get('/accept/{group}/{user}', [GroupController::class, 'accept'])->middleware('auth');
 Route::get('/reject/{group}/{user}', [GroupController::class, 'reject'])->middleware('auth');
 
-Route::get('/groups/{slug}', [GroupController::class, 'groups'])->name("group")->middleware('auth');
+// Route::get('/groups/{slug}', [GroupController::class, 'groups'])->name("group")->middleware('auth');
+Route::get('/groups/{group:name}', [GroupController::class, 'groups'])->name("group")->middleware('auth');
 Route::post('/groups/{slug}', [GroupController::class, 'dangerGroup']);
