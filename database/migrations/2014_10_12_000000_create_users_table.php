@@ -19,9 +19,11 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string("username")->unique()->nullable();
             $table->string('email')->unique()->nullable();
-            $table->timestamp('email_verified_at')->nullable();
+            $table->timestamp('email_verified_at');
             $table->string('password')->nullable();
             $table->string('avatar')->nullable();
+            $table->integer('no_telp')->nullable();
+            $table->string('deskripsi')->nullable();
             $table->string("gender")->nullable();
             $table->boolean("is_mentor")->default(false);
             

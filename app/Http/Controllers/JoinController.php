@@ -10,12 +10,6 @@ use Illuminate\Support\Facades\Auth;
 
 class JoinController extends Controller
 {
-    public function index() {
-      if (Auth::user()->is_mentor) return back();
-
-      return view("member.groups.join");
-    }
-
     public function join(Request $request) {
       $find = Group::all()->where("invitation_code", $request->code);
       $group = count($find) ? $find->first()->id : false;
@@ -24,6 +18,7 @@ class JoinController extends Controller
       if (!$group) {
         $request->session()->flash("group", $group);
         $request->flash("code", $request->code);
+        $request->flash("invalid");
 
         return back();
       }
@@ -31,9 +26,9 @@ class JoinController extends Controller
       $pendingGroup = UserGroup::where("group_id", $group)->where("user_id", $user)->get();
       if (count($pendingGroup)) {
         if ($pendingGroup->where("is_accept", false)->first()) {
-          $request->session()->flash("pending", true);
+          $request->session()->flash("pending");
         } else {
-          $request->session()->flash("pending", false);
+          $request->session()->flash("join");
         }
 
         $request->flash("code", $request->code);
@@ -45,6 +40,6 @@ class JoinController extends Controller
         "group_id" => $group,
       ]);      
 
-      return redirect(route("groups"));
+      return redirect(route("home"));
     }
 }

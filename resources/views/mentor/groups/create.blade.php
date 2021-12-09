@@ -12,17 +12,17 @@
           <input type="text" name="name" class="form-control" id="name" autofocus value="{{ old("name") }}" autocomplete="off" required >
           <label for="name">Group name</label>
         </div>
-        <div class="form-floating">
+        {{-- <div class="form-floating">
           <input type="text" name="code" class="form-control" id="code" autofocus value="{{ old("code") }}" autocomplete="off" required >
           <label for="code">Invitation Code</label>
-        </div>
+        </div> --}}
         
         <button class="w-100 btn btn-lg btn-primary" type="submit">Create New Group</button>
         <br><br>
 
         @if (session()->has("existTeam") || session()->has("existCode"))
             <div class="alert alert-danger d-flex align-items-center" role="alert">
-              <h6 style="text-align: center; width: 100%; margin-bottom: 0;">This name or code has already exist in eam list</h6>
+              <h6 style="text-align: center; width: 100%; margin-bottom: 0;">This name has already exist in group list</h6>
             </div>
         @endif
       </form>

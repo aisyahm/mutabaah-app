@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 use App\Models\User;
-use Laravel\Socialite\Facades\Socialite;
+use App\Models\UserGroup;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Socialite\Facades\Socialite;
 
 
 class LoginController extends Controller
@@ -24,7 +26,7 @@ class LoginController extends Controller
         // if (Auth::user()->is_mentor) return redirect()->intended(route("create"));
 
         // return redirect()->intended(route("join"));
-        return redirect()->intended(route("groups"));
+        return redirect()->intended(route("home"));
       }
       
       $request->flash("username");
@@ -47,7 +49,7 @@ class LoginController extends Controller
         $user = User::firstOrCreate(['email' => $data['email']], $data);
         Auth::login($user, true);
 
-        return redirect(route("groups"));
+        return redirect(route("home"));
     }
 
     public function logout(Request $request) {
@@ -56,5 +58,9 @@ class LoginController extends Controller
       $request->session()->regenerateToken();
   
       return redirect(route("login"));
+    }
+
+    public function home() {
+      return Auth::user()->is_mentor ? view("mentor.index") : view("member.index");
     }
 }

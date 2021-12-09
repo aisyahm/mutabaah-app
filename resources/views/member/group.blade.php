@@ -1,7 +1,6 @@
-@extends('main.index')
+@extends('member.template')
 
-@section('container')
-
+@section('content')
   <h4>Mentor in this group:</h4>
   <ul>
     @foreach ($mentors as $mentor)
@@ -21,10 +20,9 @@
   <h6><a href="{{ route("home") }}">See Groups List</a></h6>
   <br>
 
-  <form action="route('group')" method="post">
+  <form action="{{ route("delete") }}" method="post">
     @csrf
     <input type="hidden" name="group_id" value="{{ $group->id }}">
     <button type="submit" class="btn btn-danger" name="leave" value="1" onclick="return confirm('Leave this group?')">Leave this group</button>
   </form>
-
 @endsection

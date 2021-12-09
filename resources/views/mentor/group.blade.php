@@ -1,6 +1,6 @@
-@extends('main.index')
+@extends('mentor.template')
 
-@section('container')
+@section('content')
 <style>
   .btn-copy {
     position: relative;
@@ -73,7 +73,7 @@
   <h6><a href="{{ route("home") }}">See Groups List</a></h6>
   <br>
 
-  <form action="route('group')" method="post">
+  <form action="{{ route('delete') }}" method="post">
     @csrf
     <input type="hidden" name="group_id" value="{{ $group->id }}">
     <button type="submit" class="btn btn-danger" name="delete" value="1" onclick="return confirm('Delete this group?')">Delete this group</button>
@@ -82,11 +82,13 @@
 
   <script>
     function copyToClipboard(id) {
+      const groupName = <?= json_encode($group->name) ?>;
+
       const lastItem = thePath => thePath.substring(thePath.lastIndexOf('/') + 1);
       let code = document.getElementById(id);
       code.select();
       
-      navigator.clipboard.writeText(`Join with ${lastItem((window.location.href).replace(/%20/g, " "))}'s group by insert this code in join group section on Yaumi. The code is "${code.value}".`);
+      navigator.clipboard.writeText(`Join with ${groupName}'s group by insert this code in join group section on Istiqomah. The code is "${code.value}".`);
     }
   </script>
 @endsection
