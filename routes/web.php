@@ -1,6 +1,7 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ChartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,5 +25,7 @@ Route::get('/dashboard', function () {
 // socialite routes
 Route::get('sign-in-google', [UserController::class, 'google'])->name('user.login.google');
 Route::get('/auth/google/callback', [UserController::class, 'handleProviderCallback'])->name('user.google.callback');
+
+Route::get('/charts', [ChartController::class, 'chart'])->middleware(['auth'])->name('charts');
 
 require __DIR__.'/auth.php';
