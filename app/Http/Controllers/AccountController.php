@@ -9,10 +9,8 @@ use Illuminate\Support\Facades\Auth;
 class AccountController extends Controller
 {
     public function updateProfile(Request $request) {
-      // dd($request->all());
       $user = User::find(Auth::user()->id);
 
-      // dd($request->all());
       $user->update([
         "name" => $request->name,
         "avatar" => $request->avatar,

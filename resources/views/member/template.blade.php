@@ -74,7 +74,11 @@
         </div>
         <div class="profile-container">
           <div class="account">
-            <img src="/assets/ava/{{ Auth::user()->avatar }}.svg">
+            @if (strlen(Auth::user()->avatar) > 1)
+              <img src="http://{{ (Auth::user()->avatar) }}">
+            @else
+              <img src="/assets/ava/{{ Auth::user()->avatar }}.svg">
+            @endif
             <h3>{{ Auth::user()->name }}</h3>
           </div>
           <div class="logout">
@@ -133,34 +137,39 @@
         </div>
         <form action="{{ route("update") }}" method="POST">
           @csrf
-          <label>Avatar Profil<span>*</span></label>
-          <div class="ava-container">
-            <div class="ava">
-              <input type="radio" name="avatar" value="1" >
-              <span></span>
-              <img src="/assets/ava/1.svg">
+          @if (strlen(Auth::user()->avatar) == 1)
+            <label>Avatar Profil<span>*</span></label>
+            <div class="ava-container">
+              <div class="ava">
+                <input type="radio" name="avatar" value="1" {{ Auth::user()->avatar == 1 ? "checked" : "" }} >
+                <span></span>
+                <img src="/assets/ava/1.svg">
+              </div>
+              <div class="ava">
+                <input type="radio" name="avatar" value="2" {{ Auth::user()->avatar == 2 ? "checked" : "" }} >
+                <span></span>
+                <img src="/assets/ava/2.svg">
+              </div>
+              <div class="ava">
+                <input type="radio" name="avatar" value="3" {{ Auth::user()->avatar == 3 ? "checked" : "" }} >
+                <span></span>
+                <img src="/assets/ava/3.svg">
+              </div>
+              <div class="ava">
+                <input type="radio" name="avatar" value="4" {{ Auth::user()->avatar == 4 ? "checked" : "" }} >
+                <span></span>
+                <img src="/assets/ava/4.svg">
+              </div>
+              <div class="ava">
+                <input type="radio" name="avatar" value="5" {{ Auth::user()->avatar == 5 ? "checked" : "" }} >
+                <span></span>
+                <img src="/assets/ava/5.svg">
+              </div>
             </div>
-            <div class="ava">
-              <input type="radio" name="avatar" value="2" >
-              <span></span>
-              <img src="/assets/ava/2.svg">
-            </div>
-            <div class="ava">
-              <input type="radio" name="avatar" value="3" checked >
-              <span></span>
-              <img src="/assets/ava/3.svg">
-            </div>
-            <div class="ava">
-              <input type="radio" name="avatar" value="4" >
-              <span></span>
-              <img src="/assets/ava/4.svg">
-            </div>
-            <div class="ava">
-              <input type="radio" name="avatar" value="5" >
-              <span></span>
-              <img src="/assets/ava/5.svg">
-            </div>
-          </div>
+          @else
+            <input type="hidden" name="avatar" value="{{ Auth::user()->avatar}}" >
+          @endif
+
           <label for="name">Nama lengkap<span>*</span></label>
           <input
             type="text"

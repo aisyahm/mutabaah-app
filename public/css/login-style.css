@@ -1,0 +1,174 @@
+* {
+    /* background-color: #f6f6f6; */
+    box-sizing: border-box;
+}
+body {
+    background-color: #f6f6f6;
+    font-family: "Poppins";
+}
+a {
+    text-decoration: none;
+    color: black;
+}
+
+/* NAVBAR =============================== */
+.navbar {
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    padding: 0;
+    /* margin-bottom: 120px; */
+    /* padding: 7px; */
+}
+.navbar .app-logo {
+    width: 35px;
+}
+.navbar .name {
+    margin-left: 5px;
+    padding-top: 5px;
+}
+.navbar .name .app-name {
+    font-family: "nexa";
+    font-size: 0.938rem;
+}
+.navbar .tag-line {
+    font-family: "nexa light";
+    font-size: 0.625rem;
+    margin-top: -5px;
+}
+
+/* LOGIN ERROR ================================== */
+.error {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    width: 430px;
+    visibility: hidden;
+}
+.alert {
+    color: #f2758f;
+    background: #fce3e9;
+    animation-name: error-login;
+    animation-duration: 4s;
+    animation-iteration-count: 1;
+}
+.error div {
+    font-size: 0.9rem;
+    padding: 0.6rem 0;
+}
+@keyframes error-login {
+    0% {
+        visibility: visible;
+    }
+    99% {
+        visibility: visible;
+    }
+    100% {
+        visibility: hidden;
+    }
+}
+.error b {
+    color: rgb(151, 46, 46);
+}
+
+/* LOGIN STYLING ================================*/
+.login {
+    margin-top: 0;
+    width: 430px;
+    height: 506px;
+    justify-content: center;
+    padding: 0.5rem 3rem;
+    background-color: white;
+    font-family: "Poppins";
+    border-radius: 10px;
+    position: absolute;
+    left: 50%;
+    top: 340px;
+    transform: translate(-50%, -50%);
+}
+.login h2 {
+    margin-top: 20px;
+    font-size: 1.2rem;
+}
+.login h6 {
+    margin-top: 12px;
+    font-size: 0.8rem;
+    color: rgb(97, 110, 122);
+}
+.login > h4 {
+    font-weight: 400;
+}
+.login .data-form {
+    text-align: left;
+}
+.login .input {
+    border-style: none;
+    height: 48px;
+}
+form label {
+    text-align: left;
+    font-weight: bold;
+}
+form .password {
+    margin-top: 0;
+}
+form input {
+    font-size: 0.8rem;
+}
+form button {
+    height: 45px !important;
+}
+.login .remember {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0;
+}
+.login .remember div {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+.login .remember div input {
+    margin-bottom: 0;
+    height: 18px;
+    width: 18px;
+}
+.login .remember div label {
+    font-weight: 400;
+    font-size: 0.8rem;
+}
+.login .remember div a {
+    color: #00a7a0;
+    font-size: 0.8rem;
+}
+.login .btn-login {
+    display: block;
+    width: 100%;
+    color: white;
+}
+.login .btn-login a {
+    color: white;
+}
+.login .regist-link {
+    margin-bottom: 20px;
+}
+.login .google {
+    background-color: white;
+    border-color: none;
+    border-style: none;
+    width: 100%;
+    height: 48px;
+}
+.login .google a {
+    color: rgb(97, 110, 122);
+}
+.login button {
+    font-size: 0.8rem;
+}
+.google-img {
+    margin-right: 0.3rem;
+}

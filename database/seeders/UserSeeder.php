@@ -18,6 +18,7 @@ class UserSeeder extends Seeder
         User::create([
           "name" => "Shidqi",
           "username" => "shidqi",
+          "email" => "shidqi@gmail.com",
           "password" => Hash::make("shi"),
           "gender" => "Laki-laki",
           "is_mentor" => false
@@ -25,6 +26,7 @@ class UserSeeder extends Seeder
         User::create([
           "name" => "Rizki",
           "username" => "rizki",
+          "email" => "rizki@gmail.com",
           "password" => Hash::make("riz"),
           "gender" => "Laki-laki",
           "is_mentor" => false
@@ -34,6 +36,7 @@ class UserSeeder extends Seeder
         User::create([
           "name" => "Wahyu",
           "username" => "wahyu",
+          "email" => "wahyu@gmail.com",
           "password" => Hash::make("why"),
           "gender" => "Laki-laki",
           "is_mentor" => true
@@ -41,6 +44,7 @@ class UserSeeder extends Seeder
         User::create([
           "name" => "Yumna",
           "username" => "yumna",
+          "email" => "yumna@gmail.com",
           "password" => Hash::make("yum"),
           "gender" => "Laki-laki",
           "is_mentor" => true

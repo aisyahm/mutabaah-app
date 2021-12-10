@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 use App\Models\User;
-use App\Models\UserGroup;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
-
 
 class LoginController extends Controller
 {
@@ -17,20 +16,17 @@ class LoginController extends Controller
 
     public function authenticate(Request $request) {
       $credentials = $request->validate([
-        'username' => 'required',
+        'email' => ['required', 'email:rfc,dns'],
         'password' => 'required',
       ]);
       
       if (Auth::attempt($credentials)) {
         $request->session()->regenerate();
-        // if (Auth::user()->is_mentor) return redirect()->intended(route("create"));
-
-        // return redirect()->intended(route("join"));
         return redirect()->intended(route("home"));
       }
       
-      $request->flash("username");
-      return back()->withErrors(['loginFail' => 'Username or password is wrong']);
+      $request->flash("email");
+      return back()->withErrors(['loginFail' => 'Email or password is wrong']);
     }
 
     public function google(){
@@ -38,11 +34,11 @@ class LoginController extends Controller
     }
 
     public function handleProviderCallback(){
-        $callback = Socialite::driver('google')->stateless()->user();
+        $callback = Socialite::driver('google')->user();
         $data = [
             'name' => $callback->getName(),
             'email' => $callback->getEmail(),
-            'avatar' => $callback->getAvatar(),
+            'avatar' => Str::after($callback->getAvatar(), 'https://'),
             'email_verified_at' => date('Y-m-d H:i:s', time()),
         ];
 
@@ -62,5 +58,9 @@ class LoginController extends Controller
 
     public function home() {
       return Auth::user()->is_mentor ? view("mentor.index") : view("member.index");
+    }
+
+    public function forgot() {
+      return back();
     }
 }
