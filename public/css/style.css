@@ -1,0 +1,7 @@
+.task-item {
+    margin: 5px 0;
+    border: solid 1px cornflowerblue;
+    border-radius: 5px;
+    background: white;
+    padding: 5px 10px;
+}

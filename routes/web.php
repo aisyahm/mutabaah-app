@@ -2,6 +2,7 @@
 
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SubmissionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {  
-  return view('welcome');
-});
+Route::get('/', function () {  return view('welcome'); });
+
+Route::get('/submission', [SubmissionController::class, 'index'])-> name('submission.index');
+Route::post('/submission/add', [SubmissionController::class, 'add'])->name('submission.add');
+
+

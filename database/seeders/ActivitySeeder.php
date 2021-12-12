@@ -16,21 +16,21 @@ class ActivitySeeder extends Seeder
     {
         Activity::create([
           "name" => "Coding Web",
-          "unit" => "Hour"
+          "category" => 1
         ]);
         Activity::create([
           "name" => "Create Database",
-          "unit" => "Hour"
+          "category" => 2
         ]);
 
 
         Activity::create([
           "name" => "Learning Figma",
-          "unit" => "Hour"
+          "category" => 3
         ]);
         Activity::create([
           "name" => "Design UI",
-          "unit" => "Hour"
+          "category" => 3
         ]);
     }
 }

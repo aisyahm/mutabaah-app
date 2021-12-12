@@ -17,8 +17,7 @@ class CreateActivitiesTable extends Migration
             $table->id();
 
             $table->string("name");
-            $table->integer("max_value")->nullable();
-            $table->string("unit");
+            $table->integer("category");
             
             $table->timestamps();
         });
