@@ -17,7 +17,8 @@ use App\Http\Controllers\SubmissionController;
 
 Route::get('/', function () {  return view('welcome'); });
 
-Route::get('/submission', [SubmissionController::class, 'index'])-> name('submission.index');
-Route::post('/submission/add', [SubmissionController::class, 'add'])->name('submission.add');
+Route::get('/submission', [SubmissionController::class, 'index'])-> name('submission.template');
+Route::post('/submission/add', [SubmissionController::class, 'addActivities'])->name('submission.add');
 
-
+Route::get('/submission/activities', [SubmissionController::class, 'viewActivities'])->name('group_activities');
+//Route::post('/submission/submit', [SubmissionController::class, 'addActivities'])->name('submission.add');

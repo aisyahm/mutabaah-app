@@ -14,8 +14,13 @@ class SubmissionController extends Controller
 {
     public function index(){
         $activities = Activity::all();
+        $wajib = $activities->where("category", 1);
+        $rawatib = $activities->where("category", 2);
+        $sunnah = $activities->where("category", 3);
+        $others = $activities->where("category", 4);
+        $dzikir = $activities->where("category", 5);
         $group = Group::find(1);
-        //dd($group); 
+        //dd($wajib); 
         /*$lists = [];
         foreach ($activities as $activity){
             $lists[] = [$activity->name, $activity->id];
@@ -23,16 +28,21 @@ class SubmissionController extends Controller
         dd($lists[0][1]); */
         return view("mentor.submission.index", [
             "activities" => $activities,
+            "wajib" => $wajib,
+            "rawatib" => $rawatib,
+            "sunnah" => $sunnah,
+            "others" => $others,
+            "dzikir" => $dzikir,
             "group" => $group
         ]);
 
     }
-    public function add(Request $request){
+    public function addActivities(Request $request){
         //$activities = Group::with("group")->where("group_id", 1)->get();
         $group_activity = $request->input('group_activity');
         $group_id = $request->input('group_id');
 
-        //dd($group_id);
+        //dd($group_activity);
         foreach ($group_activity as $list_activity){
             ActivityGroup::create([
                 "group_id" => $group_id,
@@ -40,7 +50,27 @@ class SubmissionController extends Controller
             ]);
         }
                 
-        return view("mentor.submission.add");
+        return redirect(route("group_activities"));
+
+    }
+
+    public function viewActivities(){
+        $user = User::find(1);
+        $group = Group::find(1);
+        $group_activities = ActivityGroup::all();
+        $this_group_activities = $group_activities->where("group_id", $group->id);
+        dd($this_group_activities);
+
+        $name_activities = Activity::all();
+        $name_group_activities = $name_activities->where("id", $this_group_activities->activity_id);
+        //dd($name_group_activities);
+
+
+        return view("mentor.submission.group_activities", [
+            "this_group_activities" => $this_group_activities,
+            "group" => $group,
+            "user" => $user
+        ]);
 
     }
 }
