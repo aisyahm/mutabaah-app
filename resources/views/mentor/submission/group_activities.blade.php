@@ -3,7 +3,7 @@
 <form action="" method="POST">
     {{ csrf_field() }}
     <table border="1">
-        @foreach ($group_activities as $group_activity)
+        @foreach ($group_activities_name as $group_activity)
             <tr>
                 <td> {{ $group_activity->name }} </td>
                 <td> 
