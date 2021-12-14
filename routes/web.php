@@ -22,5 +22,3 @@ Route::post('/submission/add', [SubmissionController::class, 'addActivities'])->
 
 Route::get('/submission/activities', [SubmissionController::class, 'viewActivities'])->name('group_activities');
 //Route::post('/submission/submit', [SubmissionController::class, 'addActivities'])->name('submission.add');
-
-Route::get('/submission/list-activities', [SubmissionController::class, 'listActivities'])->name('list_activities');

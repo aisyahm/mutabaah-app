@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateActivityGroup extends Migration
+class CreateActivityGroups extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateActivityGroup extends Migration
      */
     public function up()
     {
-        Schema::create('activity_group', function (Blueprint $table) {
+        Schema::create('activity_groups', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("activity_id")->constrained();
-            $table->foreignId("group_id")->constrained();
+            $table->foreignId("activity_id");
+            $table->foreignId("group_id");
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateActivityGroup extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('activity_group');
+        Schema::dropIfExists('activity_groups');
     }
 }

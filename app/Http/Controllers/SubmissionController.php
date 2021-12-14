@@ -68,9 +68,8 @@ class SubmissionController extends Controller
             //$group_activities_name = Activity::where("id", $id_activities->activity_id)->get();
         }
         
-        
         //dd($activity_id);
-        dd($group_activities_name);
+        // dd($group_activities_name);
 
         //$name_activities = Activity::all();
         //$name_group_activities = $name_activities->where("id", $this_group_activities->activity_id);
@@ -83,11 +82,5 @@ class SubmissionController extends Controller
             "group" => $group,
             "user" => $user
         ]);
-
-    }
-
-    public function listActivities()
-    {
-        # code...
     }
 }
