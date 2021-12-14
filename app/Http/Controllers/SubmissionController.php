@@ -57,17 +57,29 @@ class SubmissionController extends Controller
     public function viewActivities(){
         $user = User::find(1);
         $group = Group::find(1);
-        $group_activities = ActivityGroup::all();
-        $this_group_activities = $group_activities->where("group_id", $group->id);
-        dd($this_group_activities);
+        //$group_activities = ActivityGroup::all();
+        //$this_group_activities = $group_activities->where("group_id", $group->id);
 
-        $name_activities = Activity::all();
-        $name_group_activities = $name_activities->where("id", $this_group_activities->activity_id);
+        $group_activities_id = ActivityGroup::where("group_id", $group->id)->get();
+        //dd($group_activities_id);
+        $group_activities_name = [];
+        foreach ($group_activities_id as $id_activities){
+            $group_activities_name[] = $id_activities->activity->name;
+            //$group_activities_name = Activity::where("id", $id_activities->activity_id)->get();
+        }
+        
+        
+        //dd($activity_id);
+        dd($group_activities_name);
+
+        //$name_activities = Activity::all();
+        //$name_group_activities = $name_activities->where("id", $this_group_activities->activity_id);
         //dd($name_group_activities);
 
 
         return view("mentor.submission.group_activities", [
-            "this_group_activities" => $this_group_activities,
+            "group_activities_id" => $group_activities_id,
+            "group_activities_name" => $group_activities_name,
             "group" => $group,
             "user" => $user
         ]);
