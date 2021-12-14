@@ -73,4 +73,9 @@ class SubmissionController extends Controller
         ]);
 
     }
+
+    public function listActivities()
+    {
+        # code...
+    }
 }
