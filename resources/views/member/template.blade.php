@@ -179,7 +179,7 @@
             value="{{ Auth::user()->name }}"
             required
           />
-          <label for="desc">Deskripsi</label>
+          <label for="desc">Deskripsi<span>*</span></label>
           <textarea
             id="desc"
             name="deskripsi"
@@ -194,8 +194,8 @@
             type="email"
             id="email"
             name="email"
-            autocomplete="off"
             value="{{ Auth::user()->email }}"
+            disabled
             required
           />
           <label for="name">No. Handphone<span>*</span></label>

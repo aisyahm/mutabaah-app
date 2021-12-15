@@ -76,6 +76,14 @@
             @endif
         </div>
 
+        <div class="register {{ session()->has('register') ? "success" : ""}}">
+            @if(session()->has('register'))
+            <div>
+              {{ session('register') }}
+            </div>
+            @endif
+        </div>
+
         <h2>Login</h2>
         <h6>Silahkan isi data akun kamu untuk login</h6>
 

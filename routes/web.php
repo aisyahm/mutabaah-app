@@ -16,6 +16,7 @@ Route::get('/login', [LoginController::class, 'login'])->name('login')->middlewa
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::get('/login-google', [LoginController::class, 'google'])->name('google')->middleware("guest");
 Route::get('/auth/google/callback', [LoginController::class, 'handleProviderCallback'])->middleware("guest");
+Route::post('/complete', [LoginController::class, 'completeData'])->name("complete");
 
 // LOGOUT ACCOUNT & FORGOT PASSWORD
 Route::post('/logout', [LoginController::class, 'logout']);

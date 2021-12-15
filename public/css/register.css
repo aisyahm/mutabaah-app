@@ -18,11 +18,9 @@ a {
     justify-content: center;
     background-color: white;
     padding: 0;
-    /* margin-bottom: 120px; */
-    /* padding: 7px; */
 }
 .navbar .app-logo {
-    width: 35px;
+    width: 7rem;
 }
 .navbar .name {
     margin-left: 5px;
@@ -30,17 +28,30 @@ a {
 }
 .navbar .name .app-name {
     font-family: "nexa";
-    font-size: 0.938rem;
+    font-size: 15px;
 }
 .navbar .tag-line {
     font-family: "nexa light";
-    font-size: 0.625rem;
+    font-size: 10px;
     margin-top: -5px;
 }
 
 /* LOGIN ERROR ================================== */
-.error,
-.register {
+.error {
+    height: 60px;
+    width: 40%;
+    font-size: 15px;
+    border-radius: 10px;
+    background-color: rgb(219, 164, 164);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.error h4 b {
+    color: rgb(151, 46, 46);
+}
+
+.not-match {
     position: absolute;
     top: 20px;
     left: 50%;
@@ -49,22 +60,14 @@ a {
     width: 430px;
     visibility: hidden;
 }
-.alert,
-.register.success {
+.alert {
     animation-name: error-login;
     animation-duration: 4s;
     animation-iteration-count: 1;
-}
-.alert {
     color: #f2758f;
     background: #fce3e9;
 }
-.register.success {
-    color: #008822;
-    background: #a4ffa4;
-}
-.error div,
-.register div {
+.not-match div {
     font-size: 0.9rem;
     padding: 0.6rem 0;
 }
@@ -79,37 +82,34 @@ a {
         visibility: hidden;
     }
 }
-.error b {
+.not-match b {
     color: rgb(151, 46, 46);
 }
 
 /* LOGIN STYLING ================================*/
 .login {
-    margin-top: 0;
-    width: 430px;
-    height: 506px;
+    /* margin-top: 120px; */
+    width: 40%;
+    max-width: 440px;
     justify-content: center;
-    padding: 0.5rem 3rem;
+    padding: 2rem 2.2rem;
     background-color: white;
     font-family: "Poppins";
     border-radius: 10px;
-    position: absolute;
-    left: 50%;
-    top: 340px;
-    transform: translate(-50%, -50%);
 }
-.login h2 {
-    margin-top: 20px;
-    font-size: 1.2rem;
+.login h1 {
+    font-size: 32px;
 }
-.login h6 {
-    margin-top: 12px;
-    font-size: 0.8rem;
-    color: rgb(97, 110, 122);
+.login h5 {
+    font-size: 16px;
 }
-.login > h4 {
-    font-weight: 400;
+
+/* LOGIN RADIO STYLE ====== */
+.login .user {
+    display: flex;
+    justify-content: space-between;
 }
+
 .login .data-form {
     text-align: left;
 }
@@ -117,46 +117,36 @@ a {
     border-style: none;
     height: 48px;
 }
-form label {
-    text-align: left;
+.user div {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.gender {
+    margin-top: 1rem;
+    font-size: 0.9rem;
     font-weight: bold;
-}
-form .password {
-    margin-top: 0;
-}
-form input {
-    font-size: 0.8rem;
-}
-form button {
-    height: 45px !important;
 }
 .login .remember {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 0;
 }
-.login .remember div {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
+
+.login .wajib-isi {
+    color: red;
+    text-align: left;
 }
-.login .remember div input {
-    margin-bottom: 0;
-    height: 18px;
-    width: 18px;
+.login .wajib-isi h4 {
+    font-size: 14px;
 }
-.login .remember div label {
-    font-weight: 400;
-    font-size: 0.8rem;
-}
-.login .remember div a {
-    color: #00a7a0;
-    font-size: 0.8rem;
-}
+
 .login .btn-login {
-    display: block;
+    /* background-color: ; */
+    font-size: 15px;
+    color: white;
     width: 100%;
+    height: 48px;
     color: white;
 }
 .login .btn-login a {
@@ -172,12 +162,6 @@ form button {
     width: 100%;
     height: 48px;
 }
-.login .google a {
-    color: rgb(97, 110, 122);
-}
-.login button {
-    font-size: 0.8rem;
-}
-.google-img {
-    margin-right: 0.3rem;
+.regist-link.my-mt-login.has-account {
+    margin-bottom: 2rem;
 }

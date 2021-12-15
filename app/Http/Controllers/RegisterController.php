@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 class RegisterController extends Controller
 {
   public function index() {
-    return view('register.index');
+    return view('user.register');
   }
 
   public function store(Request $request) {
@@ -26,7 +26,7 @@ class RegisterController extends Controller
       'no_telp' => ['required', 'min:7', 'max:15'],
     ]);
 
-    $validatedData['password'] = Hash::make('password');
+    $validatedData['password'] = Hash::make($validatedData['password']);
     User::create($validatedData);
     $request->session()->flash('register', 'Successfully Register an Account. Please Login.');
 

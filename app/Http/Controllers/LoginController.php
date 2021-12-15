@@ -6,7 +6,9 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
+
 
 class LoginController extends Controller
 {
@@ -17,14 +19,14 @@ class LoginController extends Controller
     public function authenticate(Request $request) {
       $credentials = $request->validate([
         'email' => ['required', 'email:rfc,dns'],
-        'password' => 'required',
-      ]);
+        'password' => ['required'],
+      ]); 
       
       if (Auth::attempt($credentials)) {
-        $request->session()->regenerate();
-        return redirect()->intended(route("home"));
+         $request->session()->regenerate();
+         return redirect()->intended(route("home"));
       }
-      
+
       $request->flash("email");
       return back()->withErrors(['loginFail' => 'Email or password is wrong']);
     }
@@ -43,9 +45,33 @@ class LoginController extends Controller
         ];
 
         $user = User::firstOrCreate(['email' => $data['email']], $data);
-        Auth::login($user, true);
+      //   Auth::login($user, true);
 
-        return redirect(route("home"));
+        // JIKA BUKAN PERTAMA KALI LOGIN DENGAN GOOGLE
+        if ($user->gender != null) {
+            $user->update(["avatar" => $data["avatar"]]);
+            Auth::login($user, true);
+            return redirect(route("home"));
+        }
+
+        return view("user.register", [
+            "google" => true,
+            "email" => $data['email']
+        ]);
+    }
+
+    public function completeData(Request $request) {
+      $validatedData = $request->validate([
+         'gender' => ['required'],
+         'is_mentor' => ['required'],
+         'no_telp' => ['required', 'min:7', 'max:15'],
+       ]);
+
+      $user = User::where("email", $request->email)->first();
+      $user->update($validatedData);
+      Auth::login($user, true);
+
+      return redirect(route("home"));
     }
 
     public function logout(Request $request) {

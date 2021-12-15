@@ -64,9 +64,9 @@ class GroupController extends Controller
         }
       }
       
-      $code = Str::random(12);
+      $code = Str::random(6);
       while (Group::where("invitation_code", $code)->exists()) {
-        $code = Str::random(12);
+        $code = Str::random(6);
       }
       
       Group::create([

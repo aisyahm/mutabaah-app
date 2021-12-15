@@ -87,27 +87,27 @@
           <label>Avatar Grup<span>*</span></label>
           <div class="ava-container">
             <div class="ava">
-              <input type="radio" name="avatar" value="1" {{ Auth::user()->avatar == 1 ? "checked" : "" }} >
+              <input type="radio" name="avatar" value="1" >
               <span></span>
               <img src="/assets/ava/1.svg">
             </div>
             <div class="ava">
-              <input type="radio" name="avatar" value="2" {{ Auth::user()->avatar == 2 ? "checked" : "" }} >
+              <input type="radio" name="avatar" value="2" >
               <span></span>
               <img src="/assets/ava/2.svg">
             </div>
             <div class="ava">
-              <input type="radio" name="avatar" value="3" {{ Auth::user()->avatar == 3 ? "checked" : "" }} >
+              <input type="radio" name="avatar" value="3" checked >
               <span></span>
               <img src="/assets/ava/3.svg">
             </div>
             <div class="ava">
-              <input type="radio" name="avatar" value="4" {{ Auth::user()->avatar == 4 ? "checked" : "" }} >
+              <input type="radio" name="avatar" value="4" >
               <span></span>
               <img src="/assets/ava/4.svg">
             </div>
             <div class="ava">
-              <input type="radio" name="avatar" value="5" {{ Auth::user()->avatar == 5 ? "checked" : "" }} >
+              <input type="radio" name="avatar" value="5" >
               <span></span>
               <img src="/assets/ava/5.svg">
             </div>
@@ -196,7 +196,7 @@
             value="{{ Auth::user()->name }}"
             required
           />
-          <label for="desc">Deskripsi</label>
+          <label for="desc">Deskripsi<span>*</span></label>
           <textarea
             id="desc"
             name="deskripsi"
@@ -206,16 +206,16 @@
             placeholder="Masukkan deskripsi"
             required
           >{{ Auth::user()->deskripsi }}</textarea>
-          <label for="name">Email<span>*</span></label>
+          <label for="email">Email<span>*</span></label>
           <input
             type="email"
             id="email"
             name="email"
-            autocomplete="off"
             value="{{ Auth::user()->email }}"
+            disabled
             required
           />
-          <label for="name">No. Handphone<span>*</span></label>
+          <label for="number">No. Handphone<span>*</span></label>
           <input
             type="number"
             id="number"
