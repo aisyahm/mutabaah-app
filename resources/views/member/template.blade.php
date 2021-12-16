@@ -27,6 +27,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/main.css" />
+    @yield('meta')
     <title>Istiqomah</title>
   </head>
   <body>
@@ -93,9 +94,7 @@
     </header>
 
     <main>
-      <div class="main-container">
-        @yield('content')
-      </div>
+    
       <div class="pop-up new-group-pop-up">
         <div class="pop-up-title">
           <h3>Gabung Grup</h3>
@@ -213,6 +212,10 @@
         </form>
       </div>
       <div class="shadow"></div>
+
+      <div class="main-container">
+        @yield('content')
+      </div>
     </main>
     <script
       src="https://kit.fontawesome.com/43c91d6ead.js"

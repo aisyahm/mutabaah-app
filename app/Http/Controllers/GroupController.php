@@ -26,7 +26,7 @@ class GroupController extends Controller
       }
 
       if (Auth::user()->is_mentor == false) {
-        return view("member.group", [
+        return view("member.list", [
           "mentors" => $mentors,
           "membersIn" => $membersIn,
           "group" => $group
@@ -38,7 +38,7 @@ class GroupController extends Controller
         $membersOut[] = $user->user;
       }
 
-      return view("mentor.group", [
+      return view("mentor.list", [
         "membersIn" => $membersIn,
         "membersOut" => $membersOut,
         "group" => $group,

@@ -1,0 +1,128 @@
+/* HEAD CONTENT STYLE ============================= */
+.head-content {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 3rem 0rem 1rem;
+    margin-bottom: 0px;
+}
+/* CONTEN KONFRIMASI ANGGOTA STYLE */
+.konfirmasi,
+.content-list {
+    width: 100%;
+}
+.konfirmasi {
+    padding: 0rem 3rem 1rem 1rem;
+}
+.konfirmasi .isi {
+    display: flex;
+}
+.konfirmasi .isi .kolom {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+.konfirmasi .isi .kolom .anggota {
+    display: flex;
+    background-color: white;
+    justify-content: space-between;
+    width: 98%;
+    padding: 1rem;
+    align-items: center;
+    border-radius: 0.5rem;
+    font-size: 0.8rem;
+    /* margin-top: 1rem; */
+}
+
+/* CARD PROFILE KONFIRMASI ANGGOTA STYLE ===================== */
+.konfirmasi .isi .kolom .anggota .profile {
+    display: flex;
+    gap: 0.5rem;
+}
+.konfirmasi .isi .kolom .anggota .profile .data-profile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 0.5rem;
+}
+.konfirmasi .isi .kolom .anggota .profile img {
+    width: 3rem;
+    border-radius: 2rem;
+}
+.konfirmasi .isi .kolom .anggota button a {
+    font-size: 0.8rem;
+    border-color: #01a6a0;
+}
+
+/*  */
+/* HEAD CONTENT STYLE ============================= */
+
+.head-content {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 3rem 0rem 1rem;
+    margin-bottom: 0px;
+}
+/* CONTEN STYLE */
+.content {
+    padding: 0rem 3rem 1rem 1rem;
+    margin-top: 1rem;
+}
+.content .isi {
+    display: flex;
+}
+.content .isi .kolom {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+.content .isi .kolom .anggota {
+    display: flex;
+    background-color: white;
+    justify-content: space-between;
+    width: 98%;
+    padding: 1rem;
+    align-items: center;
+    border-radius: 0.5rem;
+    font-size: 0.8rem;
+    /* margin-top: 1rem; */
+}
+
+/* CARD PROFILE ANGGOTA STYLE ===================== */
+.content .isi .kolom .anggota .profile {
+    display: flex;
+    gap: 0.5rem;
+}
+.content .isi .kolom .anggota .profile .data-profile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 0.5rem;
+}
+.content .isi .kolom .anggota .profile img {
+    width: 3rem;
+    border-radius: 2rem;
+}
+.content .isi .kolom .anggota button {
+    background-color: #e6f7f6;
+    border-style: none;
+    width: 120px;
+}
+.content .isi .kolom .anggota button a {
+    font-size: 0.8rem;
+    color: #00a7a0;
+    text-decoration: none;
+}
+
+.konfirmasi,
+.content,
+.head-content {
+    padding: 0;
+}
+.list-member {
+    margin-top: 2rem;
+}
+a {
+    text-decoration: none;
+}

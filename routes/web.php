@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JoinController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AccountController;
@@ -32,7 +33,8 @@ Route::post('/create', [GroupController::class, 'storeCreate']);
 Route::get('/accept/{group}/{user}', [GroupController::class, 'accept'])->middleware('auth');
 Route::get('/reject/{group}/{user}', [GroupController::class, 'reject'])->middleware('auth');
 
-// UPDATE PROFILE
+// USER INFO & UPDATE PROFILE USER
+Route::get('/profile/{user}', [UserController::class, 'info'])->name("user-info")->middleware('auth');
 Route::post('/update-profile', [AccountController::class, 'updateProfile'])->name("update");
 
 // OPEN GROUP
