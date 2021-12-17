@@ -1,7 +1,8 @@
 <?php
 
-use App\Models\User;
 use Illuminate\Support\Facades\Route;
+
+use App\http\Controllers\SubmissionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {  
-  return view('welcome');
-});
+// contoh excel
+Route::get('/mentoranalisis', [SubmissionController::class, 'index']);
+Route::get('/mentoranalisis/exportsubmission', [SubmissionController::class, 'submissionexport']);
+// Route::post('/importactivity',);
+
+// Route::get('/', function () {  
+//   return view('welcome');
+// });

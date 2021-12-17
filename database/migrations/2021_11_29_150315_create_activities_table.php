@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Submission;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,7 +16,6 @@ class CreateActivitiesTable extends Migration
     {
         Schema::create('activities', function (Blueprint $table) {
             $table->id();
-
             $table->string("name");
             $table->integer("max_value")->nullable();
             $table->string("unit");
