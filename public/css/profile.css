@@ -1,0 +1,54 @@
+/* CONTENT LIHAT PROFILE ===================  */
+/*  */
+.content {
+    padding: 1.5rem;
+    background-color: white;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    width: 100%;
+}
+.content img {
+    width: 6.5rem;
+    border-radius: 0.5rem;
+}
+.content .data-profile {
+    display: flex;
+}
+.content .data-profile .biodata {
+    flex: 1;
+    padding-right: 0.5rem;
+    /* background-color: blue; */
+}
+.content .data-profile .data {
+    display: flex;
+    flex-direction: column;
+}
+.content .data-profile .data .disable-input:not(textarea) {
+    height: 2.5rem;
+    border-radius: 0.3rem;
+    border-style: solid;
+    padding-left: 0.5rem;
+    border-color: #c4ccc9;
+}
+
+.content .data-profile .deskripsi {
+    flex: 1;
+    padding-left: 1rem;
+}
+.content .data-profile .deskripsi .outline {
+    border-radius: 0.3rem;
+    border-color: #c4ccc9;
+    border-style: solid;
+    padding: 0;
+}
+.content .data-profile .deskripsi .outline .textarea {
+    height: 100%;
+    width: 100%;
+}
+textarea {
+    text-align: left;
+    height: 7.2rem;
+    border-radius: 0.3rem;
+    border: 2px solid #c4ccc9;
+    padding: 0.5rem;
+}

@@ -1,0 +1,64 @@
+* {
+    box-sizing: border-box;
+    font-family: "Poppins";
+}
+body {
+    background-color: #f6f6f6;
+    font-size: 0.9rem;
+    padding: 2rem;
+}
+
+/* HEAD CONTENT STYLE ============================= */
+
+.head-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+.head-content p {
+    margin-bottom: 0;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+.head-content .edit-amalan {
+    background-color: #00a7a0;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.7rem 1.2rem;
+    border-radius: 0.3rem;
+}
+.head-content .edit-amalan a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* CONTEN STYLE */
+.content {
+    padding: 0rem 3rem 1rem 1rem;
+}
+label {
+    margin-bottom: 0.7rem;
+}
+.content .container-amal .isi .kolom {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+.content .container-amal .isi .kolom .amalan {
+    display: flex;
+    background-color: white;
+    justify-content: space-between;
+    width: 98%;
+    padding: 1rem;
+    align-items: center;
+    border-radius: 0.5rem;
+    font-size: 0.8rem;
+}
+.head-content,
+.content {
+    padding: 0;
+}

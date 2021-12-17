@@ -1,0 +1,72 @@
+.my-bg-color {
+    background-color: #01a6a0;
+}
+.my-bg-color-2 {
+    background-color: #f6f6f6;
+}
+.my-color {
+    color: #01a6a0;
+}
+
+.my-t-left {
+    text-align: left;
+}
+.my-flex-start {
+    align-items: flex-start;
+}
+.my-fo-size {
+    font-size: 0.9rem;
+}
+.my-mt-login {
+    margin-top: 1rem;
+}
+.my-mt-login h3 {
+    font-size: 0.8rem;
+}
+.regist-link.my-mt-login {
+    margin-bottom: 10px;
+}
+.my-mt-2 {
+    margin-top: 0.5rem;
+}
+.my-mt-3 {
+    margin-top: 2rem;
+}
+.my-tx-color {
+    color: white !important;
+}
+.my-radio-style {
+    height: fit-content;
+    width: 150px;
+    border-radius: 10px;
+    padding: 10px 20px;
+    background-color: white;
+    font-size: 12px;
+    border-style: none;
+    border-color: none;
+}
+.my-bold {
+    font-weight: 800;
+}
+
+.my-color-red {
+    color: red;
+}
+.my-logout {
+    height: 50px;
+    /* background-color: aquamarine; */
+    display: flex;
+    align-items: center;
+}
+.my-logout-item {
+    margin-left: 5px;
+    font-size: 12px;
+    font-weight: bold;
+}
+.my-right {
+    margin-left: auto;
+}
+.btn-cyrcle {
+    /* border-radius: 1rem; */
+    width: 3rem;
+}
