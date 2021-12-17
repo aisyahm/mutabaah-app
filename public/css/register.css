@@ -1,0 +1,167 @@
+* {
+    /* background-color: #f6f6f6; */
+    box-sizing: border-box;
+}
+body {
+    background-color: #f6f6f6;
+    font-family: "Poppins";
+}
+a {
+    text-decoration: none;
+    color: black;
+}
+
+/* NAVBAR =============================== */
+.navbar {
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    padding: 0;
+}
+.navbar .app-logo {
+    width: 7rem;
+}
+.navbar .name {
+    margin-left: 5px;
+    padding-top: 5px;
+}
+.navbar .name .app-name {
+    font-family: "nexa";
+    font-size: 15px;
+}
+.navbar .tag-line {
+    font-family: "nexa light";
+    font-size: 10px;
+    margin-top: -5px;
+}
+
+/* LOGIN ERROR ================================== */
+.error {
+    height: 60px;
+    width: 40%;
+    font-size: 15px;
+    border-radius: 10px;
+    background-color: rgb(219, 164, 164);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.error h4 b {
+    color: rgb(151, 46, 46);
+}
+
+.not-match {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    width: 430px;
+    visibility: hidden;
+}
+.alert {
+    animation-name: error-login;
+    animation-duration: 4s;
+    animation-iteration-count: 1;
+    color: #f2758f;
+    background: #fce3e9;
+}
+.not-match div {
+    font-size: 0.9rem;
+    padding: 0.6rem 0;
+}
+@keyframes error-login {
+    0% {
+        visibility: visible;
+    }
+    99% {
+        visibility: visible;
+    }
+    100% {
+        visibility: hidden;
+    }
+}
+.not-match b {
+    color: rgb(151, 46, 46);
+}
+
+/* LOGIN STYLING ================================*/
+.login {
+    /* margin-top: 120px; */
+    width: 40%;
+    max-width: 440px;
+    justify-content: center;
+    padding: 2rem 2.2rem;
+    background-color: white;
+    font-family: "Poppins";
+    border-radius: 10px;
+}
+.login h1 {
+    font-size: 32px;
+}
+.login h5 {
+    font-size: 16px;
+}
+
+/* LOGIN RADIO STYLE ====== */
+.login .user {
+    display: flex;
+    justify-content: space-between;
+}
+
+.login .data-form {
+    text-align: left;
+}
+.login .input {
+    border-style: none;
+    height: 48px;
+}
+.user div {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.gender {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+.login .remember {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.login .wajib-isi {
+    color: red;
+    text-align: left;
+}
+.login .wajib-isi h4 {
+    font-size: 14px;
+}
+
+.login .btn-login {
+    /* background-color: ; */
+    font-size: 15px;
+    color: white;
+    width: 100%;
+    height: 48px;
+    color: white;
+}
+.login .btn-login a {
+    color: white;
+}
+.login .regist-link {
+    margin-bottom: 20px;
+}
+.login .google {
+    background-color: white;
+    border-color: none;
+    border-style: none;
+    width: 100%;
+    height: 48px;
+}
+.regist-link.my-mt-login.has-account {
+    margin-bottom: 2rem;
+}

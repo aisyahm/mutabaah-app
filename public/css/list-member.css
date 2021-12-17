@@ -1,0 +1,51 @@
+/* HEAD CONTENT STYLE */
+.head-content {
+    padding: 0;
+}
+/* CONTEN STYLE */
+.content {
+    padding: 0;
+    width: 100%;
+}
+.content .isi .kolom {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+.content .isi .kolom .anggota {
+    display: flex;
+    background-color: white;
+    justify-content: space-between;
+    width: 98%;
+    padding: 1rem;
+    align-items: center;
+    border-radius: 0.5rem;
+    font-size: 0.8rem;
+    /* margin-top: 1rem; */
+}
+
+/* CARD PROFILE ANGGOTA STYLE ===================== */
+.content .isi .kolom .anggota .profile {
+    display: flex;
+}
+.content .isi .kolom .anggota .profile .data-profile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 0.5rem;
+}
+.content .isi .kolom .anggota .profile img {
+    width: 3rem;
+    border-radius: 2rem;
+}
+.content .isi .kolom .anggota button {
+    background-color: #e6f7f6;
+    color: #01a6a0;
+    border-style: none;
+    width: 120px;
+}
+a {
+    text-decoration: none;
+    color: white;
+}

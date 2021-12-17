@@ -17,6 +17,8 @@ class CreateGroupsTable extends Migration
             $table->id();
 
             $table->string("name");
+            $table->string("deskripsi");
+            $table->integer("avatar");
             $table->string("invitation_code");
             
             $table->timestamps();
