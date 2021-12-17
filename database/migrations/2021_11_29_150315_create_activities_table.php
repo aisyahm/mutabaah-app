@@ -14,13 +14,13 @@ class CreateActivitiesTable extends Migration
     public function up()
     {
         Schema::create('activities', function (Blueprint $table) {
-            $table->id();
+          $table->id();
 
-            $table->string("name");
-            $table->integer("max_value")->nullable();
-            $table->string("unit");
-            
-            $table->timestamps();
+          $table->string("name");
+          $table->integer("category");
+          $table->boolean("female_only")->default(false);
+          
+          $table->timestamps();
         });
     }
 

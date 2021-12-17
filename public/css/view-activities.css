@@ -1,15 +1,7 @@
-* {
-    box-sizing: border-box;
-    font-family: "Poppins";
+.content-list {
+    width: 100%;
+    margin-top: 2rem;
 }
-body {
-    background-color: #f6f6f6;
-    font-size: 0.9rem;
-    padding: 2rem;
-}
-
-/* HEAD CONTENT STYLE ============================= */
-
 .head-content {
     display: flex;
     justify-content: space-between;
@@ -21,27 +13,28 @@ body {
     font-weight: bold;
     font-size: 1.1rem;
 }
-.head-content .edit-amalan {
-    background-color: #00a7a0;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0.7rem 1.2rem;
-    border-radius: 0.3rem;
-}
 .head-content .edit-amalan a {
     color: white;
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 400;
+    font-size: 0.9rem;
+    background-color: #00a7a0;
+    padding: 0.6rem 1rem;
+    border-radius: 0.3rem;
 }
-
-/* CONTEN STYLE */
 .content {
     padding: 0rem 3rem 1rem 1rem;
 }
 label {
     margin-bottom: 0.7rem;
+}
+.content .container-amal {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.content .container-amal .isi {
+    margin-bottom: 2rem;
 }
 .content .container-amal .isi .kolom {
     display: grid;

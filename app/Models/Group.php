@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Models\UserGroup;
-use App\Models\ActivityGroup;
+use App\Models\GroupActivity;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -19,7 +19,7 @@ class Group extends Model
       return $this->hasMany(UserGroup::class);
     }
 
-    public function activityGroup() {
-      return $this->hasMany(ActivityGroup::class);
+    public function groupActivity() {
+      return $this->hasMany(GroupActivity::class);
     }
 }

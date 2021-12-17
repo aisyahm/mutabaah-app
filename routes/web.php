@@ -2,10 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JoinController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\RegisterController;
 
 // REGISTER ACCOUNT
@@ -17,7 +17,8 @@ Route::get('/login', [LoginController::class, 'login'])->name('login')->middlewa
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::get('/login-google', [LoginController::class, 'google'])->name('google')->middleware("guest");
 Route::get('/auth/google/callback', [LoginController::class, 'handleProviderCallback'])->middleware("guest");
-Route::post('/complete', [LoginController::class, 'completeData'])->name("complete");
+Route::get('/complete', [LoginController::class, 'completeGoogle'])->name("complete")->middleware('auth');
+Route::post('/complete', [LoginController::class, 'storeComplete']);
 
 // LOGOUT ACCOUNT & FORGOT PASSWORD
 Route::post('/logout', [LoginController::class, 'logout']);
@@ -34,11 +35,17 @@ Route::get('/accept/{group}/{user}', [GroupController::class, 'accept'])->middle
 Route::get('/reject/{group}/{user}', [GroupController::class, 'reject'])->middleware('auth');
 
 // USER INFO & UPDATE PROFILE USER
-Route::get('/profile/{user}', [UserController::class, 'info'])->name("user-info")->middleware('auth');
+Route::get('/profile/{user}', [AccountController::class, 'info'])->name("user-info")->middleware('auth');
 Route::post('/update-profile', [AccountController::class, 'updateProfile'])->name("update");
 
 // OPEN GROUP
 Route::get('/groups/{group:id}', [GroupController::class, 'groups'])->name("group")->middleware('auth');
 
-// DELETE GROUP & LEAVE GROUP
+// DELETE & LEAVE GROUP
 Route::post('/delete', [GroupController::class, 'dangerGroup'])->name("delete");
+
+// ADD, EDIT, & VIEW ACTIVITIES
+Route::get('/groups/add-activities/{group:id}', [ActivityController::class, 'add'])->name('add-activities')->middleware('auth');
+Route::get('/groups/edit-activities/{group:id}', [ActivityController::class, 'edit'])->name('add-activities')->middleware('auth');
+Route::post('/groups/add-activities', [ActivityController::class, 'storeAdd']);
+Route::get('/groups/activities/{group:id}', [ActivityController::class, 'activities'])->name('group-activities')->middleware('auth');

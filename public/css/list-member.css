@@ -1,6 +1,10 @@
 /* HEAD CONTENT STYLE */
+.content-list {
+    width: 100%;
+}
 .head-content {
     padding: 0;
+    margin: 1rem 0;
 }
 /* CONTEN STYLE */
 .content {
@@ -48,4 +52,14 @@
 a {
     text-decoration: none;
     color: white;
+}
+.danger-container {
+    margin-top: 2rem;
+}
+#danger-btn {
+    background: rgb(255, 62, 62);
+}
+.content-list a {
+    color: #01a6a0;
+    font-size: 0.9rem;
 }

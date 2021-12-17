@@ -7,8 +7,16 @@
 
 @section('content')
   <div class="content-list">
-    <form action="/groups/add-activities" method="POST">
-      @csrf
+    <form action="/groups/add-activities" method="post">
+      <!--======= HEAD CONTENT ======= -->
+      <div class="head-content">
+        <p class=""><b>{{ $date }}</b></p>
+        <div class="berhalangan">
+          <label for="haid">Sedang berhalangan</label>
+          <input type="checkbox" id="haid" name="haid" />
+        </div>
+      </div>
+
       <!--======= CONTENT ======= -->
       <div class="content">
         <!--======= SHALAT WAJIB ======= -->
@@ -38,8 +46,8 @@
 
               @foreach ($value as $activity)
                 <div class="amalan">
-                  <label for="{{ $activity[0] }}"><b>{{ $activity[0] }}</b></label>
-                  <input id="{{ $activity[0] }}" name="group_activity[]" value="{{ $activity[1] }}" type="checkbox" />
+                  <label for="{{ $activity }}"><b>{{ $activity }}</b></label>
+                  <input id="{{ $activity }}" name="{{ $activity }}" type="checkbox" />
                 </div>
               @endforeach
 
@@ -49,25 +57,23 @@
         @endforeach
       </div>
 
-      <input name="group_id" value="{{ $group->id }}" type="hidden">
-
       <!--======= SIMPAN =======-->
       <div class="bot-content">
         <button type="submit" class="simpan my-bg-color">
-          Simpan Target Aktivitas
+          <a class="my-tx-color" href="">Simpan</a>
         </button>
       </div>
-    </form>
 
-    <!-- ======= POP UP BERHASIL DISIMPAN ======= -->
-    <div class="pop-up">
-      <img
-        class="done-icon"
-        src="/assets/img/icon-done.svg"
-        alt=""
-        style="width: 3rem; margin-right: 0.5rem"
-      />
-      <b>Data Berhasil Disimpan</b>
-    </div>
+      <!-- ======= POP UP BERHASIL DISIMPAN ======= -->
+      <div class="pop-up">
+        <img
+          class="done-icon"
+          src="/assets/img/icon-done.svg"
+          alt=""
+          style="width: 3rem; margin-right: 0.5rem"
+        />
+        <b>Data Berhasil Disimpan</b>
+      </div>
+    </form>
   </div>
 @endsection

@@ -1,8 +1,13 @@
+@php
+  use App\Models\GroupActivity;  
+@endphp
+
 @extends('mentor.template')
     
 @section('content')
     <!-- ======= KONFIRMASI ANGGOTA ======= -->
     @if (count($membersOut))
+    <div class="content-list">
       <div class="head-content">
         <p class=""><b>Persetujuan Masuk Grup</b></p>
       </div>
@@ -35,8 +40,10 @@
           </div>
         </div>
       </div>
+    </div>
       <!--  AKHIR KONFIRMASI ANGGOTA  -->
     @endif
+
 
     @if (count($membersIn))
       <div class="content-list">
@@ -57,9 +64,11 @@
                       <span class="hp">{{ $member->no_telp }}</span>
                     </div>
                   </div>
-                  <button class="lihat-profile btn btn-outline-success my-color">
-                    <a href="/activity/{{ $member->id }}">Lihat Amalan</a>
-                  </button>
+                  
+                  <a href="/activity/{{ $member->id }}">
+                    <button class="lihat-profile btn btn-outline-success my-color">Lihat Amalan</button>
+                  </a>
+                  
                 </div>
               @endforeach
               
@@ -67,7 +76,25 @@
           </div>
         </div>
       </div>
+    @else
+      <h3>Belum ada anggota di grub ini.</h3>
     @endif
+
+    @if (count(GroupActivity::where("group_id", $group->id)->get()))
+      <a href="./activities/{{ $group->id }}">Lihat Target Aktivitas</a>
+    @else
+      <a href="./add-activities/{{ $group->id }}">Tambah Aktivitas</a>
+    @endif
+
+    <div class="content-list">
+      <div class="danger-container">
+        <form action="{{ route("delete") }}" method="post">
+          @csrf
+          <input type="hidden" name="group_id" value="{{ $group->id }}">
+          <button type="submit" id="danger-btn" name="delete" value="1" onclick="return confirm('Yakin ingin menghapus grup ini?')">Hapus grup ini</button>
+        </form>
+      </div>
+    </div>
 @endsection
 
 @section('meta')

@@ -6,7 +6,6 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
 
 
@@ -45,22 +44,24 @@ class LoginController extends Controller
         ];
 
         $user = User::firstOrCreate(['email' => $data['email']], $data);
-      //   Auth::login($user, true);
+        Auth::login($user, true);
 
         // JIKA BUKAN PERTAMA KALI LOGIN DENGAN GOOGLE
         if ($user->gender != null) {
-            $user->update(["avatar" => $data["avatar"]]);
-            Auth::login($user, true);
-            return redirect(route("home"));
+          $user->update(["avatar" => $data["avatar"]]);
+          return redirect(route("home"));
         }
 
-        return view("user.register", [
-            "google" => true,
-            "email" => $data['email']
-        ]);
+        // JIKA SUDAH PERNAH LOGIN DENGAN GOOGLE
+        session(['email' => $data['email']]);
+        return redirect(route("complete"));
     }
 
-    public function completeData(Request $request) {
+    public function completeGoogle(){
+      return view("user.complete-login")->with("email", session("email"));
+    }
+
+    public function storeComplete(Request $request) {
       $validatedData = $request->validate([
          'gender' => ['required'],
          'is_mentor' => ['required'],
@@ -69,7 +70,6 @@ class LoginController extends Controller
 
       $user = User::where("email", $request->email)->first();
       $user->update($validatedData);
-      Auth::login($user, true);
 
       return redirect(route("home"));
     }

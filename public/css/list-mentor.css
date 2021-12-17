@@ -64,7 +64,8 @@
     margin-bottom: 0px;
 }
 /* CONTEN STYLE */
-.content {
+.content,
+.konfirmasi {
     padding: 0rem 3rem 1rem 1rem;
     margin-top: 1rem;
 }
@@ -107,14 +108,9 @@
 .content .isi .kolom .anggota button {
     background-color: #e6f7f6;
     border-style: none;
+    color: #00a7a0;
     width: 120px;
 }
-.content .isi .kolom .anggota button a {
-    font-size: 0.8rem;
-    color: #00a7a0;
-    text-decoration: none;
-}
-
 .konfirmasi,
 .content,
 .head-content {
@@ -125,4 +121,10 @@
 }
 a {
     text-decoration: none;
+}
+.danger-container {
+    margin-top: 2rem;
+}
+#danger-btn {
+    background: rgb(255, 62, 62);
 }

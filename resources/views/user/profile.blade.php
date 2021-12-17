@@ -6,14 +6,20 @@
 @endsection
 
 @section('content')
-    <!-- ======= HEAD CONTENT ======= -->
+  <div class="content-list">
+    <div>
+      <a href="{{ url()->previous() }}">
+        <i class="fas fa-arrow-left"></i>
+        <h3>Kembali</h3>
+      </a>
+    </div>
     <div class="head-content">
       <b>Profile Anggota</b>
     </div>
 
     <!-- ======= KONTEN LIHAT PROFILE ======= -->
     <div class="content shadow-sm my-mt-login">
-      <img src="img/ell cropped.jpg" alt="" />
+      <img src="/assets/ava/{{ $member->avatar }}.svg" alt="" />
       <div class="data-profile">
         <div class="biodata">
           <div class="data">
@@ -25,7 +31,7 @@
             <input class="disable-input" type="text" value="{{ $member->email }}" disabled />
           </div>
           <div class="data">
-            <label class="my-mt-login">No HP</label>
+            <label class="my-mt-login">No. HP</label>
             <input class="disable-input" type="text" value="{{ $member->no_telp }}" disabled />
           </div>
         </div>
@@ -44,4 +50,5 @@
         </div>
       </div>
     </div>
+  </div>
 @endsection

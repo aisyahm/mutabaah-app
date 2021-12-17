@@ -9,6 +9,9 @@ body {
     font-family: "Poppins", sans-serif;
     background: #f6f6f6;
 }
+textarea {
+    font-family: "Poppins", sans-serif;
+}
 /* width */
 .account-pop-up::-webkit-scrollbar {
     width: 10px;
@@ -53,6 +56,7 @@ input[type="number"] {
 }
 header {
     position: fixed;
+    z-index: 2;
     top: 0;
     left: 0;
     height: 100vh;
@@ -191,14 +195,13 @@ h3 {
     margin-left: 0.9rem;
 }
 .account,
-.logout {
+.logout form button {
     display: flex;
     gap: 1rem;
     align-items: center;
 }
-.logout form {
-    display: flex;
-    align-items: center;
+.logout form button {
+    margin-left: 0;
 }
 .account img {
     width: 35px;
@@ -211,12 +214,10 @@ h3 {
 }
 main {
     margin-left: 280px;
-    padding: 0 40px;
+    padding: 0.5rem 1.2rem;
 }
 .main-container {
-    height: 100vh;
     display: flex;
-    justify-content: center;
     align-items: center;
     flex-direction: column;
     gap: 1.4rem;

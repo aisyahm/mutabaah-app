@@ -30,10 +30,10 @@
          @endif
       </div>
 
-      <form action="{{ route("register") }}" method="POST" class="login shadow-sm px-6 my-mt-login">
+        <form action="{{ route("complete") }}" method="POST" class="login shadow-sm px-6 my-mt-login">
         @csrf
         <h1>Register</h1>
-        <h5>Silahkan isi data untuk register akun</h5>
+        <h5>Silahkan lengkapi data akun</h5>
 
         <div class="data-form">
           <label class="my-fo-size mt-3"
@@ -50,47 +50,7 @@
             </div>
           </div>
 
-         
-          <label for="name" class="my-fo-size mt-3"
-              ><b>Nama Lengkap<span class="my-color-red">*</span></b></label
-          >
-          @error('name')
-              <div class="invalid-feedback">
-              {{ $message }}
-              </div>
-          @enderror
-
-          <input name="name" type="text" placeholder="Masukkan Nama Lengkap" class="shadow-sm rounded form-control my-fo-size my-bg-color-2 input @error('name') is-invalid @enderror" id="name" required value="{{ old('name') }}" />
-
-          <label for="email" class="my-fo-size mt-3"
-              ><b>Email<span class="my-color-red">*</span></b></label
-          >
-          @error('email')
-              <div class="invalid-feedback">
-              {{ $message }}
-              </div>
-          @enderror
-          <input name="email" type="email" placeholder="Masukkan email" class="shadow-sm rounded form-control my-fo-size my-bg-color-2 input @error('email') is-invalid @enderror" id="email" required value="{{ old('email') }}" />
-
-          <label for="password" class="my-fo-size my-mt-login"
-          ><b>Password<span class="my-color-red">*</span></b></label
-          >
-          @error('password')
-              <div class="invalid-feedback">
-              {{ $message }}
-              </div>
-          @enderror
-          <input name="password" type="password" placeholder="Masukkan Password" class="shadow-sm rounded form-control my-fo-size my-bg-color-2 input @error('password') is-invalid @enderror" id="password" required />
-
-          <label for="confirm" class="my-fo-size my-mt-login"
-              ><b>Konfirmasi Password<span class="my-color-red">*</span></b></label
-          >
-          @error('password')
-              <div class="invalid-feedback">
-              {{ $message }}
-              </div>
-          @enderror
-          <input name="confirm" type="password" placeholder="Masukkan Kembali Password" class="shadow-sm rounded form-control my-fo-size my-bg-color-2 input @error('password') is-invalid @enderror" required />
+          <input type="hidden" name="email" value="{{ $email }}">
 
           <label for="no_telp" class="my-fo-size mt-3"
             ><b>No HP<span class="my-color-red">*</span></b></label
@@ -115,17 +75,13 @@
           </div>
          </div>
 
-          <div class="wajib-isi my-mt-login">
-            <h4>*Wajib disi</h4>
-          </div>
+        <div class="wajib-isi my-mt-login">
+          <h4>*Wajib disi</h4>
+        </div>
 
-         <button type="submit" class="btn btn-login my-bg-color">Register Akun</b>
+         <button type="submit" class="btn btn-login my-bg-color">Submit Data</b>
          </button>
       </form>
-
-      <div class="regist-link my-fo-size my-mt-login has-account">
-      <label>Sudah punya akun? <a class="my-color" href="{{ route("login") }}">Login disini</a></label>
-      </div>
     </center>
     
     <!-- SCRIPT -->

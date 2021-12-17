@@ -16,10 +16,10 @@ class CreateSubmissionsTable extends Migration
         Schema::create('submissions', function (Blueprint $table) {
             $table->id();
             $table->foreignId("user_id");
-            $table->foreignId("activity_id");
+            $table->foreignId("group_activity_id");
             
-            $table->integer("value");
-            $table->date("date");
+            $table->boolean("is_done");
+            $table->string("date")->default(date('d-m-Y'));
             $table->boolean("is_haid")->default(false);
 
             $table->timestamps();

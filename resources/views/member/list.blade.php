@@ -1,6 +1,16 @@
+@php
+  use App\Models\GroupActivity; 
+@endphp
+
 @extends('member.template')
 
+@section('meta')
+    <link rel="stylesheet" href="/css/my-style.css" />
+    <link rel="stylesheet" href="/css/list-member.css" />
+@endsection
+
 @section('content')
+  <div class="content-list">
     <div class="head-content">
       <p class=""><b>Daftar Anggota ({{ count($membersIn) }} Orang)</b></p>
     </div>
@@ -30,12 +40,25 @@
         </div>
       </div>
     </div>
-@endsection
+  </div>
 
-@section('meta')
-    <!-- MY CSS -->
-    <link rel="stylesheet" href="/css/my-style.css" />
-    <link rel="stylesheet" href="/css/list-member.css" />
+  <div class="content-list">
+    @if (count(GroupActivity::where("group_id", $group->id)->get()))
+      <a href="./activities/{{ $group->id }}">Submit Target Aktivitas</a>
+    @else
+      <h4>Belum ada target aktivitas di grup ini, silahkan hubungi mentor grup untuk membuat target aktivitas grup</h4>
+    @endif
+  </div>
+
+  <div class="content-list">
+    <div class="danger-container">
+      <form action="{{ route("delete") }}" method="post">
+        @csrf
+        <input type="hidden" name="group_id" value="{{ $group->id }}">
+        <button type="submit" id="danger-btn" name="leave" value="1" onclick="return confirm('Yakin ingin keluar grup?')">Keluar grup ini</button>
+      </form>
+    </div>
+  </div>
 @endsection
 
 
