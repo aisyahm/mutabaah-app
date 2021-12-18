@@ -8,6 +8,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SubmissionController;
+use App\Http\Controllers\ChartController;
 
 // REGISTER ACCOUNT
 Route::get('/register', [RegisterController::class, 'index'])->name('register')->middleware('guest');
@@ -44,7 +45,9 @@ Route::get('/groups/{group:id}', [GroupController::class, 'groups'])->name("grou
 // DELETE GROUP & LEAVE GROUP
 Route::post('/delete', [GroupController::class, 'dangerGroup'])->name("delete");
 
-// contoh excel
-Route::get('/mentoranalisis', [SubmissionController::class, 'index']);
-Route::get('/mentoranalisis/exportsubmission', [SubmissionController::class, 'submissionexport']);
+// Laporan Mentor Export Excel & Chart
+Route::get('/home/mentoranalisis', [SubmissionController::class, 'index'])->middleware('auth');
+Route::get('/home/mentoranalisis/exportsubmission', [SubmissionController::class, 'submissionexport'])->middleware('auth');
 // Route::post('/importactivity',);
+Route::get('/home/mentoranalisis', [ChartController::class, 'barChart'])->middleware('auth');
+

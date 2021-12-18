@@ -3,6 +3,7 @@
 namespace App\Exports;
 
 use App\Models\Submission;
+use App\Models\UserGroup;
 use DateTime;
 // use Illuminate\Contracts\Support\Responsable;
 use Maatwebsite\Excel\Events\AfterSheet;
@@ -50,27 +51,38 @@ class SubmissionExport implements ShouldAutoSize, WithMapping, WithHeadings, Wit
     // large data dengan query
     public function query()
     {
-    //   return Submission::with('activity','user')->first();
-      return Submission::query()->with('activity','user')
-      ->whereYear('created_at', $this->year)
-      ->whereMonth('created_at', $this->month);
-        // dd($submission);
-
-    //   return Submission::where('id','>',10)->with('activity','user')
+    // //   return Submission::with('activity','user')->first();
+    //   return Submission::query()->with('activity','user')
     //   ->whereYear('created_at', $this->year)
     //   ->whereMonth('created_at', $this->month);
     //     // dd($submission);
+
+    // UserGroup::where('group_id', $group->id)->with("user")->user->get();
+    // loop --> dapatkan nama masing2 user
+
+    // GroupActivity::where('group_id', $group->id)->with("activity")->activity->get();
+    // loop --> dapatkan nama masing2 template activity
+
+      return UserGroup::where('group_id', $group->id)->with('user','group','activity_group')
+      ->whereYear('created_at', $this->year)
+      ->whereMonth('created_at', $this->month)->get();
+        // dd($submission);
     }
  
     // mapping (yang muncul hanya)
     public function map($submission): array
     {
         return [
-            $submission->id,
+            // FIELD DALAM EXCEL
+            // nama | activity | is_done | date | is_haid
+
+            // $submission->id, 
+            // $submission->group->name,
+            // $submission->user->is_mentor,
+            // $submission->activity->name,
             $submission->user->name,
-            $submission->user->username,
-            $submission->user->is_mentor,
-            $submission->activity->name,
+            $submission->activity_group->activty->name,
+            $submission->activity_group->is_done,
             $submission->date,
             $submission->is_haid,
             $submission->created_at,
@@ -188,7 +200,7 @@ class SubmissionExport implements ShouldAutoSize, WithMapping, WithHeadings, Wit
         $drawing = new Drawing();
         $drawing->setName('Istiqomah Web');
         $drawing->setDescription('This is Istiqomah Web Logo');
-        $drawing->setPath(public_path('/img/Logo Header.png'));
+        $drawing->setPath(public_path('assets/img/logo.png'));
         $drawing->setHeight(90);
         $drawing->setCoordinates('C2');
 
