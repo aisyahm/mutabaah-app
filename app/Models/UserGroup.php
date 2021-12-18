@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\Models\User;
 use App\Models\Group;
-use App\Models\ActivityGroup;
+use App\Models\GroupActivity;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -24,8 +24,8 @@ class UserGroup extends Model
       return $this->belongsTo(Group::class);
     }
 
-    public function activity_group() {
-      return $this->belongsTo(ActivityGroup::class);
+    public function group_activity() {
+      return $this->belongsTo(GroupActivity::class);
     }
 
 }

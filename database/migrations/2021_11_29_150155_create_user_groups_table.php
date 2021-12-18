@@ -17,7 +17,7 @@ class CreateUserGroupsTable extends Migration
             $table->id();
             $table->foreignId("user_id");
             $table->foreignId("group_id");
-            $table->foreignId("activity_group_id");
+            $table->foreignId("group_activity_id");
             
             $table->boolean("is_accept")->default(false);
             
