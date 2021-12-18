@@ -17,6 +17,8 @@ class UserSeeder extends Seeder
     {
         User::create([
           "name" => "Shidqi",
+          // ngadi
+          "submission_id" => 1,
           "email" => "shidqi@gmail.com",
           "password" => Hash::make("shi"),
           "gender" => "Laki-laki",
@@ -24,6 +26,8 @@ class UserSeeder extends Seeder
         ]);
         User::create([
           "name" => "Rizki",
+           // ngadi
+           "submission_id" => 2,
           "email" => "rizki@gmail.com",
           "password" => Hash::make("riz"),
           "gender" => "Laki-laki",

@@ -2,12 +2,15 @@
 
 namespace App\Exports;
 
-use App\Models\Submission;
-use App\Models\UserGroup;
 use DateTime;
+use App\Models\User;
+use App\Models\Submission;
 // use Illuminate\Contracts\Support\Responsable;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Events\AfterSheet;
 use Maatwebsite\Excel\Concerns\FromQuery;
+use Maatwebsite\Excel\Concerns\WithTitle;
+use Maatwebsite\Excel\Events\BeforeSheet;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Events\BeforeExport;
@@ -15,11 +18,9 @@ use Maatwebsite\Excel\Concerns\WithDrawings;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
-use Maatwebsite\Excel\Concerns\WithCustomStartCell;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
+use Maatwebsite\Excel\Concerns\WithCustomStartCell;
 use Maatwebsite\Excel\Concerns\WithMapping; //mengelompokkan untuk hide
-use Maatwebsite\Excel\Concerns\WithTitle;
-use Maatwebsite\Excel\Events\BeforeSheet;
 
 class SubmissionExport implements ShouldAutoSize, WithMapping, WithHeadings, WithEvents, FromQuery, WithDrawings, WithCustomStartCell, WithTitle
 // FromCollection
@@ -63,30 +64,34 @@ class SubmissionExport implements ShouldAutoSize, WithMapping, WithHeadings, Wit
     // GroupActivity::where('group_id', $group->id)->with("activity")->activity->get();
     // loop --> dapatkan nama masing2 template activity
 
-      return UserGroup::where('group_id', $group->id)->with('user','group','activity_group')
-      ->whereYear('created_at', $this->year)
-      ->whereMonth('created_at', $this->month)->get();
+      return Submission::query()->with('groupActivity','user')
+    //   ->where("is_mentor", !Auth::user()->is_mentor)
+        ->whereYear('created_at', $this->year)
+        ->whereMonth('created_at', $this->month);
         // dd($submission);
     }
  
     // mapping (yang muncul hanya)
     public function map($submission): array
     {
+        // $haid = $submission->submission->is_haid ? "haid" : "tidak haid";
+        // $done = $submission->submission->is_done ? "ngerjain" : "gak ngerjain";
         return [
             // FIELD DALAM EXCEL
             // nama | activity | is_done | date | is_haid
-
-            // $submission->id, 
-            // $submission->group->name,
+            $submission->id, 
+            $submission->groupActivity->group->name,
+            $submission->user->name,
+            $submission->groupActivity->activity->name,
             // $submission->user->is_mentor,
             // $submission->activity->name,
-            $submission->user->name,
-            $submission->activity_group->activty->name,
-            $submission->activity_group->is_done,
-            $submission->date,
-            $submission->is_haid,
-            $submission->created_at,
-            $submission->updated_at
+            // $submission->name,
+            // // $submission->submission->groupActivity->activity->name,
+            // $submission->submission->is_done,
+            // $submission->userGroup->group->name,
+            // $done,
+            // $submission->submission->date,
+            // $haid,
         ];
     }
 

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Submission;
-use App\Models\UserGroup;
+use App\Models\User;
 use Illuminate\Http\Request;
 // exports excel
 use App\Exports\SubmissionExport;
@@ -22,7 +22,7 @@ class SubmissionController extends Controller
      */
     public function index()
     {
-        $submission = UserGroup::all();
+        $submission = Submission::all();
         // dd($submission);
         return view('mentor.submission',compact('submission'));
     }
