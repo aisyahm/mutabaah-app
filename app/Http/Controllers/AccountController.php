@@ -8,17 +8,21 @@ use Illuminate\Support\Facades\Auth;
 
 class AccountController extends Controller
 {
-    public function updateProfile(Request $request) {
-      $user = User::find(Auth::user()->id);
+  public function info($user) {
+    $member = User::find($user);
+    return view("user.profile")->with("member", $member);
+  }
 
-      $user->update([
-        "name" => $request->name,
-        "avatar" => $request->avatar,
-        "email" => $request->email,
-        "deskripsi" => $request->deskripsi,
-        "no_telp" => $request->number
-      ]);
+  public function updateProfile(Request $request) {
+    $user = User::find(Auth::user()->id);
 
-      return back();
-    }
+    $user->update([
+      "name" => $request->name,
+      "avatar" => $request->avatar,
+      "deskripsi" => $request->deskripsi,
+      "no_telp" => $request->number
+    ]);
+
+    return back();
+  }
 }

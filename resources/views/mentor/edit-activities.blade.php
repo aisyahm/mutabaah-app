@@ -39,7 +39,7 @@
               @foreach ($value as $activity)
                 <div class="amalan">
                   <label for="{{ $activity[0] }}"><b>{{ $activity[0] }}</b></label>
-                  <input id="{{ $activity[0] }}" name="group_activity[]" value="{{ $activity[1] }}" type="checkbox" />
+                  <input id="{{ $activity[0] }}" name="group_activity[]" value="{{ $activity[1] }}" type="checkbox"    {{ in_array($activity[1], $group_activities_id) ? "checked" : "" }} />
                 </div>
               @endforeach
 

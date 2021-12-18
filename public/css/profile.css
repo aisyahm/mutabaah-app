@@ -1,11 +1,36 @@
 /* CONTENT LIHAT PROFILE ===================  */
 /*  */
+.content-list {
+    width: 100%;
+}
+.content-list > div:nth-child(1) {
+    height: 78px;
+    width: 100%;
+    padding-left: 1.4rem;
+    background: #fff;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+}
+.content-list > div:nth-child(1) a {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+.content-list > div:nth-child(1) h3,
+.content-list > div:nth-child(1) i {
+    font-size: 1rem;
+    color: black;
+}
 .content {
     padding: 1.5rem;
     background-color: white;
     border-radius: 0.5rem;
     font-size: 0.875rem;
     width: 100%;
+}
+.head-content {
+    margin-top: 1rem;
 }
 .content img {
     width: 6.5rem;
@@ -47,8 +72,12 @@
 }
 textarea {
     text-align: left;
-    height: 7.2rem;
+    height: 7.36rem;
     border-radius: 0.3rem;
     border: 2px solid #c4ccc9;
     padding: 0.5rem;
+    resize: none;
+}
+label {
+    margin-bottom: 0.5rem;
 }

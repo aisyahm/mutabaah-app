@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
         UserSeeder::class,
         UserGroupSeeder::class,
         GroupSeeder::class,
-        ActivityGroupSeeder::class,
+        GroupActivitySeeder::class,
         ActivitySeeder::class,
         SubmissionSeeder::class,
       ]);

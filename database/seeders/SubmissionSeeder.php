@@ -16,29 +16,23 @@ class SubmissionSeeder extends Seeder
     {
         Submission::create([
           "user_id" => 1,
-          "activity_id" => 1,
-          "value" => 3,
-          "date" => "2021-11-30"
+          "group_activity_id" => 1,
+          "is_done" => true,
         ]);
         Submission::create([
           "user_id" => 1,
-          "activity_id" => 2,
-          "value" => 2,
-          "date" => "2021-11-27"
-        ]);
-
-
-        Submission::create([
-          "user_id" => 2,
-          "activity_id" => 3,
-          "value" => 4,
-          "date" => "2021-12-04"
+          "group_activity_id" => 2,
+          "is_done" => false,
         ]);
         Submission::create([
           "user_id" => 2,
-          "activity_id" => 4,
-          "value" => 5,
-          "date" => "2021-12-07"
+          "group_activity_id" => 3,
+          "is_done" => true,
+        ]);
+        Submission::create([
+          "user_id" => 2,
+          "group_activity_id" => 4,
+          "is_done" => false,
         ]);
     }
 }

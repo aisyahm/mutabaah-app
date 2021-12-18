@@ -1,0 +1,110 @@
+.content-list {
+    width: 100%;
+}
+.content-list form {
+    margin-top: 2rem;
+}
+/* HEAD CONTENT STYLE ============================= */
+.head-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 3rem 1rem 1rem;
+}
+.head-content p {
+    margin-bottom: 0;
+}
+.head-content .berhalangan {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8rem;
+}
+.head-content .berhalangan label {
+    margin-right: 0.5rem;
+}
+
+/* CONTEN STYLE */
+.content {
+    padding: 1rem 3rem 1rem 1rem;
+}
+.content .container-amal .isi .kolom {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.content .container-amal .isi .kolom .amalan {
+    display: flex;
+    background-color: white;
+    justify-content: space-between;
+    width: 98%;
+    padding: 1rem;
+    align-items: center;
+    border-radius: 0.5rem;
+    font-size: 0.8rem;
+    margin-top: 1rem;
+}
+
+/* POP UP BERHASIL DISIMPAN STYLE ======================== */
+.content-list .pop-up {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background-color: #ccedec;
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
+.pop-up .done-icon {
+    color: red;
+}
+.pop-up.success {
+    display: flex;
+}
+
+/* BOTTOM CONTENT ======================================= */
+.sticky {
+    position: fixed;
+    background-color: red;
+    width: 100%;
+    height: 50px;
+    bottom: 0;
+    color: white;
+}
+.bot-content {
+    display: flex;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 4rem;
+    background-color: white;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 1rem 3rem 1rem 1rem;
+    position: fixed;
+    border-top: 1px solid rgb(204, 204, 204);
+}
+.bot-content .simpan {
+    font-size: 0.9rem;
+    color: white;
+    width: 12rem;
+    height: 40px;
+    border-radius: 0.4rem;
+    border-style: none;
+    margin-left: 2rem;
+}
+.bot-content .simpan a {
+    text-decoration: none;
+}
+.head-content,
+.content {
+    padding: 0;
+}
+.content-list input {
+    width: 20px;
+    height: 20px;
+}
+.content-list input:checked {
+    background: greenyellow;
+}

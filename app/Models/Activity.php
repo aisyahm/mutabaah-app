@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Models\Submission;
-use App\Models\ActivityGroup;
+use App\Models\GroupActivity;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -15,8 +15,8 @@ class Activity extends Model
       "id"
     ];
 
-    public function activityGroup() {
-      return $this->hasMany(ActivityGroup::class);
+    public function groupActivity() {
+      return $this->hasMany(GroupActivity::class);
     }
 
     public function submission() {

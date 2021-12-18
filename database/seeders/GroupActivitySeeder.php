@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\ActivityGroup;
+use App\Models\GroupActivity;
 use Illuminate\Database\Seeder;
 
-class ActivityGroupSeeder extends Seeder
+class GroupActivitySeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,19 +14,19 @@ class ActivityGroupSeeder extends Seeder
      */
     public function run()
     {
-        ActivityGroup::create([
+        GroupActivity::create([
           "group_id" => 1,
           "activity_id" => 1
         ]);
-        ActivityGroup::create([
+        GroupActivity::create([
           "group_id" => 1,
           "activity_id" => 2
         ]);
-        ActivityGroup::create([
+        GroupActivity::create([
           "group_id" => 2,
           "activity_id" => 3
         ]);
-        ActivityGroup::create([
+        GroupActivity::create([
           "group_id" => 2,
           "activity_id" => 4
         ]);

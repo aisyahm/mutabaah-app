@@ -85,8 +85,10 @@
           <div class="logout">
             <form action="/logout" method="post">
               @csrf
-              <i class="fas fa-sign-out-alt"></i>
-              <button type="submit" onclick="return confirm('Keluar Akun?')">Logout</button>
+              <button type="submit" onclick="return confirm('Keluar Akun?')">
+                <i class="fas fa-sign-out-alt"></i>
+                <h4>Logout</h4>
+              </button>
             </form>
           </div>
         </div>
