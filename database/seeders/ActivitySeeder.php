@@ -25,6 +25,7 @@ class ActivitySeeder extends Seeder
         Activity::create(["name" => "Sholat Qabliyah Dzuhur", "category" => 2]);
         Activity::create(["name" => "Sholat Ba'diyah Dzuhur", "category" => 2]);
         Activity::create(["name" => "Sholat Qabliyah Ashar", "category" => 2]);
+        Activity::create(["name" => "Sholat Qabliyah Maghrib", "category" => 2]);
         Activity::create(["name" => "Sholat Ba'diyah Maghrib", "category" => 2]);
         Activity::create(["name" => "Sholat Qabliyah Isya", "category" => 2]);
         Activity::create(["name" => "Sholat Ba'diyah Isya", "category" => 2]);

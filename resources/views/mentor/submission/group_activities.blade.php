@@ -2,7 +2,7 @@
 
 <h3>Group saat ini: {{ $group->name }} </h3>
 <h3>Yuk isi Amalan Yaumiyahmu!!</h3>
-<form action="" method="POST">
+<form action="{{ route('submission.submit') }}" method="POST">
     {{ csrf_field() }}
     <table border="1">
         @foreach ($group_activities_name as $key => $group_activity)
