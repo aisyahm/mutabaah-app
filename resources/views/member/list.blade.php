@@ -29,7 +29,7 @@
                 </div>
               </div>
               
-              <a href="/profile/{{ $member->id }}"><button
+              <a href="profile/{{ $member->id }}"><button
                 class="lihat-profile btn btn-outline-success my-color"
                 style="border-color: #01a6a0"
               >Lihat Profil</button></a>
@@ -48,6 +48,10 @@
     @else
       <h4>Belum ada target aktivitas di grup ini, silahkan hubungi mentor grup untuk membuat target aktivitas grup</h4>
     @endif
+  </div>
+
+  <div class="content-list">
+    <a href="chart/{{ $group->id }}">Analisis Amalan</a>
   </div>
 
   <div class="content-list">

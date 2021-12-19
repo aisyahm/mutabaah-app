@@ -29,6 +29,20 @@ class UserSeeder extends Seeder
           "gender" => "Laki-laki",
           "is_mentor" => false
         ]);
+        User::create([
+          "name" => "Nanda",
+          "email" => "nanda@gmail.com",
+          "password" => Hash::make("nan"),
+          "gender" => "Laki-laki",
+          "is_mentor" => false
+        ]);
+        User::create([
+          "name" => "Ell",
+          "email" => "ell@gmail.com",
+          "password" => Hash::make("ell"),
+          "gender" => "Laki-laki",
+          "is_mentor" => false
+        ]);
 
 
         User::create([

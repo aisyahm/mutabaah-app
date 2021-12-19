@@ -18,8 +18,4 @@ class Activity extends Model
     public function groupActivity() {
       return $this->hasMany(GroupActivity::class);
     }
-
-    public function submission() {
-      return $this->hasMany(Submission::class);
-    }
 }

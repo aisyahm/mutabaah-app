@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('password')->nullable();
             $table->string('avatar')->default("3");
             $table->string('no_telp')->nullable();
-            $table->string('deskripsi')->nullable();
+            $table->string('description')->nullable();
             $table->string("gender")->nullable();
             $table->boolean('is_mentor')->default(false);
             

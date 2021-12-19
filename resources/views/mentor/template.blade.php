@@ -2,16 +2,16 @@
   use App\Models\UserGroup;
   use Illuminate\Support\Facades\Auth;
 
-  $groups = UserGroup::with("group")->where("user_id", Auth::user()->id)->get();
-  $groupsIn = [];
-  $membersIn = [];
+  $groupsTemplate = UserGroup::with("group")->where("user_id", Auth::user()->id)->get();
+  $groupsInTemplate = [];
+  $membersInTemplate = [];
 
-  $groupsAccept = $groups->where("is_accept", true);
-  $groupsIn = [];
+  $groupsAcceptTemplate = $groupsTemplate->where("is_accept", true);
+  $groupsInTemplate = [];
 
-  foreach ($groupsAccept as $groupAcc) {
-    $groupsIn[] = $groupAcc->group;
-    $membersIn[] = $groupAcc->where("group_id", $groupAcc->group->id)->where("is_accept", true)->count() - 1;
+  foreach ($groupsAcceptTemplate as $groupAcc) {
+    $groupsInTemplate[] = $groupAcc->group;
+    $membersInTemplate[] = $groupAcc->where("group_id", $groupAcc->group->id)->where("is_accept", true)->count() - 1;
   }
 @endphp
 
@@ -38,16 +38,16 @@
             <i class="new-group-btn fas fa-plus"></i>
           </div>
 
-            @if ($groupsIn)
-              @for ($i = 0; $i < count($groupsIn); $i++)
-                <a href="/groups/{{ $groupsIn[$i]->id }}">
-                  <div class="group {{ last(request()->segments()) == $groupsIn[$i]->id ? "active" : "" }}">
+            @if ($groupsInTemplate)
+              @for ($i = 0; $i < count($groupsInTemplate); $i++)
+                <a href="/groups/{{ $groupsInTemplate[$i]->id }}">
+                  <div class="group {{ last(request()->segments()) == $groupsInTemplate[$i]->id ? "active" : "" }}">
                     <div class="ava-group">
-                      <img src="/assets/ava/{{ $groupsIn[$i]->avatar }}.svg" alt="">
+                      <img src="/assets/ava/{{ $groupsInTemplate[$i]->avatar }}.svg" alt="">
                     </div>
                     <div class="content-group">
-                      <h4>{{ $groupsIn[$i]->name }}</h4>
-                      <h4>{{ $membersIn[$i] }} anggota</h4>
+                      <h4>{{ $groupsInTemplate[$i]->name }}</h4>
+                      <h4>{{ $membersInTemplate[$i] }} anggota</h4>
                     </div>
                   </div> 
                 </a>
@@ -196,16 +196,16 @@
             value="{{ Auth::user()->name }}"
             required
           />
-          <label for="desc">Deskripsi<span>*</span></label>
+          <label for="description">Deskripsi<span>*</span></label>
           <textarea
-            id="desc"
-            name="deskripsi"
+            id="description"
+            name="description"
             cols="30"
             rows="10"
             autocomplete="off"
             placeholder="Masukkan deskripsi"
             required
-          >{{ Auth::user()->deskripsi }}</textarea>
+          >{{ Auth::user()->description }}</textarea>
           <label for="email">Email<span>*</span></label>
           <input
             type="email"

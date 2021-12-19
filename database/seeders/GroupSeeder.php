@@ -16,13 +16,13 @@ class GroupSeeder extends Seeder
     {
         Group::create([
           "name" => "Fullstack Web Dev",
-          "deskripsi" => "Group mentoring Fullstack Web Development di Yaumi",
+          "description" => "Group mentoring Fullstack Web Development di Yaumi",
           "avatar" => 1,
           "invitation_code" => "FWD21"
         ]);
         Group::create([
           "name" => "User Interface",
-          "deskripsi" => "Group mentoring UIUX Design di Yaumi",
+          "description" => "Group mentoring UIUX Design di Yaumi",
           "avatar" => 2,
           "invitation_code" => "UIUX21"
         ]);

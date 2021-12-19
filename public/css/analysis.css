@@ -1,0 +1,107 @@
+/* SCROLL BAR */
+::-webkit-scrollbar {
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #ebebeb;
+}
+::-webkit-scrollbar-thumb {
+    background: rgb(206, 206, 206);
+    border-radius: 10px;
+}
+
+.header-content {
+    margin-top: 1rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.header-content h2 {
+    font-size: 1.1rem;
+}
+.header-content a {
+    padding: 0.6rem 1rem;
+    border: 1px solid #00a7a0;
+    background: #e6f7f6;
+    border-radius: 8px;
+    color: #00a7a0;
+    font-size: 0.85rem;
+}
+
+.chart-container,
+.inner,
+.legend,
+.chart-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.chart-container {
+    width: max-content;
+    box-sizing: border-box;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+}
+.chart-title {
+    text-align: center;
+    gap: 0.3rem;
+    margin-bottom: 1rem;
+}
+.chart-title h3 {
+    font-weight: bold;
+}
+.chart-title h4 {
+    width: 100%;
+    color: rgb(73, 73, 73);
+    word-spacing: 2px;
+}
+.chart-title h4 span {
+    color: #00a7a0;
+}
+.inner {
+    width: 900px;
+    height: 200px;
+    padding: 0 1rem;
+    overflow: auto;
+    visibility: hidden;
+    transition: visibility 0.3s;
+}
+.inner:hover {
+    transition: visibility 0s 0.2s;
+}
+.inner:hover,
+.inner:focus,
+.chart {
+    visibility: visible;
+}
+.chart {
+    --activity: 0;
+    width: calc(var(--activity) * 82px);
+    min-width: 100%;
+    height: 98%;
+}
+.legend {
+    flex-direction: row;
+}
+.legend > span {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+    margin-right: 2rem;
+    font-size: 0.8rem;
+}
+span > span {
+    display: inline-block;
+    width: 30px;
+    height: 5px;
+    border-radius: 2px;
+    margin-right: 1rem;
+}
+.legend span:nth-child(1) > span {
+    background: #ccedec;
+}
+.legend span:nth-child(2) > span {
+    background: #00a7a0;
+}

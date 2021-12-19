@@ -42,9 +42,8 @@
             <label class="my-mt-login" >Deskripsi</label>
             <textarea
               class="textarea disable-input"
-              name="description"
               disabled
-            >{{ $member->deskripsi }}
+            >{{ $member->description }}
             </textarea>
           </div>
         </div>

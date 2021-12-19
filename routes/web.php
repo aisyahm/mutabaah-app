@@ -1,12 +1,16 @@
 <?php
 
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JoinController;
+use App\Http\Controllers\ChartController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\RegisterController;
+
 
 // REGISTER ACCOUNT
 Route::get('/register', [RegisterController::class, 'index'])->name('register')->middleware('guest');
@@ -35,11 +39,12 @@ Route::get('/accept/{group}/{user}', [GroupController::class, 'accept'])->middle
 Route::get('/reject/{group}/{user}', [GroupController::class, 'reject'])->middleware('auth');
 
 // USER INFO & UPDATE PROFILE USER
-Route::get('/profile/{user}', [AccountController::class, 'info'])->name("user-info")->middleware('auth');
+Route::get('/groups/profile/{user}', [AccountController::class, 'info'])->name("user-info")->middleware('auth');
 Route::post('/update-profile', [AccountController::class, 'updateProfile'])->name("update");
 
-// OPEN GROUP
+// OPEN GROUP & CHART
 Route::get('/groups/{group:id}', [GroupController::class, 'groups'])->name("group")->middleware('auth');
+Route::get('/groups/chart/{group:id}', [ChartController::class, 'index'])->name('chart')->middleware('auth');
 
 // DELETE & LEAVE GROUP
 Route::post('/delete', [GroupController::class, 'dangerGroup'])->name("delete");

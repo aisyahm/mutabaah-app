@@ -18,7 +18,7 @@ class CreateUserGroupsTable extends Migration
             $table->foreignId("user_id");
             $table->foreignId("group_id");
             
-            $table->boolean("is_accept")->default(false);
+            $table->tinyInteger("is_accept")->default(false);
             
             $table->timestamps();
         });

@@ -146,7 +146,15 @@ header .container {
 }
 .group-container .group.active {
     background: #e6f7f6;
-    border-left: 5px solid #00a7a0;
+    position: relative;
+}
+.group-container .group.active::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background: #00a7a0;
 }
 .group .ava-group {
     width: 42px;
@@ -202,6 +210,9 @@ h3 {
 }
 .logout form button {
     margin-left: 0;
+}
+.logout form button h4 {
+    font-weight: 400;
 }
 .account img {
     width: 35px;

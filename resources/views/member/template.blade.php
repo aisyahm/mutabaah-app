@@ -2,21 +2,22 @@
   use App\Models\UserGroup;
   use Illuminate\Support\Facades\Auth;
 
-  $groups = UserGroup::with("group")->where("user_id", Auth::user()->id)->get();
-  $groupsIn = [];
-  $membersIn = [];
+  $groupsTemplate = UserGroup::with("group")->where("user_id", Auth::user()->id)->get();
+  $groupsOutTemplate = [];
+  $groupsInTemplate = [];
+  $membersInTemplate = [];
+  $groupsAcceptTemplate = [];
+  $groupPendingTemplate = [];
 
-  $groupsAccept = $groups->where("is_accept", true);
-  $groupPending = $groups->where("is_accept", false);
-  $groupsIn = [];
-  $groupsOut = [];
+  $groupsAcceptTemplate = $groupsTemplate->where("is_accept", true);
+  $groupPendingTemplate = $groupsTemplate->where("is_accept", false);
 
-  foreach ($groupsAccept as $group) {
-    $groupsIn[] = $group->group;
-    $membersIn[] = $group->where("group_id", $group->group->id)->where("is_accept", true)->count() - 1;
+  foreach ($groupsAcceptTemplate as $group) {
+    $groupsInTemplate[] = $group->group;
+    $membersInTemplate[] = $group->where("group_id", $group->group->id)->where("is_accept", true)->count() - 1;
   }
-  foreach ($groupPending as $group) {
-    $groupsOut[] = $group->group;
+  foreach ($groupPendingTemplate as $group) {
+    $groupsOutTemplate[] = $group->group;
   }
 @endphp
 
@@ -43,31 +44,31 @@
             <i class="new-group-btn fas fa-plus"></i>
           </div>
 
-            @if ($groupsIn)
-              @for ($i = 0; $i < count($groupsIn); $i++)
-                <a href="/groups/{{ $groupsIn[$i]->id }}">
-                  <div class="group {{ last(request()->segments()) == $groupsIn[$i]->id ? "active" : ""}}">
+            @if ($groupsInTemplate)
+              @for ($i = 0; $i < count($groupsInTemplate); $i++)
+                <a href="/groups/{{ $groupsInTemplate[$i]->id }}">
+                  <div class="group {{ last(request()->segments()) == $groupsInTemplate[$i]->id ? "active" : ""}}">
                     <div class="ava-group">
-                      <img src="/assets/ava/{{ $groupsIn[$i]->avatar }}.svg" alt="">
+                      <img src="/assets/ava/{{ $groupsInTemplate[$i]->avatar }}.svg" alt="">
                     </div>
                     <div class="content-group">
-                      <h4>{{ $groupsIn[$i]->name }}</h4>
-                      <h4>{{ $membersIn[$i] }} anggota</h4>
+                      <h4>{{ $groupsInTemplate[$i]->name }}</h4>
+                      <h4>{{ $membersInTemplate[$i] }} anggota</h4>
                     </div>
                   </div> 
                 </a>
               @endfor
             @endif
             
-            @if ($groupsOut)
+            @if ($groupsOutTemplate)
               <h3>Menunggu konfirmasi</h3>
-              @for ($i = 0; $i < count($groupsOut); $i++)
+              @for ($i = 0; $i < count($groupsOutTemplate); $i++)
                   <div class="group group-pending">
                     <div class="ava-group">
-                      <img src="/assets/ava/{{ $groupsOut[$i]->avatar }}.svg" alt="">
+                      <img src="/assets/ava/{{ $groupsOutTemplate[$i]->avatar }}.svg" alt="">
                     </div>
                     <div class="content-group">
-                      <h4>{{ $groupsOut[$i]->name }}</h4>
+                      <h4>{{ $groupsOutTemplate[$i]->name }}</h4>
                     </div>
                   </div> 
               @endfor
@@ -183,13 +184,13 @@
           <label for="desc">Deskripsi<span>*</span></label>
           <textarea
             id="desc"
-            name="deskripsi"
+            name="description"
             cols="30"
             rows="10"
             autocomplete="off"
             placeholder="Masukkan deskripsi"
             required
-          >{{ Auth::user()->deskripsi }}</textarea>
+          >{{ Auth::user()->description }}</textarea>
           <label for="name">Email<span>*</span></label>
           <input
             type="email"

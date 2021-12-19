@@ -19,7 +19,7 @@ class AccountController extends Controller
     $user->update([
       "name" => $request->name,
       "avatar" => $request->avatar,
-      "deskripsi" => $request->deskripsi,
+      "description" => $request->description,
       "no_telp" => $request->number
     ]);
 
