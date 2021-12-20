@@ -2,46 +2,75 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Group;
 use App\Models\GroupActivity;
-use Illuminate\Support\Facades\Auth;
 
 class ChartController extends Controller
 {
-  public function index(Group $group) {
+  public function self($userId, $groupId) {
+    $user = User::find($userId);
+    $group = Group::find($groupId);
+    
     // AMBIL GRUP AKTIVITAS BERDASARKAN GRUP YANG DIPILIH
-    $group_activity = GroupActivity::where("group_id", $group->id)->get();
-    $Groupactivities = [];
+    $group_activity = GroupActivity::with("submission")->where("group_id", $group->id)->get();
+    $Group_activities = [];
     $activities = [];
-    $submissions = [];
+    $taskCurent = [];
+    $taskPass = [];
+    $totalCurent = [];
+    $totalPass = [];
     $values = 0;
-    $average = [];
 
+    // AUTO GENERATE DATE  ||  MISAL DATE NOW = "24-12-2021"
+    $dateNow = "24-12-2021";
+    $dateStrCurent = date('d-m-Y', strtotime($dateNow . "-6 days"));    // out: "18-12-2021" || Date now - 6 day
+    $dateEndCurent = date('d-m-Y', strtotime($dateNow . "+1 days"));    // out: "25-12-2021" || Date now + 1 day
+    $dateStrPass = date('d-m-Y', strtotime($dateNow . "-14 days"));     // out: "10-12-2021" || Date now - 14 day
+    $dateEndPass = date('d-m-Y', strtotime($dateNow . "-6 days"));      // out: "18-12-2021" || Date now - 6 day
+    
+    // AMBIL VALUE BERDASARKAN USER ID YANG SEDANG LOGIN SAJA, DATE SAAT INI, DAN DATE 7 HARI SEBELUMNYA
     foreach ($group_activity as $activity) {
-      $Groupactivities[] = $activity->activity->name;
-      $submissions[] = $activity->submission;
+      $Group_activities[] = $activity->activity->name;
+      if (count($activity->submission->where("user_id", $user->id)->where("date", ">", $dateStrCurent)
+          ->where("date", "<", $dateEndCurent))) {
+        $taskCurent[] = $activity->submission->where("user_id", $user->id)->where("date", ">", $dateStrCurent)
+        ->where("date", "<", $dateEndCurent);
+      }
+      if (count($activity->submission->where("user_id", $user->id)->where("date", ">", $dateStrPass)
+          ->where("date", "<", $dateEndPass))) {
+        $taskPass[] = $activity->submission->where("user_id", $user->id)->where("date", ">", $dateStrPass)
+        ->where("date", "<", $dateEndPass);
+      }
     }
 
-    // AMBIL VALUE BERDASARKAN USER ID YANG SEDANG LOGIN SAJA
-    foreach ($submissions as $submission) {
-      for ($i=0; $i < count($submission); $i++) { 
-        if ($submission[$i]->user_id == Auth::user()->id) {
-          $values += $submission[$i]->is_done;
-        }
+    // JUMLAHKAN VALUE IS DONE TIAP ACTIVITY
+    foreach ($taskCurent as $submission) {
+      foreach ($submission as $task) {
+        $values += $task->is_done;
       }
-      $average[] = $values;
+      $totalCurent[] = $values;
+      $values = 0;
+    }
+    foreach ($taskPass as $submission) {
+      foreach ($submission as $task) {
+        $values += $task->is_done;
+      }
+      $totalPass[] = $values;
       $values = 0;
     }
 
     // UBAH NAMA AKTIVITAS MENJADI ARRAY VALUE UNTUK ESTETIKA CHART
-    foreach ($Groupactivities as $activity) {
+    foreach ($Group_activities as $activity) {
       $activities[] = explode(" ", $activity);
     }
 
-    return view("member.analysis", [
-      "activities" => $activities,
+    return view("user.analysis-member", [
       "group" => $group,
-      "average" => $average
+      "user" => $user,
+      "activities" => $activities,
+      "totalCurent" => $totalCurent,
+      "totalPass" => $totalPass,
     ]);
   }
 }

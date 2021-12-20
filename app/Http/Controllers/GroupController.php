@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Group;
-use App\Models\GroupActivity;
 use App\Models\UserGroup;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -109,11 +108,16 @@ class GroupController extends Controller
         
         $userGroup->delete();
         $group->delete();
-      } else {
-        $user = Auth::user()->id;
-        $userGroup = UserGroup::where("user_id", $user)->where("group_id", $request->group_id)->get()->first();
-  
+      } 
+      else if ($request->leave) {
+        $userGroup = UserGroup::where("user_id", Auth::user()->id)->where("group_id", $request->group_id)->get()->first();
+        
         $userGroup->delete();
+      }
+      else if ($request->kick) {
+        $user = UserGroup::where("user_id", $request->user_id)->where("group_id", $request->group_id)->first();
+  
+        $user->delete();
       }
       
       return redirect(route("home"));

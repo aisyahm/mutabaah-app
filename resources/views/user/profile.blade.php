@@ -8,7 +8,7 @@
 @section('content')
   <div class="content-list">
     <div>
-      <a href="{{ url()->previous() }}">
+      <a href="/groups/{{ last(request()->segments()) }}">
         <i class="fas fa-arrow-left"></i>
         <h3>Kembali</h3>
       </a>
@@ -48,6 +48,17 @@
           </div>
         </div>
       </div>
+
+      @if (Auth::user()->is_mentor)
+        <div class="danger-container">
+          <form action="{{ route("delete") }}" method="post">
+            @csrf
+            <input type="hidden" name="group_id" value="{{ $group->id }}">
+            <input type="hidden" name="user_id" value="{{ $member->id }}">
+            <button type="submit" id="danger-btn" name="kick" value="1" onclick="return confirm('Yakin ingin mengeluarkan member ini dari grup?')">Keluarkan member ini</button>
+          </form>
+        </div>
+      @endif
     </div>
   </div>
 @endsection

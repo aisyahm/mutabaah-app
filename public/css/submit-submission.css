@@ -1,5 +1,6 @@
-.content-list {
+.main-container .content-list {
     width: 100%;
+    padding: 1rem;
 }
 .content-list form {
     margin-top: 2rem;

@@ -37,12 +37,14 @@ Route::get('/accept/{group}/{user}', [GroupController::class, 'accept'])->middle
 Route::get('/reject/{group}/{user}', [GroupController::class, 'reject'])->middleware('auth');
 
 // USER INFO & UPDATE PROFILE USER
-Route::get('/groups/profile/{user}', [AccountController::class, 'info'])->name("user-info")->middleware('auth');
+Route::get('/groups/profile/{user}/{group}', [AccountController::class, 'info'])->name("user-info")->middleware('auth');
 Route::post('/update-profile', [AccountController::class, 'updateProfile'])->name("update");
 
-// OPEN GROUP & CHART
+// OPEN GROUP 
 Route::get('/groups/{group:id}', [GroupController::class, 'groups'])->name("group")->middleware('auth');
-Route::get('/groups/chart/{group:id}', [ChartController::class, 'index'])->name('chart')->middleware('auth');
+
+// CHART
+Route::get('/groups/chart/{userId}/{groupId}', [ChartController::class, 'self'])->name('chart')->middleware('auth');
 
 // DELETE & LEAVE GROUP
 Route::post('/delete', [GroupController::class, 'dangerGroup'])->name("delete");

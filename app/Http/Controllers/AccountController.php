@@ -3,14 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Group;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AccountController extends Controller
 {
-  public function info($user) {
+  public function info($user, $group) {
     $member = User::find($user);
-    return view("user.profile")->with("member", $member);
+    $group = Group::find($group);
+    return view("user.profile", [
+      "member" => $member,
+      "group" => $group
+    ]);
   }
 
   public function updateProfile(Request $request) {

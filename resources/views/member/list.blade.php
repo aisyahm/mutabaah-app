@@ -1,5 +1,6 @@
 @php
   use App\Models\GroupActivity; 
+  use Illuminate\Support\Facades\Auth;
 @endphp
 
 @extends('member.template')
@@ -29,7 +30,7 @@
                 </div>
               </div>
               
-              <a href="profile/{{ $member->id }}"><button
+              <a href="profile/{{ $member->id }}/{{ $group->id }}"><button
                 class="lihat-profile btn btn-outline-success my-color"
                 style="border-color: #01a6a0"
               >Lihat Profil</button></a>
@@ -51,7 +52,7 @@
   </div>
 
   <div class="content-list">
-    <a href="chart/{{ $group->id }}">Analisis Amalan</a>
+    <a href="chart/{{ Auth::user()->id }}/{{ $group->id }}">Analisis Amalan</a>
   </div>
 
   <div class="content-list">

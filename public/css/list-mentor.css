@@ -1,4 +1,8 @@
 /* HEAD CONTENT STYLE ============================= */
+.main-container .content-list {
+    width: 100%;
+    padding: 1rem;
+}
 .head-content {
     display: flex;
     justify-content: space-between;
@@ -32,6 +36,10 @@
     border-radius: 0.5rem;
     font-size: 0.8rem;
     /* margin-top: 1rem; */
+}
+.action {
+    display: flex;
+    gap: 0.7rem;
 }
 
 /* CARD PROFILE KONFIRMASI ANGGOTA STYLE ===================== */

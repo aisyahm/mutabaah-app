@@ -65,7 +65,7 @@
                     </div>
                   </div>
                   
-                  <a href="/activity/{{ $member->id }}">
+                  <a href="/groups/chart/{{ $member->id }}/{{ $group->id }}">
                     <button class="lihat-profile btn btn-outline-success my-color">Lihat Amalan</button>
                   </a>
                   
@@ -77,14 +77,18 @@
         </div>
       </div>
     @else
-      <h3>Belum ada anggota di grub ini.</h3>
+      <div class="content-list">
+        <h3>Belum ada anggota di grub ini.</h3>
+      </div>
     @endif
 
-    @if (count(GroupActivity::where("group_id", $group->id)->get()))
-      <a href="./activities/{{ $group->id }}">Lihat Target Aktivitas</a>
-    @else
-      <a href="./add-activities/{{ $group->id }}">Tambah Aktivitas</a>
-    @endif
+    <div class="content-list">
+      @if (count(GroupActivity::where("group_id", $group->id)->get()))
+        <a href="./activities/{{ $group->id }}">Lihat Target Aktivitas</a>
+      @else
+        <a href="./add-activities/{{ $group->id }}">Tambah Aktivitas</a>
+      @endif
+    </div>
 
     <div class="content-list">
       <div class="danger-container">

@@ -1,6 +1,7 @@
 /* HEAD CONTENT STYLE */
-.content-list {
+.main-container .content-list {
     width: 100%;
+    padding: 1rem;
 }
 .head-content {
     padding: 0;
