@@ -91,6 +91,12 @@
     </div>
 
     <div class="content-list">
+      @if (count(GroupActivity::where("group_id", $group->id)->get()))
+        <a href="/groups/chart/{{ $group->id }}">Lihat Statistik Amalan Harian</a>
+      @endif
+    </div>
+
+    <div class="content-list">
       <div class="danger-container">
         <form action="{{ route("delete") }}" method="post">
           @csrf

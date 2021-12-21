@@ -50,6 +50,7 @@
     background: #fff;
     color: black;
     padding-top: calc(100px + 1rem);
+    margin-bottom: 1rem;
     gap: 0;
 }
 .profile-container .profile {
@@ -66,7 +67,6 @@
     font-weight: bold;
 }
 .excel-content {
-    margin-top: 1rem;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -162,4 +162,13 @@ span > span {
 }
 .legend span:nth-child(2) > span {
     background: #00a7a0;
+}
+.first {
+    color: green;
+}
+.second {
+    color: rgb(0, 108, 248);
+}
+.third {
+    color: rgb(243, 138, 0);
 }

@@ -102,8 +102,7 @@ class ActivityController extends Controller
     }
 
     // GET WAKTU HARI INI
-    $date = Carbon::now()->locale('id')->isoFormat('LLLL');
-    $date = explode('pukul',$date)[0];
+    $date = Carbon::now()->isoFormat('dddd, D MMMM Y');
 
     if (!Auth::user()->is_mentor) {
       return view("member.submit-submission", [

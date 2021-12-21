@@ -1,38 +1,16 @@
-@extends(Auth::user()->is_mentor ? "mentor.template" : "member.template")
+@php
+  $i = 1;
+@endphp
+@extends("mentor.template")
 
 @section('meta')
   <link rel="stylesheet" href="/css/analysis.css" />
 @endsection
 
 @section('content')
-  @if (Auth::user()->is_mentor)
-    <div class="back">
-      <a href="/groups/{{ $group->id }}">
-        <i class="fas fa-arrow-left"></i>
-        <h3>Kembali Ke Grup</h3>
-      </a>
-    </div>
-    <div class="profile-container">
-      <div class="profile">
-        <div class="profile-img">
-          <img src="/assets/ava/{{ $user->avatar }}.svg">
-        </div>
-        <div class="profile-detail">
-          <h3>{{ $user->name }}</h3>
-          <h4>{{ $user->no_telp }}</h4>
-        </div>
-      </div>
-      <a href="/groups/profile/{{ $user->id }}/{{ $group->id }}">Lihat Detail Akun</a>
-    </div>
-  @endif
-
-  <div class="excel-content">
-    <h2>Statistik Amalan Pribadi</h2>
-    <a href="/download-laporan">Download Laporan</a>
-  </div>
   <div class="chart-container">
     <div class="chart-title">
-      <h3>Amalan Sepekan</h3>
+      <h3>Rata-Rata Amalan Sepekan</h3>
       <h4>{{ $dates[0] . ' - ' . $dates[1] }} vs  <span>{{ $dates[2] . ' - ' . $dates[3] }}</span></h4>
     </div>
     <div class="inner">
@@ -44,13 +22,33 @@
       <span><span></span>Pekan lalu</span>
       <span><span></span>Pekan Ini</span>
     </div>
+    <ul>
+      @foreach ($rangking as $name => $rank)
+          
+          @switch ($rank)
+            @case ($topRated[0])
+              <li class="first">Rank {{ $i }}. {{ $name }} => {{ round(($rank / ($totalActivity * 7)) * 100) }}%</li>
+              @break
+            @case ($topRated[1])
+              <li class="second">Rank {{ $i }}. {{ $name }} => {{ round(($rank / ($totalActivity * 7)) * 100) }}%</li>
+              @break
+            @case ($topRated[2])
+              <li class="third">Rank {{ $i }}. {{ $name }} => {{ round(($rank / ($totalActivity * 7)) * 100) }}%</li>
+              @break
+            @default
+              <li>Rank {{ $i }}. {{ $name }} => {{ round(($rank / ($totalActivity * 7)) * 100) }}%</li>
+          @endswitch
+          
+          @php $i++; @endphp
+      @endforeach
+    </ul>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
     const labels = {!! json_encode($activities) !!};
-    const weekNow = {!! json_encode($totalCurent) !!};
-    const weekBefore = {!! json_encode($totalPass) !!};
+    const weekNow = {!! json_encode($averageCurent) !!};
+    const weekBefore = {!! json_encode($averagePass) !!};
     document.querySelector(".chart").style.setProperty("--activity", labels.length);
 
     const data = {
