@@ -6,6 +6,7 @@ use App\Http\Controllers\ChartController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\RegisterController;
 
@@ -54,3 +55,6 @@ Route::get('/groups/add-activities/{group:id}', [ActivityController::class, 'add
 Route::get('/groups/edit-activities/{group:id}', [ActivityController::class, 'edit'])->name('add-activities')->middleware('auth');
 Route::post('/groups/add-activities', [ActivityController::class, 'storeAdd']);
 Route::get('/groups/activities/{group:id}', [ActivityController::class, 'activities'])->name('group-activities')->middleware('auth');
+
+// Laporan Mentor Export Excel 
+Route::get('/home/mentoranalisis', [LaporanController::class, 'index']);
