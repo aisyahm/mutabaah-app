@@ -57,4 +57,4 @@ Route::post('/groups/add-activities', [ActivityController::class, 'storeAdd']);
 Route::get('/groups/activities/{group:id}', [ActivityController::class, 'activities'])->name('group-activities')->middleware('auth');
 
 // Laporan Mentor Export Excel 
-Route::get('/home/mentoranalisis', [LaporanController::class, 'index']);
+Route::get('/home/mentoranalisis', [LaporanController::class, 'laporan']);

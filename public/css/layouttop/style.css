@@ -66,13 +66,13 @@ header nav ul li a .logos {
 main {
     padding: 0 !important;
 }
-.main-container > .content {
-    overflow: scroll;
+.contenttop {
     background: #fff;
-    width: 100%;
+    width: 80%;
+    margin-left: 20%; /*menyesuaikan mentor.template */
     height: 100%;
 }
-.content > section {
+.contenttop > section {
     width: 100%;
     margin: auto;
     height: 100%;
@@ -89,10 +89,10 @@ main {
     display: flex;
     justify-content: space-between;
 }
-.content section img {
+.contenttop section img {
     position: relative;
-    top: 0;
-    left: 0;
+    top: 0.2rem;
+    left: 1rem;
     border-radius: 50%;
     width: 48px;
     height: 48px;
@@ -103,6 +103,7 @@ main {
     margin-left: -26rem;
 }
 .info1 .text1 h6 {
+    cursor: default;
     font-weight: 500;
     font-size: 14px;
     line-height: 20px;
@@ -115,6 +116,7 @@ main {
     margin: 4px 0px;
 }
 .info1 .text1 .input-code {
+    margin-top: 0.2rem;
     display: flex;
 }
 .info1 .text1 .input-code button {
@@ -136,7 +138,7 @@ main {
     left: 0;
     background: none;
     border: none;
-    padding: 0 2rem;
+    padding: 0 1rem;
     width: 80%;
     height: 33px;
     border-radius: 20px 0 0 20px;
@@ -152,8 +154,55 @@ main {
     height: 33px;
     font-weight: 500;
     font-size: 12px;
-    line-height: 28px;
+    line-height: 29px;
     color: #00a7a0;
+}
+.info1 .icon {
+    position: relative;
+    cursor: pointer;
+    position: relative;
+    top: 16.67%;
+    color: #9ba8a4;
+}
+.info1 .icon .box-ubah {
+    display: none;
+    position: absolute;
+    width: 129.57px;
+    height: 109px;
+    z-index: 99;
+    top: 20%;
+    left: -125px;
+    background: #ffffff;
+    border: 1px solid #c8cbd9;
+    border-radius: 8px;
+}
+.info1 .icon .box-ubah.active {
+    display: block;
+}
+.box-ubah .box-edit,
+.box-ubah .box-hapus {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 50%;
+}
+.box-ubah .box-edit {
+    border-bottom: 1px solid #c4c4c4;
+}
+.box-ubah .box-edit:hover,
+.box-ubah .box-hapus:hover {
+    background: linear-gradient(
+        rgba(196, 196, 196, 0.5),
+        rgba(196, 196, 196, 0.5)
+    );
+}
+.box-ubah h1 {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    color: #000;
 }
 /* info2 */
 .info2 {
@@ -167,6 +216,7 @@ main {
 .info2 .text1,
 .info2 .text2,
 .info2 .text3 {
+    cursor: pointer;
     position: relative;
     display: flex;
     justify-content: center;
@@ -186,14 +236,15 @@ main {
 /* info3 */
 .info3 {
     background: #e5e5e5;
-    padding: 2rem 2rem;
+    padding: 2rem 0rem;
     width: 100%;
-    height: 15%;
+    height: 116%;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
 }
 .info3 h1 {
+    padding: 0 2rem;
     font-size: 20px;
     line-height: 30px;
     color: #38524a;
@@ -207,6 +258,7 @@ main {
     margin-left: 3rem;
 }
 .info3 a {
+    padding: 0 2rem;
     text-decoration: none;
 }
 .info3 a button {
@@ -223,18 +275,18 @@ main {
     background: #e6f7f6;
 }
 /* info4 */
-.info4 {
+/* .info4 {
     background: #e5e5e5;
     position: relative;
     padding: 1rem 2rem;
     width: 100%;
-    height: 140%; /*sementara */
+    height: 116%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-}
-.info4 .bar-chart1 {
+} */
+/* .info4 .bar-chart1 {
     flex: 0 0 60%;
     width: 668px;
     height: 316px;
@@ -256,4 +308,4 @@ main {
     height: 316px;
     border-radius: 16px;
     background: #fff;
-}
+} */

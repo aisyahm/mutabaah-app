@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class LaporanController extends Controller
 {
-    public function index()
+    public function laporan()
     {
         // $submission = Submission::all();
         // dd($submission);

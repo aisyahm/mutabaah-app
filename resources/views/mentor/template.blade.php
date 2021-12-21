@@ -233,6 +233,8 @@
 
       <div class="main-container">
         @yield('content')
+        
+
       </div>
     </main>
     <script
