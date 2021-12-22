@@ -8,22 +8,6 @@
 @endsection
 
 @section('content')
-  <div class="chart-container">
-    <div class="chart-title">
-      <h3>Rata-Rata Amalan Sepekan</h3>
-      <h4>{{ $dates[0] . ' - ' . $dates[1] }} vs  <span>{{ $dates[2] . ' - ' . $dates[3] }}</span></h4>
-    </div>
-    <div class="inner">
-      <div class="chart">
-        <canvas id="myChart"></canvas>
-      </div>
-    </div>
-    <div class="legend">
-      <span><span></span>Pekan lalu</span>
-      <span><span></span>Pekan Ini</span>
-    </div>
-  </div>
-
   <div class="rank-container">
     <div class="ranking"> 
       <h3>Ranking Anggota per Pekan Ini</h3>
@@ -65,6 +49,22 @@
           
           @php $i++; @endphp
       @endforeach
+    </div>
+  </div>
+
+  <div class="chart-container">
+    <div class="chart-title">
+      <h3>Rata-Rata Amalan Sepekan</h3>
+      <h4>{{ $dates[0] . ' - ' . $dates[1] }} vs  <span>{{ $dates[2] . ' - ' . $dates[3] }}</span></h4>
+    </div>
+    <div class="inner">
+      <div class="chart">
+        <canvas id="myChart"></canvas>
+      </div>
+    </div>
+    <div class="legend">
+      <span><span></span>Pekan lalu</span>
+      <span><span></span>Pekan Ini</span>
     </div>
   </div>
 
