@@ -87,39 +87,47 @@ main {
     width: 100%;
     height: 20%;
     display: flex;
+    align-items: stretch;
     justify-content: space-between;
 }
 .contenttop section img {
     position: relative;
-    top: 0.2rem;
+    top: 0.1rem;
     left: 1rem;
     border-radius: 50%;
     width: 48px;
+    margin-right: 1.5rem;
     height: 48px;
 }
 .info1 .text1 {
     display: flex;
-    flex-direction: column;
-    margin-left: -26rem;
+    flex-direction: row;
 }
-.info1 .text1 h6 {
+.info1 .text1 .group {
+    position: relative;
+    flex-direction: column;
+}
+.info1 .text1 .group h6 {
+    margin-left: 0.5rem;
     cursor: default;
     font-weight: 500;
     font-size: 14px;
     line-height: 20px;
 }
-.info1 .text1 p {
+.info1 .text1 .group p {
     font-style: normal;
     font-weight: normal;
     font-size: 14px;
     line-height: 20px;
-    margin: 4px 0px;
+    margin: 4px 0 4px 0.5rem;
 }
-.info1 .text1 .input-code {
-    margin-top: 0.2rem;
+.info1 .text1 .group .input-code {
+    position: relative;
+    margin-top: 0.4rem;
     display: flex;
 }
-.info1 .text1 .input-code button {
+.info1 .text1 .group .input-code button {
+    overflow: hidden;
     position: relative;
     background: #f8f8f8;
     outline: none;
@@ -128,25 +136,24 @@ main {
     /* padding: 0.3rem; */
     width: 326px;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start;
+    align-items: flex-start;
     height: 33px;
 }
-.input-code button input[type="text"] {
-    position: absolute;
+.input-code button p {
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
     top: 0;
     left: 0;
-    background: none;
-    border: none;
     padding: 0 1rem;
     width: 80%;
-    height: 33px;
-    border-radius: 20px 0 0 20px;
-    font-size: 12px;
+    height: 100%;
+    font-size: 12px !important;
     line-height: 18px;
     color: #9ba8a4;
 }
-.input-code button span {
+.input-code button span.text-salin {
     position: absolute;
     top: 0;
     right: 0;

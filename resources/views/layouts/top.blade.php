@@ -11,15 +11,17 @@
   <div class="contenttop">
     <section>
       <div class="info1 info-all">
-        <img src="../assets/img/group.jpg" alt="">
         <div class="text1">
-          <h6>Nama Grup</h6>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi, accusantium.</p>
-          <div class="input-code">
-            <button>
-            <input type="text" name="" id="" placeholder="Kode Grup: 782H234xxx">
-              <span>Salin</span>
-            </button>
+          <img src="../assets/img/group.jpg" alt="">
+          <div class="group">
+            <h6>APAI ILKOMP-A</h6>
+            <p>Grup menuju surga para peserta hijrah jurusan Pertukangan kampus Teknologi Mars</p>
+            <div class="input-code">
+              <button>
+                <p>Kode Grup: <span id="p1" class="text-kode" >782Hxxxx</span></p>
+                <span class="text-salin" onclick="copy('#p1')">Salin</span>
+              </button>
+            </div>
           </div>
         </div>
         <div class="icon">
@@ -46,6 +48,7 @@
       </div>
     </section>
   </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script>
       const icon= document.querySelector('.fa-ellipsis-v');
       const body = document.querySelector('.info2');
@@ -62,4 +65,13 @@
       body2.addEventListener('click', () => {
         container.classList.remove("active");
       });
+
+      function copy(element) {
+        var $temp = $("<input>");
+        $("body").append($temp);
+        $temp.val($(element).text()).select();
+        document.execCommand("copy");
+        $temp.remove();
+      }
+
   </script>
