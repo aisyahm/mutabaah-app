@@ -22,26 +22,50 @@
       <span><span></span>Pekan lalu</span>
       <span><span></span>Pekan Ini</span>
     </div>
-    <ul>
+  </div>
+
+  <div class="rank-container">
+    <div class="ranking"> 
+      <h3>Ranking Anggota per Pekan Ini</h3>
+    </div>
+    <div class="grid-rank">
       @foreach ($rangking as $name => $rank)
           
           @switch ($rank)
             @case ($topRated[0])
-              <li class="first">Rank {{ $i }}. {{ $name }} => {{ round(($rank / ($totalActivity * 7)) * 100) }}%</li>
+              <div class="div-medal">
+                <img src="/medal1.png" alt="" class="medal">
+                <p>{{ $name }}<span> {{ round(($rank / ($totalActivity * 7)) * 100) }} %</span> </p>
+                <hr>
+              </div>
               @break
             @case ($topRated[1])
-              <li class="second">Rank {{ $i }}. {{ $name }} => {{ round(($rank / ($totalActivity * 7)) * 100) }}%</li>
+              <div class="div-medal">
+                <img src="/medal2.png" alt="" class="medal">
+                {{ $name }} <span> {{ round(($rank / ($totalActivity * 7)) * 100) }}% </span> 
+                <hr>
+              </div>
+              
               @break
             @case ($topRated[2])
-              <li class="third">Rank {{ $i }}. {{ $name }} => {{ round(($rank / ($totalActivity * 7)) * 100) }}%</li>
+              <div class="div-medal">
+                <img src="/medal3.png" alt="" class="medal">
+                {{ $name }} <span> {{ round(($rank / ($totalActivity * 7)) * 100) }}% </span> 
+                <hr>
+              </div>
+              
               @break
             @default
-              <li>Rank {{ $i }}. {{ $name }} => {{ round(($rank / ($totalActivity * 7)) * 100) }}%</li>
+              <div>
+                {{ $name }} . {{ round(($rank / ($totalActivity * 7)) * 100) }}% 
+                <hr>
+              </div>
+              <hr>
           @endswitch
           
           @php $i++; @endphp
       @endforeach
-    </ul>
+    </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
