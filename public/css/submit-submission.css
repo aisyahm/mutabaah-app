@@ -1,6 +1,7 @@
 .main-container .content-list {
     width: 100%;
     padding: 1rem;
+    padding-bottom: 100px;
 }
 .content-list form {
     margin-top: 2rem;
@@ -23,6 +24,30 @@
 }
 .head-content .berhalangan label {
     margin-right: 0.5rem;
+}
+.info {
+    height: 0;
+    display: flex;
+    width: max-content;
+    gap: 0.7rem;
+    align-items: center;
+    border-radius: 12px;
+    background: #fff9ee;
+    border: 1px solid #ffbb54;
+    opacity: 0;
+}
+.info.haid {
+    height: max-content;
+    margin-top: 1rem;
+    padding: 1rem 1.5rem;
+    opacity: 1;
+    transition: opacity 0.3s;
+}
+.info h4 {
+    text-align: left;
+    width: max-content;
+    color: #ffbb54;
+    font-weight: bold;
 }
 
 /* CONTEN STYLE */

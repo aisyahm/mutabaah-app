@@ -6,6 +6,7 @@ use App\Models\Group;
 use App\Models\Activity;
 use Illuminate\Http\Request;
 use App\Models\GroupActivity;
+use App\Models\Submission;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
@@ -92,13 +93,29 @@ class ActivityController extends Controller
   public function activities(Group $group){
     $group_activities = GroupActivity::with("activity")->where("group_id", $group->id)->get();
 
+    $doneBefore = [];
+    $submissions = [];
     // GET AKTIVITAS DALAM GRUP TERSEBUT
     $activities = [];
     foreach ($group_activities as $activity){
       if(!isset($activities[$activity->activity->category])) {
         $activities[$activity->activity->category] = array();
       }
-      $activities[$activity->activity->category][] = $activity->activity->name;
+      $activities[$activity->activity->category][] = [$activity->activity, $activity->id];
+
+      $submissions[] = $activity->submission->where("user_id", Auth::user()->id)
+                          ->where("date", ">=", date('d-m-Y'))
+                          ->where("date", "<=", date('d M Y', strtotime(date('d-m-Y') . "+1 days")))->first();
+    }
+
+    foreach ($submissions as $submission) {
+      if ($submission->user_id == Auth::user()->id
+          && $submission->date >= date('d-m-Y')
+          && $submission->date <= date('d-m-Y', strtotime(date('d-m-Y') . "+1 days"))
+          && $submission->is_done == true) {
+          
+          $doneBefore[] = $submission->group_activity_id;
+      }
     }
 
     // GET WAKTU HARI INI
@@ -108,6 +125,7 @@ class ActivityController extends Controller
       return view("member.submit-submission", [
         "activities" => $activities,
         "group" => $group,
+        "doneBefore" => $doneBefore,
         "date" => $date
       ]);
     }
@@ -116,5 +134,92 @@ class ActivityController extends Controller
       "activities" => $activities,
       "group" => $group,
     ]);
+  }
+
+  public function newSubmission(Request $request){
+    $group_id = $request->input('group_id');
+    $activities_before = GroupActivity::where("group_id", $group_id)->get();
+    $activities_check = $request->input('group_activity');
+    $haid = $request->input('haid');
+
+    foreach ($activities_before as $activity) {
+      // JIKA TIDAK ADA SUBMISSION DI HARI TERSEBUT || PERTAMA KALI MENGISI
+      if (!count($activity->submission->where("user_id", Auth::user()->id)
+        ->where("group_activity_id", $activity->id)
+        ->where("date", ">=", date('d-m-Y'))
+        ->where("date", "<=", date('d M Y', strtotime(date('d-m-Y') . "+1 days"))))) {
+
+        Submission::create([
+          "user_id" => Auth::user()->id,
+          "group_activity_id" => $activity->id,
+          "date" => date('d-m-Y')
+        ]);
+
+        dd("kalo ini tampil berarti salah");
+      } 
+    }
+
+    session([
+      "group_id" => $group_id,
+      "activities_check" => $activities_check,
+      "haid" => $haid
+    ]);
+
+    return redirect(route("update-submission"));
+  }
+
+  public function updateSubmission() {
+    $group_id = session("group_id");
+    $activities_before = GroupActivity::where("group_id", $group_id)->get();
+    $activities_check = session("activities_check");
+    $haid = session("haid");
+    
+    foreach ($activities_before as $activity) {
+      // JIKA SEBELUMNYA ADA SUBMISSION DI HARI TERSEBUT || SUDAH PERNAH MENGISI
+      if (($activity->submission->where("user_id", Auth::user()->id)
+          ->where("group_activity_id", $activity->id)
+          ->where("date", ">=", date('d-m-Y'))
+          ->where("date", "<=", date('d M Y', strtotime(date('d-m-Y') . "+1 days"))))) {
+
+        // UPDATE MENJADI IS_DONE == FALSE SEMUANYA TERLEBIH DAHULU || RESET DATA IS_DONE
+        if ($haid) {
+          $activity->submission->where("user_id", Auth::user()->id)
+          ->where("group_activity_id", $activity->id)
+          ->where("date", ">=", date('d-m-Y'))
+          ->where("date", "<=", date('d M Y', strtotime(date('d-m-Y') . "+1 days")))->first()
+          ->update([
+            "is_done" => false,
+            "is_haid" => true
+          ]);
+        } else {
+          $activity->submission
+            ->where("user_id", Auth::user()->id)
+            ->where("group_activity_id", $activity->id)
+            ->where("date", ">=", date('d-m-Y'))
+            ->where("date", "<=", date('d M Y', strtotime(date('d-m-Y') . "+1 days")))->first()
+            ->update([
+              "is_done" => false,
+              "is_haid" => false
+            ]);
+        }
+
+        // // UPDATE MENJADI IS_DONE == TRUE UNTUK AKTIVITAS YANG DICEKLIS
+        if (!is_null($activities_check)) {
+          if (in_array($activity->activity_id, $activities_check)) {
+            $activity->submission
+              ->where("user_id", Auth::user()->id)
+              ->where("group_activity_id", $activity->id)
+              ->where("date", ">=", date('d-m-Y'))
+              ->where("date", "<=", date('d M Y', strtotime(date('d-m-Y') . "+1 days")))->first()
+              ->update([
+                "is_done" => true
+              ]);
+          }
+        }
+      }
+    }
+
+    return redirect(route("group-activities", $group_id));
+    // return back();
   }
 }

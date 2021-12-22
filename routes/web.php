@@ -55,3 +55,5 @@ Route::get('/groups/add-activities/{group:id}', [ActivityController::class, 'add
 Route::get('/groups/edit-activities/{group:id}', [ActivityController::class, 'edit'])->name('add-activities')->middleware('auth');
 Route::post('/groups/add-activities', [ActivityController::class, 'storeAdd']);
 Route::get('/groups/activities/{group:id}', [ActivityController::class, 'activities'])->name('group-activities')->middleware('auth');
+Route::post('/submit-submission', [ActivityController::class, 'newSubmission'])->name('new-submission')->middleware('auth');
+Route::get('/update-submission', [ActivityController::class, 'updateSubmission'])->name('update-submission')->middleware('auth');

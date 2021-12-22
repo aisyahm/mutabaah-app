@@ -19,28 +19,28 @@ class UserSeeder extends Seeder
           "name" => "Shidqi",
           "email" => "shidqi@gmail.com",
           "password" => Hash::make("shi"),
-          "gender" => "Laki-laki",
+          "gender" => "Akhi",
           "is_mentor" => false
         ]);
         User::create([
           "name" => "Rizki",
           "email" => "rizki@gmail.com",
           "password" => Hash::make("riz"),
-          "gender" => "Laki-laki",
+          "gender" => "Akhi",
           "is_mentor" => false
         ]);
         User::create([
           "name" => "Nanda",
           "email" => "nanda@gmail.com",
           "password" => Hash::make("nan"),
-          "gender" => "Laki-laki",
+          "gender" => "Akhi",
           "is_mentor" => false
         ]);
         User::create([
           "name" => "Ell",
           "email" => "ell@gmail.com",
           "password" => Hash::make("ell"),
-          "gender" => "Laki-laki",
+          "gender" => "Akhi",
           "is_mentor" => false
         ]);
 
@@ -49,14 +49,14 @@ class UserSeeder extends Seeder
           "name" => "Wahyu",
           "email" => "wahyu@gmail.com",
           "password" => Hash::make("why"),
-          "gender" => "Laki-laki",
+          "gender" => "Akhi",
           "is_mentor" => true
         ]);
         User::create([
           "name" => "Yumna",
           "email" => "yumna@gmail.com",
           "password" => Hash::make("yum"),
-          "gender" => "Laki-laki",
+          "gender" => "Akhi",
           "is_mentor" => true
         ]);
     }
