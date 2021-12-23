@@ -1,6 +1,7 @@
 /* SCROLL BAR */
 ::-webkit-scrollbar {
     height: 6px;
+    width: 8px;
 }
 ::-webkit-scrollbar-track {
     background: #ebebeb;
@@ -14,9 +15,6 @@
 .main-container .profile-container,
 .main-container .excel-content {
     padding: 1rem;
-}
-.main-container .chart-container {
-    margin: 0 1rem;
 }
 
 .main-container .back {
@@ -62,6 +60,7 @@
 .profile-container .profile .profile-detail h3,
 .profile-container .profile .profile-detail h4 {
     color: black;
+    text-align: left;
 }
 .profile-container .profile .profile-detail h3 {
     font-weight: bold;
@@ -96,11 +95,12 @@
     justify-content: center;
 }
 .chart-container {
-    /* width: max-content; */
     box-sizing: border-box;
     background: #fff;
     padding: 2rem;
     border-radius: 12px;
+    margin: 1rem;
+    margin-bottom: 2rem;
 }
 .chart-title {
     text-align: center;
@@ -119,7 +119,6 @@
     color: #00a7a0;
 }
 .inner {
-    /* width: 900px; */
     height: 200px;
     padding: 0 1rem;
     overflow: auto;
@@ -164,21 +163,12 @@ span > span {
     background: #00a7a0;
 }
 
-/* Styling Ranking */
+/* STYLE RANKING */
 .ranking h3 {
     font-weight: bold;
+    font-size: 0.95rem;
     margin-bottom: 1rem;
 }
-
-.grid-rank {
-    display: grid;
-    grid-template-columns: 1fr;
-}
-
-.grid-rank > div {
-    padding: 8px;
-}
-
 .rank-container {
     box-sizing: border-box;
     background: #fff;
@@ -186,24 +176,31 @@ span > span {
     border-radius: 12px;
     margin: 1rem;
 }
-
-.rank-container span {
-    float: right;
+.grid-rank {
+    --row: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(var(--row), 1fr);
+    grid-auto-flow: column;
+    column-gap: 2rem;
+}
+.grid-rank > div {
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(153, 153, 153, 0.644);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+.grid-rank div p:nth-child(2) {
+    font-size: 0.9rem;
+    width: 100%;
+}
+.grid-rank div p:nth-child(3) {
+    font-size: 1.1rem;
     color: #ffbb54;
     font-weight: bold;
 }
-
-.div-medal img {
-    float: left;
-    display: flex;
-    align-items: center;
-}
-
-.div-medal hr {
-    margin-top: 16px;
-}
-
 .medal {
-    width: 40px;
-    padding-right: 10px;
+    width: 35px;
 }

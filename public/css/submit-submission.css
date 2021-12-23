@@ -3,6 +3,15 @@
     padding: 1rem;
     padding-bottom: 100px;
 }
+.main-container .content-list .warning-container {
+    width: max-content;
+    color: #ffbb54;
+    border-radius: 12px;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
 .content-list form {
     margin-top: 2rem;
 }
@@ -69,7 +78,13 @@
     font-size: 0.8rem;
     margin-top: 1rem;
 }
-
+.container-amal .isi .kolom .amalan label {
+    width: 100%;
+}
+.container-amal .isi .kolom .amalan label,
+.container-amal .isi .kolom .amalan input {
+    cursor: pointer;
+}
 /* POP UP BERHASIL DISIMPAN STYLE ======================== */
 .content-list .pop-up {
     position: fixed;
@@ -100,25 +115,29 @@
 }
 .bot-content {
     display: flex;
-    left: 0;
+    left: 280px;
     right: 0;
     bottom: 0;
     height: 4rem;
     background-color: white;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
-    padding: 1rem 3rem 1rem 1rem;
+    padding: 0 1rem;
     position: fixed;
     border-top: 1px solid rgb(204, 204, 204);
 }
+.bot-content.submission,
+.bot-content.warn {
+    justify-content: flex-end;
+}
 .bot-content .simpan {
     font-size: 0.9rem;
+    font-weight: bold;
+    width: max-content;
     color: white;
-    width: 12rem;
-    height: 40px;
     border-radius: 0.4rem;
     border-style: none;
-    margin-left: 2rem;
+    padding: 0.8rem 1.2rem;
 }
 .bot-content .simpan a {
     text-decoration: none;

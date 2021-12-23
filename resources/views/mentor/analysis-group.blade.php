@@ -10,42 +10,64 @@
 @section('content')
   <div class="rank-container">
     <div class="ranking"> 
-      <h3>Ranking Anggota per Pekan Ini</h3>
+      <h3>Ranking Anggota Pekan Ini</h3>
     </div>
     <div class="grid-rank">
       @foreach ($rangking as $name => $rank)
-          
-          @switch ($rank)
-            @case ($topRated[0])
+
+          @if (count($topRated) == 1)
+            <div class="div-medal">
+              <img src="/assets/medal/first.svg" class="medal">
+              <p>{{ $name }}</p>
+              <p>{{ round(($rank / ($totalActivity * 7)) * 100) }}%</p>
+            </div>
+          @elseif (count($topRated) == 2)
+            @switch ($rank)
+              @case ($topRated[0])
+                <div class="div-medal">
+                  <img src="/assets/medal/first.svg" class="medal">
+                  <p>{{ $name }}</p>
+                  <p>{{ round(($rank / ($totalActivity * 7)) * 100) }}%</p>
+                </div>
+                @break
+
+              @default
               <div class="div-medal">
-                <img src="/medal1.png" alt="" class="medal">
-                <p>{{ $name }}<span> {{ round(($rank / ($totalActivity * 7)) * 100) }} %</span> </p>
-                <hr>
+                <img src="/assets/medal/second.svg" class="medal">
+                <p>{{ $name }}</p>
+                <p>{{ round(($rank / ($totalActivity * 7)) * 100) }}%</p>
               </div>
-              @break
-            @case ($topRated[1])
-              <div class="div-medal">
-                <img src="/medal2.png" alt="" class="medal">
-                {{ $name }} <span> {{ round(($rank / ($totalActivity * 7)) * 100) }}% </span> 
-                <hr>
-              </div>
-              
-              @break
-            @case ($topRated[2])
-              <div class="div-medal">
-                <img src="/medal3.png" alt="" class="medal">
-                {{ $name }} <span> {{ round(($rank / ($totalActivity * 7)) * 100) }}% </span> 
-                <hr>
-              </div>
-              
-              @break
-            @default
-              <div>
-                {{ $name }} . {{ round(($rank / ($totalActivity * 7)) * 100) }}% 
-                <hr>
-              </div>
-              <hr>
-          @endswitch
+            @endswitch
+          @else 
+            @switch ($rank)
+              @case ($topRated[0])
+                <div class="div-medal">
+                  <img src="/assets/medal/first.svg" class="medal">
+                  <p>{{ $name }}</p>
+                  <p>{{ round(($rank / ($totalActivity * 7)) * 100) }}%</p>
+                </div>
+                @break
+              @case ($topRated[1])
+                <div class="div-medal">
+                  <img src="/assets/medal/second.svg" class="medal">
+                  <p>{{ $name }}</p>
+                  <p>{{ round(($rank / ($totalActivity * 7)) * 100) }}%</p>
+                </div>
+                @break
+              @case ($topRated[2])
+                <div class="div-medal">
+                  <img src="/assets/medal/third.svg" class="medal">
+                  <p>{{ $name }}</p>
+                  <p>{{ round(($rank / ($totalActivity * 7)) * 100) }}%</p>
+                </div>
+                @break
+              @default
+                <div>
+                  <p>{{ $name }}</p>
+                  <p>{{ round(($rank / ($totalActivity * 7)) * 100) }}%</p>
+                </div>
+            @endswitch
+          @endif
           
           @php $i++; @endphp
       @endforeach
@@ -73,7 +95,10 @@
     const labels = {!! json_encode($activities) !!};
     const weekNow = {!! json_encode($averageCurent) !!};
     const weekBefore = {!! json_encode($averagePass) !!};
+    const member = document.querySelectorAll(".grid-rank > div");
+    
     document.querySelector(".chart").style.setProperty("--activity", labels.length);
+    document.querySelector(".grid-rank").style.setProperty("--row", Math.ceil(member.length / 2));
 
     const data = {
       labels: labels,

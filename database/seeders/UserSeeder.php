@@ -19,6 +19,8 @@ class UserSeeder extends Seeder
           "name" => "Shidqi",
           "email" => "shidqi@gmail.com",
           "password" => Hash::make("shi"),
+          "no_telp" => 121223344,
+          "description" => "Freshgraduate from PNJ",
           "gender" => "Akhi",
           "is_mentor" => false
         ]);
@@ -26,6 +28,8 @@ class UserSeeder extends Seeder
           "name" => "Rizki",
           "email" => "rizki@gmail.com",
           "password" => Hash::make("riz"),
+          "no_telp" => 2428394731,
+          "description" => "Member Fullstack Web Dev",
           "gender" => "Akhi",
           "is_mentor" => false
         ]);
@@ -33,6 +37,8 @@ class UserSeeder extends Seeder
           "name" => "Nanda",
           "email" => "nanda@gmail.com",
           "password" => Hash::make("nan"),
+          "no_telp" => 9472921345,
+          "description" => "Freshgraduate from ITS",
           "gender" => "Akhi",
           "is_mentor" => false
         ]);
@@ -40,6 +46,8 @@ class UserSeeder extends Seeder
           "name" => "Ell",
           "email" => "ell@gmail.com",
           "password" => Hash::make("ell"),
+          "no_telp" => 749326294,
+          "description" => "Undergraduate from UNHAS",
           "gender" => "Akhi",
           "is_mentor" => false
         ]);
@@ -49,6 +57,8 @@ class UserSeeder extends Seeder
           "name" => "Wahyu",
           "email" => "wahyu@gmail.com",
           "password" => Hash::make("why"),
+          "no_telp" => 394392045,
+          "description" => "Mentor Fullstack Web Dev",
           "gender" => "Akhi",
           "is_mentor" => true
         ]);
@@ -56,6 +66,8 @@ class UserSeeder extends Seeder
           "name" => "Yumna",
           "email" => "yumna@gmail.com",
           "password" => Hash::make("yum"),
+          "no_telp" => 7292704720,
+          "description" => "Mentor UIUX Design",
           "gender" => "Akhi",
           "is_mentor" => true
         ]);

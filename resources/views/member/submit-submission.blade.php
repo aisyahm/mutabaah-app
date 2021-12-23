@@ -71,7 +71,7 @@
       <input type="hidden" name="group_id" value="{{ $group->id }}">
 
       <!--======= SIMPAN =======-->
-      <div class="bot-content">
+      <div class="bot-content submission">
         <button type="submit" class="simpan my-bg-color">
           <a class="my-tx-color" href="">Simpan</a>
         </button>
@@ -96,25 +96,27 @@
     const group_activity = document.querySelectorAll('.content input');
     const info = document.querySelector('.content-list .info');
 
-    haid.addEventListener("change", (event) => {
-      if (event.target.checked) {
-        group_activity.forEach(activity => {
-          if (activity.getAttribute("id") < 17) {
-            activity.checked = false;
-            activity.setAttribute("disabled", "");
-            activity.parentNode.setAttribute("style", "color: grey");
-          }
-        });
-        info.classList.add("haid");
-      } else {
-        group_activity.forEach(activity => {
-          if (activity.getAttribute("id") < 17) {
-            activity.removeAttribute("disabled");
-            activity.parentNode.removeAttribute("style");
-          }
-        });
-        info.classList.remove("haid");
-      }
-    });
+    if (haid) {
+      haid.addEventListener("change", (event) => {
+        if (event.target.checked) {
+          group_activity.forEach(activity => {
+            if (activity.getAttribute("id") < 17) {
+              activity.checked = false;
+              activity.setAttribute("disabled", "");
+              activity.parentNode.setAttribute("style", "color: grey");
+            }
+          });
+          info.classList.add("haid");
+        } else {
+          group_activity.forEach(activity => {
+            if (activity.getAttribute("id") < 17) {
+              activity.removeAttribute("disabled");
+              activity.parentNode.removeAttribute("style");
+            }
+          });
+          info.classList.remove("haid");
+        }
+      });
+    }
   </script>
 @endsection

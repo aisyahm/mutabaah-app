@@ -10,16 +10,20 @@ use Illuminate\Support\Str;
 
 class GroupController extends Controller
 {
+    // HALAMAN AWAL GROUP
     public function groups(Group $group) {
+      // GET USER DALAM GRUP, SUDAH DITERIMA, ATAU MASIH PENDING (MENUNGGU KONFIRMASI BERGABUNG)
       $users = UserGroup::where("group_id", $group->id)->get();
       $usersOut = $users->where("is_accept", false);
       $usersIn = $users->where("is_accept", true);
 
+      // GET MENTOR DALAM GRUP
       $mentors = [];
       foreach ($usersIn as $mentor) {
         if ($mentor->user->is_mentor) $mentors[] = $mentor->user->name;
       }
 
+      // GET MEMBER DALAM GRUP
       $membersIn = [];
       foreach ($usersIn as $user) {
         $user->user->is_mentor == false ? $membersIn[] = $user->user : "";
@@ -33,6 +37,7 @@ class GroupController extends Controller
         ]);
       }
 
+      // GET PENDING MEMBER  ||  MENUNGGU KONFIRMASI BERGAUNG 
       $membersOut = [];
       foreach ($usersOut as $user) {
         $membersOut[] = $user->user;
@@ -46,15 +51,11 @@ class GroupController extends Controller
       ]);
     }
 
-    public function create() {
-      if (Auth::user()->is_mentor == false) return back();
-
-      return view("mentor.groups.create");
-    }
-
+    // STORE INPUT FORM BUAT GRUP BARU
     public function storeCreate(Request $request) {
       $groups = Group::all();
 
+      // CARI APAKAH NAMA GRUP SUDAH ADA  ||  NAMA TIDAK BOLEH SAMA
       foreach ($groups as $group) {
         if ($group->name == $request->name) {
           $request->session()->flash("exist");
@@ -64,17 +65,20 @@ class GroupController extends Controller
         }
       }
       
+      // GENERATE RANDOM CODE UNTUK REFEAL CODE
       $code = Str::random(6);
       while (Group::where("invitation_code", $code)->exists()) {
         $code = Str::random(6);
       }
       
+      // MASUKKAN DATA KE TABEL GRUP
       Group::create([
         "name" => $request->name,
         "description" => $request->desc,
         "avatar" => $request->avatar,
         "invitation_code" => $code,
       ]);
+      // MASUKKAN DATA MENTOR KE TABEL USER_GRUP
       UserGroup::create([
         "user_id" => Auth::user()->id,
         "group_id" => Group::where("name", $request->name)->first()->id,
@@ -84,24 +88,31 @@ class GroupController extends Controller
       return back();
     }
 
+    // TERIMA PERMINTAAN MEMBER BERGABUNG DALAM GRUP
     public function accept($group, $user) {
       if (Auth::user()->is_mentor == false) return back();
 
+      // CARI DATA MEMBER DALAM TABEL USER_GRUP, UPDATE IS_ACCEPT = TRUE
       $member = UserGroup::where("user_id", $user)->where("group_id", $group)->first();
       $member->update(["is_accept" => true]);
       return back();
     }
 
+    // TOLAK PERMINTAAN MEMBER BERGABUNG DALAM GRUP
     public function reject($group, $user) {
       if (Auth::user()->is_mentor == false) return back();
 
+      // CARI DATA MEMBER DALAM TABEL USER_GRUP, HAPUS ROW TERSEBUT
       $member = UserGroup::where("user_id", $user)->where("group_id", $group)->first();
       $member->delete();
     
       return back();
     }
 
+    // HAPUS GRUP DAN KELUAR GRUP
     public function dangerGroup(Request $request) {
+      // JIKA REQUEST HAPUS GRUP  ||  DILAKUKAN OLEH MENTOR
+      // HAPUS SEMUA USER DI TABEL USER_GRUP YANG GROUP_ID == GROUP->ID
       if ($request->delete) {
         $userGroup = UserGroup::where("group_id", $request->group_id);
         $group = Group::find($request->group_id);
@@ -109,11 +120,15 @@ class GroupController extends Controller
         $userGroup->delete();
         $group->delete();
       } 
+      // JIKA REQUEST KELUAR GRUP  ||  DILAKUKAN OLEH MEMBER
+      // HAPUS DATA USER DI TABEL USER_GRUP YANG GROUP_ID == GROUP->ID DAN USER_ID == USER->ID
       else if ($request->leave) {
         $userGroup = UserGroup::where("user_id", Auth::user()->id)->where("group_id", $request->group_id)->get()->first();
         
         $userGroup->delete();
       }
+      // JIKA REQUEST KELUARKAN MEMBER DARI GRUP  ||  DILAKUKAN OLEH MENTOR
+      // HAPUS DATA USER DI TABEL USER_GRUP YANG GROUP_ID == GROUP->ID DAN USER_ID == USER->ID
       else if ($request->kick) {
         $user = UserGroup::where("user_id", $request->user_id)->where("group_id", $request->group_id)->first();
   

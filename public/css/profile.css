@@ -83,7 +83,7 @@ textarea {
     border-radius: 0.3rem;
     border: 2px solid #c4ccc9;
     padding: 0.5rem;
-    resize: none;
+    resize: vertical;
 }
 label {
     margin-bottom: 0.5rem;
