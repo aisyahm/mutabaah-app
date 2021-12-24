@@ -13,6 +13,15 @@
     $groupsInTemplate[] = $groupAcc->group;
     $membersInTemplate[] = $groupAcc->where("group_id", $groupAcc->group->id)->where("is_accept", true)->count() - 1;
   }
+
+  $memberPending = [];
+  foreach ($groupsTemplate as $group) {
+    if (!is_null(UserGroup::with("group")->where("group_id", $group->group_id)->where("is_accept", false)->first())) {
+      $memberPending[] = true;
+    } else {
+      $memberPending[] = false;
+    }
+  }
 @endphp
 
 <!DOCTYPE html>
@@ -49,6 +58,9 @@
                       <h4>{{ $groupsInTemplate[$i]->name }}</h4>
                       <h4>{{ $membersInTemplate[$i] }} anggota</h4>
                     </div>
+                    @if ($memberPending[$i])
+                        <img class="pending" src="/assets/img/alert-warning.svg">
+                    @endif
                   </div> 
                 </a>
               @endfor
