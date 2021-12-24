@@ -147,7 +147,12 @@ header .container {
 }
 .group-container .group .pending {
     position: absolute;
-    right: 1.6rem;
+    left: 1.2rem;
+    top: 0.4rem;
+    background: #ffbb54;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
 }
 .group-container .group.active {
     background: #e6f7f6;

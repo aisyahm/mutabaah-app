@@ -64,9 +64,9 @@ class ActivityController extends Controller
     }
 
     // EDIT: TAMBAHKAN TARGET AKTIVITAS LAINNYA ||  HAPUS TARGET AKTIVITAS YANG TIDAK DICENTANG
-    if (!is_null($activities_before)) {
+    if (!is_null($activities_before) && !is_null($group_activities)) {
       foreach ($group_activities as $activity) {
-        // JIKA AKTIVITAS YANG DICENTANG TIDAK TERDAPAT DALAM AKTIVITAS GRUP, BUAT BARU AKTIVITAS TERSEBUT PADA GRUP
+      // JIKA AKTIVITAS YANG DICENTANG TIDAK TERDAPAT DALAM AKTIVITAS GRUP, BUAT BARU AKTIVITAS TERSEBUT PADA GRUP
         if (!in_array($activity, $activitiy_id_before)) {
           GroupActivity::create([
             "group_id" => $group_id,
@@ -82,14 +82,10 @@ class ActivityController extends Controller
       }
     }
 
-    // ADD: TAMBAHKAN TARGET AKTIVITAS BARU KE GRUP
-    // JIKA BELUM ADA AKTIVITAS PADA GRUP, BUAT AKTIVITAS GRUP BERDASARKAN AKTIVITAS YANG DICENTANG
-    if (!is_null($group_activities) && !count($activities_before)) {
-      foreach ($group_activities as $activity){
-        GroupActivity::create([
-            "group_id" => $group_id,
-            "activity_id" => $activity
-        ]);
+    // JIKA TIDAK ADA YG DICEKLIS (SEBELUMNYA ADA AKTIVITAS), HAPUS SEMUA AKTIVITAS GRUP
+    if (is_null($group_activities) && count($activities_before)) {
+      foreach ($activities_before as $activity){
+        $activity->delete();
       }
     }
 
@@ -105,6 +101,7 @@ class ActivityController extends Controller
     $doneBefore = [];
     $submissions = [];
     $activities = [];
+    $haid = false;
 
     // JADIKAN ASSOSIATIF ARRAY DENGAN KEY: ID_CATEGORY & VALUE: AKTIVITAS & ID_AKTIVITAS
     foreach ($group_activities as $activity){
@@ -141,6 +138,12 @@ class ActivityController extends Controller
             
             $doneBefore[] = $submission->group_activity_id;
         }
+        if ($submission->user_id == Auth::user()->id
+            && $submission->date >= date('d-m-Y')
+            && $submission->date <= date('d-m-Y', strtotime(date('d-m-Y') . "+1 days"))
+            && $submission->is_haid == true) {
+              $haid = true;
+            }
       }
 
       // GET WAKTU HARI INI
@@ -150,7 +153,8 @@ class ActivityController extends Controller
         "activities" => $activities,
         "group" => $group,
         "doneBefore" => $doneBefore,
-        "date" => $date
+        "date" => $date,
+        "haid" => $haid
       ]);
     }
 
@@ -166,30 +170,32 @@ class ActivityController extends Controller
     $activities_before = GroupActivity::where("group_id", $group_id)->with("submission")->get();
     $activities_check = $request->input('group_activity');
     $haid = $request->input('haid');
-    
+    // dd($haid);
+
     foreach ($activities_before as $activity) {
       // JIKA SEBELUMNYA ADA SUBMISSION DI HARI TERSEBUT || SUDAH PERNAH MENGISI
       if (($activity->submission->where("user_id", Auth::user()->id)
           ->where("group_activity_id", $activity->id)
           ->where("date", ">=", date('d-m-Y'))
-          ->where("date", "<=", date('d M Y', strtotime(date('d-m-Y') . "+1 days"))))) {
+          ->where("date", "<=", date('d-m-Y', strtotime(date('d-m-Y') . "+1 days"))))) {
 
           // UPDATE MENJADI IS_DONE == FALSE SEMUANYA TERLEBIH DAHULU || RESET DATA IS_DONE
-          if ($haid) {
+          if ($haid == 1) {
             $activity->submission->where("user_id", Auth::user()->id)
             ->where("group_activity_id", $activity->id)
             ->where("date", ">=", date('d-m-Y'))
-            ->where("date", "<=", date('d M Y', strtotime(date('d-m-Y') . "+1 days")))->first()
+            ->where("date", "<=", date('d-m-Y', strtotime(date('d-m-Y') . "+1 days")))->first()
             ->update([
               "is_done" => false,
               "is_haid" => true
             ]);
+            // dd("haid");
           } else {
             $activity->submission
               ->where("user_id", Auth::user()->id)
               ->where("group_activity_id", $activity->id)
               ->where("date", ">=", date('d-m-Y'))
-              ->where("date", "<=", date('d M Y', strtotime(date('d-m-Y') . "+1 days")))->first()
+              ->where("date", "<=", date('d-m-Y', strtotime(date('d-m-Y') . "+1 days")))->first()
               ->update([
                 "is_done" => false,
                 "is_haid" => false
@@ -203,7 +209,7 @@ class ActivityController extends Controller
                 ->where("user_id", Auth::user()->id)
                 ->where("group_activity_id", $activity->id)
                 ->where("date", ">=", date('d-m-Y'))
-                ->where("date", "<=", date('d M Y', strtotime(date('d-m-Y') . "+1 days")))->first()
+                ->where("date", "<=", date('d-m-Y', strtotime(date('d-m-Y') . "+1 days")))->first()
                 ->update([
                   "is_done" => true
                 ]);

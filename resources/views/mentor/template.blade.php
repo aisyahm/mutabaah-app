@@ -46,6 +46,7 @@
             <h3>Buat grup</h3>
             <i class="new-group-btn fas fa-plus"></i>
           </div>
+          {{-- @dd(count($memberPending)) --}}
 
             @if ($groupsInTemplate)
               @for ($i = 0; $i < count($groupsInTemplate); $i++)
@@ -59,7 +60,8 @@
                       <h4>{{ $membersInTemplate[$i] }} anggota</h4>
                     </div>
                     @if ($memberPending[$i])
-                        <img class="pending" src="/assets/img/alert-warning.svg">
+                        {{-- <img class="pending" src="/assets/img/alert-warning.svg"> --}}
+                        <div class="pending"></div>
                     @endif
                   </div> 
                 </a>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Group;
+use App\Models\GroupActivity;
 use App\Models\UserGroup;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -112,13 +113,16 @@ class GroupController extends Controller
     // HAPUS GRUP DAN KELUAR GRUP
     public function dangerGroup(Request $request) {
       // JIKA REQUEST HAPUS GRUP  ||  DILAKUKAN OLEH MENTOR
-      // HAPUS SEMUA USER DI TABEL USER_GRUP YANG GROUP_ID == GROUP->ID
+      // HAPUS SEMUA USER DI TABEL USER_GRUP YANG GROUP_ID == GROUP->ID, 
+      // HAPUS GRUP DARI TABEL GRUP, HAPUS AKTIVITAS GRUP DI TABEL GROUP_ACTIVITY
       if ($request->delete) {
         $userGroup = UserGroup::where("group_id", $request->group_id);
         $group = Group::find($request->group_id);
+        $groupActivity = GroupActivity::where("group_id", $request->group_id);
         
         $userGroup->delete();
         $group->delete();
+        $groupActivity->delete();
       } 
       // JIKA REQUEST KELUAR GRUP  ||  DILAKUKAN OLEH MEMBER
       // HAPUS DATA USER DI TABEL USER_GRUP YANG GROUP_ID == GROUP->ID DAN USER_ID == USER->ID

@@ -16,7 +16,7 @@
         @if (Auth::user()->gender == "Ukhti")
           <div class="berhalangan">
             <label for="haid">Sedang berhalangan</label>
-            <input type="checkbox" id="haid" name="haid" value="1" />
+            <input type="checkbox" id="haid" name="haid" value="1" {{ $haid == true ? "checked" : "" }} />
           </div>
         @endif
       </div>

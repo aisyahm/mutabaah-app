@@ -8,6 +8,7 @@
 @endsection
 
 @section('content')
+  @if (count($rangking) != 0)
   <div class="rank-container">
     <div class="ranking"> 
       <h3>Ranking Anggota Pekan Ini</h3>
@@ -73,7 +74,10 @@
       @endforeach
     </div>
   </div>
+  @endif
 
+  {{-- @dd(count($activities)) --}}
+  @if (count($activities) != 0)
   <div class="chart-container">
     <div class="chart-title">
       <h3>Rata-Rata Amalan Sepekan</h3>
@@ -89,16 +93,20 @@
       <span><span></span>Pekan Ini</span>
     </div>
   </div>
+  @endif
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
     const labels = {!! json_encode($activities) !!};
     const weekNow = {!! json_encode($averageCurent) !!};
     const weekBefore = {!! json_encode($averagePass) !!};
+    const rangking = {!! json_encode($rangking) !!};
     const member = document.querySelectorAll(".grid-rank > div");
-    
     document.querySelector(".chart").style.setProperty("--activity", labels.length);
-    document.querySelector(".grid-rank").style.setProperty("--row", Math.ceil(member.length / 2));
+    
+    if (rangking.length) {
+      document.querySelector(".grid-rank").style.setProperty("--row", Math.ceil(member.length / 2));
+    }
 
     const data = {
       labels: labels,
