@@ -11,18 +11,24 @@ use App\Exports\LaporanExport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\LaporanMultiSheetExport;
 use App\Http\Controllers\Controller;
-
+use App\Models\GroupActivity;
 
 class LaporanController extends Controller
 {
     public function laporan()
     {   
-        // member
-        User::where("is_mentor", !Auth::user()->is_mentor)->get();
+        $member = User::where("is_mentor", !Auth::user()->is_mentor)->get();
+        // $group = Group::find($group);
         $group = Group::all();
-        // mentor
-        // User::where("is_mentor", Auth::user()->is_mentor)->get();
-        // dd($user);
+        $user = Auth::user();
+        // $groupActivity = GroupActivity::where("group_id", 1)->get();
+        // $nameActivity = [];
+
+        // foreach ($groupActivity as $group) {
+        //     $nameActivity[] = $group->activity->name;
+        // }
+        // dd($nameActivity);
+        
         return view('mentor.laporan', [
             "group" => $group
           ]);
@@ -42,7 +48,7 @@ class LaporanController extends Controller
 
     // EDIT Mentor
     public function edit(Request $group) {
-       $group = Group::all();
+       $group = Group::find($group);
     //    $group = Group::all();
        // dd($user);
       

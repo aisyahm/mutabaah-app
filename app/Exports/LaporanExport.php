@@ -4,6 +4,7 @@ namespace App\Exports;
 
 use DateTime;
 use App\Models\User;
+use App\Models\GroupActivity;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Concerns\FromView;
@@ -33,15 +34,24 @@ class LaporanExport implements FromView, ShouldAutoSize, WithDrawings, WithCusto
 
     public function view(): View
     {   
-        // member
-        $datas = User::where("is_mentor", !Auth::user()->is_mentor)->with('submission.groupActivity.activity')
+        // member    
+        // $datas = User::where("is_mentor", !Auth::user()->is_mentor)->with('submission.groupActivity.activity')
+        $subActivity = GroupActivity::with("submission")->where("group_id", 1)
+        ->whereYear('created_at', $this->year)
+        ->whereMonth('created_at', $this->month)->get();
+        $subDate = [];
+        foreach ($subActivity as $data) {
+            $subDate[] = $data->submission;  
+        }
+
+        // dd($subDate);
         // mentor
         // $datas = User::where("is_mentor", Auth::user()->is_mentor)->with('submission.groupActivity.activity')
-        ->whereYear('created_at', $this->year)
-        ->whereMonth('created_at', $this->month)
-        ->get();
+        // ->whereYear('created_at', $this->year)
+        // ->whereMonth('created_at', $this->month)
+        // ->get();
         // dd($datas);
-        return view('mentor.excel.laporan', compact('datas'));
+        return view('mentor.excel.laporan', compact('subDate'));
     }
 
     public function registerEvents(): array

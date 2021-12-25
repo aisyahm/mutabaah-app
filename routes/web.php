@@ -48,7 +48,7 @@ Route::get('/groups/{group:id}', [GroupController::class, 'groups'])->name("grou
 Route::get('/groups/chart/{userId}/{groupId}', [ChartController::class, 'self'])->name('chart')->middleware('auth');
 
 // DELETE & LEAVE GROUP
-Route::post('/delete', [GroupController::class, 'dangerGroup'])->name("delete");
+// Route::post('/delete', [GroupController::class, 'dangerGroup'])->name("delete");
 
 // ADD, EDIT, & VIEW ACTIVITIES
 Route::get('/groups/add-activities/{group:id}', [ActivityController::class, 'add'])->name('add-activities')->middleware('auth');
@@ -57,7 +57,9 @@ Route::post('/groups/add-activities', [ActivityController::class, 'storeAdd']);
 Route::get('/groups/activities/{group:id}', [ActivityController::class, 'activities'])->name('group-activities')->middleware('auth');
 
 // Mentor  & Laporan Export Excel 
-Route::get('/home/mentoranalisis', [LaporanController::class, 'laporan'])->name('mentoranalisis')->middleware('auth');
-Route::get('/home/mentoranalisis/exportlaporan', [LaporanController::class, 'laporanexport'])->name('exportlaporan')->middleware('auth');
+Route::get('/home/mentoranalisis/', [LaporanController::class, 'laporan'])->name('mentoranalisis')->middleware('auth');
+Route::get('/home/mentoranalisis/exportlaporan/', [LaporanController::class, 'laporanexport'])->name('exportlaporan')->middleware('auth');
 // Edit Grup
-Route::get('/edit-grup', [LaporanController::class, 'edit'])->name("edit-grup")->middleware('auth');
+Route::post('/edit-grup', [LaporanController::class, 'edit'])->name("edit-grup")->middleware('auth');
+Route::post('/delete', [LaporanController::class, 'dangerGroup'])->name("delete");
+

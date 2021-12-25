@@ -6,6 +6,40 @@
             .ava-container .ava span#mentor {
                 left: 1rem;
             }
+
+            /* Hapus Grup */
+            .box-hapus-text{
+              position: relative;
+              width: 95%;
+              height: 100%;
+              font-style: normal;
+              font-weight: normal;
+              text-align: justify;
+              font-size: 14px;
+              line-height: 20px;
+              color: #38524A;
+            }
+            .box-hapus-button{
+              display: flex;
+            }
+            .box-hapus-button .btn-batal{
+              color: #38524A;
+              background: #F8F8F8;
+              margin-right: 16px;
+              width: 161px;
+              height: 52px;
+              border: 1px solid #D7DCDB;
+            }
+            .form-hapus{
+              width: 264px!important;
+              height: 52px!important;
+            }
+            .form-hapus .btn-hapus{
+              width: 264px!important;
+              height: 52px!important;
+              background: #F2758F!important;
+              border-radius: 8px;
+            }
         </style>
         {{-- download laporan --}}
         <h1>Statistik Amalan Harian <span>21 Nov 2021</span></h1>
@@ -13,6 +47,7 @@
             <button>Download laporan</button>
         </a>
 
+        {{-- Edit Grup --}}
         <div class="pop-up mentor-group-pop-up">
             <div class="pop-up-title">
               <h3>Edit Grup</h3>
@@ -80,23 +115,63 @@
             </form>
           </div>
 
+          {{-- Hapus Grup --}}
+          <div class="pop-up mentor-hapus-group-pop-up">
+            <div class="pop-up-title">
+              <h3>Konfirmasi hapus Grup: NAMA Grup</h3>
+              <i class="fas fa-times close"></i>
+            </div>
+            <div class="box-hapus-text">
+              <h5>Data grup yang telah dihapus tidak bisa dikembalikan. Mohon pastikan data yang anda butuhkan sudah di export sebelumnya.</h5>
+            </div>
+            <div class="box-hapus-button">
+              <button class="btn-batal">Batal</button>
+              <form action="" method="post" class="form-hapus">
+              {{-- <form action="{{ route("delete") }}" method="post"> --}}
+                @csrf
+                {{-- <input type="hidden" name="group_id" value="{{ $group->id }}"> --}}
+                <input type="hidden" name="group_id" value="">
+                <button class="btn-hapus" type="submit" id="danger-btn" name="delete" value="1" onclick="return confirm('Yakin ingin menghapus grup ini?')">Hapus</button>
+              </form>
+            </div>
+          </div>
+
           <script>
-                const boxedit = document.querySelector(".box-edit"),
-                mentorgrup = document.querySelector(".mentor-group-pop-up");
+                const boxedit = document.querySelector(".box-edit");
+                const close = document.querySelector(".close");
+                const boxhapus = document.querySelector(".box-hapus");
+                mentorgrupedit = document.querySelector(".mentor-group-pop-up");
+                mentorgruphapus = document.querySelector(".mentor-hapus-group-pop-up");
                 const body3 = document.querySelector('.info2');
 
+                    // edit
                     const mentoredit = () => {
-                        mentorgrup.classList.add("active");
+                      mentorgrupedit.classList.add("active");
 
                         closeBtn.forEach((close) => {
                             close.addEventListener("click", () => {
-                                mentorgrup.classList.remove("active");
+                              mentorgrupedit.classList.remove("active");
                             });
                         });
                     };
                     body3.addEventListener('click', () => {
-                        mentorgrup.classList.remove("active");
+                        mentorgrupedit.classList.remove("active");
                     });
                 boxedit.addEventListener("click", mentoredit);
+
+                    // Hapus
+                    const mentorhapus= () => {
+                      mentorgruphapus.classList.add("active");
+
+                        closeBtn.forEach((close) => {
+                            close.addEventListener("click", () => {
+                              mentorgruphapus.classList.remove("active");
+                            });
+                        });
+                    };
+                    body3.addEventListener('click', () => {
+                      mentorgruphapus.classList.remove("active");
+                    });
+                boxhapus.addEventListener("click", mentorhapus);
           </script>
 @endsection
