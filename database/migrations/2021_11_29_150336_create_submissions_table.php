@@ -19,7 +19,7 @@ class CreateSubmissionsTable extends Migration
             $table->foreignId("group_activity_id");
             
             $table->boolean("is_done")->default(false);
-            $table->string("date")->default(date('d-m-Y'));
+            $table->string("date")->default(date('Y-m-d'));
             $table->boolean("is_haid")->default(false);
 
             $table->timestamps();

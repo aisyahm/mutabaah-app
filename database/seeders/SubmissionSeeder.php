@@ -22,68 +22,69 @@ class SubmissionSeeder extends Seeder
     // CATATAN
     // GRUP 1 (FWD) member: shidqi, aktivitas: 1,4,7,12,20
     // EXAMPLE CODE
+    $dateNow = date('Y-m-d');
 
     //hari 1 =======
     Submission::create([
       "user_id" => 1,
       "group_activity_id" => 1,
       "is_done" => true,
-      "date" => "11-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-13 days")),
     ]);
     Submission::create([
       "user_id" => 1,
       "group_activity_id" => 2,
       "is_done" => true,
-      "date" => "11-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-13 days")),
     ]);
     Submission::create([
       "user_id" => 1,
       "group_activity_id" => 3,
       "is_done" => true,
-      "date" => "11-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-13 days")),
     ]);
     Submission::create([
       "user_id" => 1,
       "group_activity_id" => 4,
       "is_done" => false,
-      "date" => "11-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-13 days")),
     ]);
     Submission::create([
       "user_id" => 1,
       "group_activity_id" => 5,
       "is_done" => false,
-      "date" => "11-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-13 days")),
     ]);
 
     Submission::create([
       "user_id" => 2,
       "group_activity_id" => 6,
       "is_done" => false,
-      "date" => "11-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-13 days")),
     ]);
     Submission::create([
       "user_id" => 2,
       "group_activity_id" => 7,
       "is_done" => false,
-      "date" => "11-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-13 days")),
     ]);
     Submission::create([
       "user_id" => 2,
       "group_activity_id" => 8,
       "is_done" => true,
-      "date" => "11-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-13 days")),
     ]);
     Submission::create([
       "user_id" => 2,
       "group_activity_id" => 9,
       "is_done" => true,
-      "date" => "11-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-13 days")),
     ]);
     Submission::create([
       "user_id" => 2,
       "group_activity_id" => 10,
       "is_done" => true,
-      "date" => "11-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-13 days")),
     ]);
 
     // hari 2 ===========
@@ -91,62 +92,62 @@ class SubmissionSeeder extends Seeder
       "user_id" => 1,
       "group_activity_id" => 1,
       "is_done" => true,
-      "date" => "12-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-13 days")),
     ]);
     Submission::create([
       "user_id" => 1,
       "group_activity_id" => 2,
       "is_done" => true,
-      "date" => "12-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-12 days")),
     ]);
     Submission::create([
       "user_id" => 1,
       "group_activity_id" => 3,
       "is_done" => false,
-      "date" => "12-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-12 days")),
     ]);
     Submission::create([
       "user_id" => 1,
       "group_activity_id" => 4,
       "is_done" => false,
-      "date" => "12-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-12 days")),
     ]);
     Submission::create([
       "user_id" => 1,
       "group_activity_id" => 5,
       "is_done" => false,
-      "date" => "12-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-12 days")),
     ]);
 
     Submission::create([
       "user_id" => 2,
       "group_activity_id" => 6,
       "is_done" => false,
-      "date" => "12-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-12 days")),
     ]);
     Submission::create([
       "user_id" => 2,
       "group_activity_id" => 7,
       "is_done" => false,
-      "date" => "12-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-12 days")),
     ]);
     Submission::create([
       "user_id" => 2,
       "group_activity_id" => 8,
       "is_done" => true,
-      "date" => "12-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-12 days")),
     ]);
     Submission::create([
       "user_id" => 2,
       "group_activity_id" => 9,
       "is_done" => true,
-      "date" => "12-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-12 days")),
     ]);
     Submission::create([
       "user_id" => 2,
       "group_activity_id" => 10,
       "is_done" => true,
-      "date" => "12-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-12 days")),
     ]);
 
     // hari 3 ===========
@@ -154,62 +155,62 @@ class SubmissionSeeder extends Seeder
       "user_id" => 1,
       "group_activity_id" => 1,
       "is_done" => false,
-      "date" => "13-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-11 days")),
     ]);
     Submission::create([
       "user_id" => 1,
       "group_activity_id" => 2,
       "is_done" => false,
-      "date" => "13-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-11 days")),
     ]);
     Submission::create([
       "user_id" => 1,
       "group_activity_id" => 3,
       "is_done" => false,
-      "date" => "13-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-11 days")),
     ]);
     Submission::create([
       "user_id" => 1,
       "group_activity_id" => 4,
       "is_done" => false,
-      "date" => "13-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-11 days")),
     ]);
     Submission::create([
       "user_id" => 1,
       "group_activity_id" => 5,
       "is_done" => false,
-      "date" => "13-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-11 days")),
     ]);
 
     Submission::create([
       "user_id" => 2,
       "group_activity_id" => 6,
       "is_done" => true,
-      "date" => "13-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-11 days")),
     ]);
     Submission::create([
       "user_id" => 2,
       "group_activity_id" => 7,
       "is_done" => false,
-      "date" => "13-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-11 days")),
     ]);
     Submission::create([
       "user_id" => 2,
       "group_activity_id" => 8,
       "is_done" => true,
-      "date" => "13-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-11 days")),
     ]);
     Submission::create([
       "user_id" => 2,
       "group_activity_id" => 9,
       "is_done" => false,
-      "date" => "13-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-11 days")),
     ]);
     Submission::create([
       "user_id" => 2,
       "group_activity_id" => 10,
       "is_done" => true,
-      "date" => "13-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-11 days")),
     ]);
 
 
@@ -218,62 +219,62 @@ class SubmissionSeeder extends Seeder
       "user_id" => 1,
       "group_activity_id" => 1,
       "is_done" => true,
-      "date" => "14-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-10 days")),
     ]);
     Submission::create([
       "user_id" => 1,
       "group_activity_id" => 2,
       "is_done" => true,
-      "date" => "14-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-10 days")),
     ]);
     Submission::create([
       "user_id" => 1,
       "group_activity_id" => 3,
       "is_done" => false,
-      "date" => "14-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-10 days")),
     ]);
     Submission::create([
       "user_id" => 1,
       "group_activity_id" => 4,
       "is_done" => true,
-      "date" => "14-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-10 days")),
     ]);
     Submission::create([
       "user_id" => 1,
       "group_activity_id" => 5,
       "is_done" => true,
-      "date" => "14-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-10 days")),
     ]);
 
     Submission::create([
       "user_id" => 2,
       "group_activity_id" => 6,
       "is_done" => true,
-      "date" => "14-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-10 days")),
     ]);
     Submission::create([
       "user_id" => 2,
       "group_activity_id" => 7,
       "is_done" => true,
-      "date" => "14-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-10 days")),
     ]);
     Submission::create([
       "user_id" => 2,
       "group_activity_id" => 8,
       "is_done" => true,
-      "date" => "14-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-10 days")),
     ]);
     Submission::create([
       "user_id" => 2,
       "group_activity_id" => 9,
       "is_done" => true,
-      "date" => "14-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-10 days")),
     ]);
     Submission::create([
       "user_id" => 2,
       "group_activity_id" => 10,
       "is_done" => true,
-      "date" => "14-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-10 days")),
     ]);
 
 
@@ -282,62 +283,62 @@ class SubmissionSeeder extends Seeder
       "user_id" => 1,
       "group_activity_id" => 1,
       "is_done" => false,
-      "date" => "15-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-9 days")),
     ]);
     Submission::create([
       "user_id" => 1,
       "group_activity_id" => 2,
       "is_done" => false,
-      "date" => "15-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-9 days")),
     ]);
     Submission::create([
       "user_id" => 1,
       "group_activity_id" => 3,
       "is_done" => true,
-      "date" => "15-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-9 days")),
     ]);
     Submission::create([
       "user_id" => 1,
       "group_activity_id" => 4,
       "is_done" => true,
-      "date" => "15-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-9 days")),
     ]);
     Submission::create([
       "user_id" => 1,
       "group_activity_id" => 5,
       "is_done" => false,
-      "date" => "15-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-9 days")),
     ]);
 
     Submission::create([
       "user_id" => 2,
       "group_activity_id" => 6,
       "is_done" => true,
-      "date" => "15-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-9 days")),
     ]);
     Submission::create([
       "user_id" => 2,
       "group_activity_id" => 7,
       "is_done" => true,
-      "date" => "15-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-9 days")),
     ]);
     Submission::create([
       "user_id" => 2,
       "group_activity_id" => 8,
       "is_done" => true,
-      "date" => "15-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-9 days")),
     ]);
     Submission::create([
       "user_id" => 2,
       "group_activity_id" => 9,
       "is_done" => true,
-      "date" => "15-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-9 days")),
     ]);
     Submission::create([
       "user_id" => 2,
       "group_activity_id" => 10,
       "is_done" => false,
-      "date" => "15-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-9 days")),
     ]);
 
 
@@ -346,62 +347,62 @@ class SubmissionSeeder extends Seeder
       "user_id" => 1,
       "group_activity_id" => 1,
       "is_done" => true,
-      "date" => "16-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-8 days")),
     ]);
     Submission::create([
       "user_id" => 1,
       "group_activity_id" => 2,
       "is_done" => true,
-      "date" => "16-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-8 days")),
     ]);
     Submission::create([
       "user_id" => 1,
       "group_activity_id" => 3,
       "is_done" => true,
-      "date" => "16-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-8 days")),
     ]);
     Submission::create([
       "user_id" => 1,
       "group_activity_id" => 4,
       "is_done" => false,
-      "date" => "16-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-8 days")),
     ]);
     Submission::create([
       "user_id" => 1,
       "group_activity_id" => 5,
       "is_done" => false,
-      "date" => "16-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-8 days")),
     ]);
 
     Submission::create([
       "user_id" => 2,
       "group_activity_id" => 6,
       "is_done" => true,
-      "date" => "16-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-8 days")),
     ]);
     Submission::create([
       "user_id" => 2,
       "group_activity_id" => 7,
       "is_done" => false,
-      "date" => "16-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-8 days")),
     ]);
     Submission::create([
       "user_id" => 2,
       "group_activity_id" => 8,
       "is_done" => true,
-      "date" => "16-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-8 days")),
     ]);
     Submission::create([
       "user_id" => 2,
       "group_activity_id" => 9,
       "is_done" => true,
-      "date" => "16-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-8 days")),
     ]);
     Submission::create([
       "user_id" => 2,
       "group_activity_id" => 10,
       "is_done" => true,
-      "date" => "16-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-8 days")),
     ]);
 
 
@@ -410,356 +411,356 @@ class SubmissionSeeder extends Seeder
       "user_id" => 1,
       "group_activity_id" => 1,
       "is_done" => true,
-      "date" => "17-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-7 days")),
     ]);
     Submission::create([
       "user_id" => 1,
       "group_activity_id" => 2,
       "is_done" => true,
-      "date" => "17-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-7 days")),
     ]);
     Submission::create([
       "user_id" => 1,
       "group_activity_id" => 3,
       "is_done" => true,
-      "date" => "17-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-7 days")),
     ]);
     Submission::create([
       "user_id" => 1,
       "group_activity_id" => 4,
       "is_done" => true,
-      "date" => "17-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-7 days")),
     ]);
     Submission::create([
       "user_id" => 1,
       "group_activity_id" => 5,
       "is_done" => true,
-      "date" => "17-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-7 days")),
     ]);
 
     Submission::create([
       "user_id" => 2,
       "group_activity_id" => 6,
       "is_done" => false,
-      "date" => "17-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-7 days")),
     ]);
     Submission::create([
       "user_id" => 2,
       "group_activity_id" => 7,
       "is_done" => false,
-      "date" => "17-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-7 days")),
     ]);
     Submission::create([
       "user_id" => 2,
       "group_activity_id" => 8,
       "is_done" => false,
-      "date" => "17-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-7 days")),
     ]);
     Submission::create([
       "user_id" => 2,
       "group_activity_id" => 9,
       "is_done" => false,
-      "date" => "17-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-7 days")),
     ]);
     Submission::create([
       "user_id" => 2,
       "group_activity_id" => 10,
       "is_done" => false,
-      "date" => "17-12-2021",
+      "date" => date('Y-m-d', strtotime($dateNow . "-7 days")),
     ]);
 
     // HARI 8
-    Submission::create([ "user_id" => 1, "group_activity_id" => 1, "is_done" => true, "date" => "18-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 2, "is_done" => false, "date" => "18-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 3, "is_done" => true, "date" => "18-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 4, "is_done" => false, "date" => "18-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 5, "is_done" => false, "date" => "18-12-2021,"]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 1, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-6 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 2, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-6 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 3, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-6 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 4, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-6 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 5, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-6 days"))]);
 
-    Submission::create([ "user_id" => 2, "group_activity_id" => 6, "is_done" => true, "date" => "18-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 7, "is_done" => true, "date" => "18-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 8, "is_done" => true, "date" => "18-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 9, "is_done" => false, "date" => "18-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 10, "is_done" => false, "date" => "18-12-2021,"]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 6, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-6 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 7, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-6 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 8, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-6 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 9, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-6 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 10, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-6 days"))]);
 
 
     // HARI 9
-    Submission::create([ "user_id" => 1, "group_activity_id" => 1, "is_done" => false, "date" => "19-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 2, "is_done" => true, "date" => "19-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 3, "is_done" => true, "date" => "19-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 4, "is_done" => false, "date" => "19-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 5, "is_done" => true, "date" => "19-12-2021,"]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 1, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-5 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 2, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-5 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 3, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-5 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 4, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-5 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 5, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-5 days"))]);
 
-    Submission::create([ "user_id" => 2, "group_activity_id" => 6, "is_done" => true, "date" => "19-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 7, "is_done" => false, "date" => "19-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 8, "is_done" => true, "date" => "19-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 9, "is_done" => true, "date" => "19-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 10, "is_done" => true, "date" => "19-12-2021,"]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 6, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-5 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 7, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-5 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 8, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-5 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 9, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-5 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 10, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-5 days"))]);
 
 
     // HARI 10
-    Submission::create([ "user_id" => 1, "group_activity_id" => 1, "is_done" => false, "date" => "20-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 2, "is_done" => true, "date" => "20-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 3, "is_done" => true, "date" => "20-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 4, "is_done" => true, "date" => "20-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 5, "is_done" => true, "date" => "20-12-2021,"]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 1, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-4 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 2, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-4 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 3, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-4 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 4, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-4 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 5, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-4 days"))]);
 
-    Submission::create([ "user_id" => 2, "group_activity_id" => 6, "is_done" => true, "date" => "20-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 7, "is_done" => true, "date" => "20-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 8, "is_done" => true, "date" => "20-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 9, "is_done" => false, "date" => "20-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 10, "is_done" => false, "date" => "20-12-2021,"]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 6, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-4 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 7, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-4 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 8, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-4 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 9, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-4 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 10, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-4 days"))]);
 
 
     // HARI 11
-    Submission::create([ "user_id" => 1, "group_activity_id" => 1, "is_done" => true, "date" => "21-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 2, "is_done" => true, "date" => "21-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 3, "is_done" => true, "date" => "21-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 4, "is_done" => true, "date" => "21-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 5, "is_done" => true, "date" => "21-12-2021,"]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 1, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-3 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 2, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-3 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 3, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-3 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 4, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-3 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 5, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-3 days"))]);
 
-    Submission::create([ "user_id" => 2, "group_activity_id" => 6, "is_done" => false, "date" => "21-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 7, "is_done" => false, "date" => "21-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 8, "is_done" => true, "date" => "21-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 9, "is_done" => true, "date" => "21-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 10, "is_done" => false, "date" => "21-12-2021,"]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 6, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-3 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 7, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-3 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 8, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-3 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 9, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-3 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 10, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-3 days"))]);
 
 
     // HARI 12
-    Submission::create([ "user_id" => 1, "group_activity_id" => 1, "is_done" => true, "date" => "22-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 2, "is_done" => false, "date" => "22-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 3, "is_done" => false, "date" => "22-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 4, "is_done" => false, "date" => "22-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 5, "is_done" => false, "date" => "22-12-2021,"]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 1, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-2 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 2, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-2 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 3, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-2 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 4, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-2 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 5, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-2 days"))]);
 
-    Submission::create([ "user_id" => 2, "group_activity_id" => 6, "is_done" => true, "date" => "22-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 7, "is_done" => true, "date" => "22-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 8, "is_done" => true, "date" => "22-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 9, "is_done" => true, "date" => "22-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 10, "is_done" => true, "date" => "22-12-2021,"]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 6, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-2 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 7, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-2 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 8, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-2 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 9, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-2 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 10, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-2 days"))]);
 
 
     // HARI 13
-    Submission::create([ "user_id" => 1, "group_activity_id" => 1, "is_done" => true, "date" => "23-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 2, "is_done" => false, "date" => "23-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 3, "is_done" => false, "date" => "23-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 4, "is_done" => false, "date" => "23-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 5, "is_done" => true, "date" => "23-12-2021,"]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 1, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-1 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 2, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-1 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 3, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-1 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 4, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-1 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 5, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-1 days"))]);
 
-    Submission::create([ "user_id" => 2, "group_activity_id" => 6, "is_done" => false, "date" => "23-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 7, "is_done" => true, "date" => "23-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 8, "is_done" => true, "date" => "23-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 9, "is_done" => true, "date" => "23-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 10, "is_done" => false, "date" => "23-12-2021,"]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 6, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-1 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 7, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-1 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 8, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-1 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 9, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-1 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 10, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-1 days"))]);
 
 
     // HARI 14
-    Submission::create([ "user_id" => 1, "group_activity_id" => 1, "is_done" => false, "date" => "24-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 2, "is_done" => false, "date" => "24-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 3, "is_done" => false, "date" => "24-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 4, "is_done" => true, "date" => "24-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 5, "is_done" => true, "date" => "24-12-2021,"]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 1, "is_done" => false, "date" => $dateNow]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 2, "is_done" => false, "date" => $dateNow]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 3, "is_done" => false, "date" => $dateNow]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 4, "is_done" => true, "date" => $dateNow]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 5, "is_done" => true, "date" => $dateNow]);
 
-    Submission::create([ "user_id" => 2, "group_activity_id" => 6, "is_done" => true, "date" => "24-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 7, "is_done" => true, "date" => "24-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 8, "is_done" => false, "date" => "24-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 9, "is_done" => false, "date" => "24-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 10, "is_done" => false, "date" => "24-12-2021,"]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 6, "is_done" => true, "date" => $dateNow]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 7, "is_done" => true, "date" => $dateNow]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 8, "is_done" => false, "date" => $dateNow]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 9, "is_done" => false, "date" => $dateNow]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 10, "is_done" => false, "date" => $dateNow]);
 
 
     // ============================== Shidqi 2 - Rizki 1 ======================================
     // HARI 1
-    Submission::create([ "user_id" => 2, "group_activity_id" => 1, "is_done" => true, "date" => "11-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 2, "is_done" => false, "date" => "11-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 3, "is_done" => true, "date" => "11-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 4, "is_done" => true, "date" => "11-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 5, "is_done" => false, "date" => "11-12-2021,"]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 1, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-13 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 2, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-13 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 3, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-13 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 4, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-13 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 5, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-13 days"))]);
 
-    Submission::create([ "user_id" => 1, "group_activity_id" => 6, "is_done" => false, "date" => "11-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 7, "is_done" => true, "date" => "11-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 8, "is_done" => false, "date" => "11-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 9, "is_done" => false, "date" => "11-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 10, "is_done" => true, "date" => "11-12-2021,"]);
-
-
-    // HARI 1
-    Submission::create([ "user_id" => 2, "group_activity_id" => 1, "is_done" => false, "date" => "12-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 2, "is_done" => true, "date" => "12-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 3, "is_done" => true, "date" => "12-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 4, "is_done" => true, "date" => "12-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 5, "is_done" => false, "date" => "12-12-2021,"]);
-
-    Submission::create([ "user_id" => 1, "group_activity_id" => 6, "is_done" => true, "date" => "12-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 7, "is_done" => true, "date" => "12-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 8, "is_done" => true, "date" => "12-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 9, "is_done" => true, "date" => "12-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 10, "is_done" => true, "date" => "12-12-2021,"]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 6, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-13 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 7, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-13 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 8, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-13 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 9, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-13 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 10, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-13 days"))]);
 
 
     // HARI 1
-    Submission::create([ "user_id" => 2, "group_activity_id" => 1, "is_done" => true, "date" => "13-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 2, "is_done" => true, "date" => "13-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 3, "is_done" => true, "date" => "13-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 4, "is_done" => true, "date" => "13-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 5, "is_done" => true, "date" => "13-12-2021,"]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 1, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-12 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 2, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-12 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 3, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-12 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 4, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-12 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 5, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-12 days"))]);
 
-    Submission::create([ "user_id" => 1, "group_activity_id" => 6, "is_done" => false, "date" => "13-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 7, "is_done" => true, "date" => "13-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 8, "is_done" => false, "date" => "13-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 9, "is_done" => false, "date" => "13-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 10, "is_done" => true, "date" => "13-12-2021,"]);
-
-
-    // HARI 1
-    Submission::create([ "user_id" => 2, "group_activity_id" => 1, "is_done" => true, "date" => "14-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 2, "is_done" => true, "date" => "14-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 3, "is_done" => true, "date" => "14-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 4, "is_done" => true, "date" => "14-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 5, "is_done" => false, "date" => "14-12-2021,"]);
-
-    Submission::create([ "user_id" => 1, "group_activity_id" => 6, "is_done" => true, "date" => "14-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 7, "is_done" => true, "date" => "14-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 8, "is_done" => true, "date" => "14-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 9, "is_done" => true, "date" => "14-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 10, "is_done" => true, "date" => "14-12-2021,"]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 6, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-12 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 7, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-12 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 8, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-12 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 9, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-12 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 10, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-12 days"))]);
 
 
     // HARI 1
-    Submission::create([ "user_id" => 2, "group_activity_id" => 1, "is_done" => false, "date" => "15-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 2, "is_done" => true, "date" => "15-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 3, "is_done" => true, "date" => "15-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 4, "is_done" => false, "date" => "15-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 5, "is_done" => false, "date" => "15-12-2021,"]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 1, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-11 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 2, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-11 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 3, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-11 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 4, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-11 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 5, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-11 days"))]);
 
-    Submission::create([ "user_id" => 1, "group_activity_id" => 6, "is_done" => false, "date" => "15-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 7, "is_done" => false, "date" => "15-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 8, "is_done" => false, "date" => "15-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 9, "is_done" => true, "date" => "15-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 10, "is_done" => true, "date" => "15-12-2021,"]);
-
-
-    // HARI 1
-    Submission::create([ "user_id" => 2, "group_activity_id" => 1, "is_done" => true, "date" => "16-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 2, "is_done" => false, "date" => "16-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 3, "is_done" => false, "date" => "16-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 4, "is_done" => false, "date" => "16-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 5, "is_done" => false, "date" => "16-12-2021,"]);
-
-    Submission::create([ "user_id" => 1, "group_activity_id" => 6, "is_done" => false, "date" => "16-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 7, "is_done" => false, "date" => "16-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 8, "is_done" => false, "date" => "16-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 9, "is_done" => false, "date" => "16-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 10, "is_done" => true, "date" => "16-12-2021,"]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 6, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-11 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 7, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-11 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 8, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-11 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 9, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-11 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 10, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-11 days"))]);
 
 
     // HARI 1
-    Submission::create([ "user_id" => 2, "group_activity_id" => 1, "is_done" => true, "date" => "17-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 2, "is_done" => true, "date" => "17-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 3, "is_done" => false, "date" => "17-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 4, "is_done" => true, "date" => "17-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 5, "is_done" => true, "date" => "17-12-2021,"]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 1, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-10 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 2, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-10 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 3, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-10 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 4, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-10 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 5, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-10 days"))]);
 
-    Submission::create([ "user_id" => 1, "group_activity_id" => 6, "is_done" => true, "date" => "17-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 7, "is_done" => false, "date" => "17-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 8, "is_done" => true, "date" => "17-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 9, "is_done" => false, "date" => "17-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 10, "is_done" => true, "date" => "17-12-2021,"]);
-
-
-    // HARI 1
-    Submission::create([ "user_id" => 2, "group_activity_id" => 1, "is_done" => true, "date" => "18-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 2, "is_done" => true, "date" => "18-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 3, "is_done" => true, "date" => "18-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 4, "is_done" => true, "date" => "18-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 5, "is_done" => true, "date" => "18-12-2021,"]);
-
-    Submission::create([ "user_id" => 1, "group_activity_id" => 6, "is_done" => true, "date" => "18-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 7, "is_done" => true, "date" => "18-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 8, "is_done" => true, "date" => "18-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 9, "is_done" => true, "date" => "18-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 10, "is_done" => true, "date" => "18-12-2021,"]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 6, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-10 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 7, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-10 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 8, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-10 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 9, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-10 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 10, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-10 days"))]);
 
 
     // HARI 1
-    Submission::create([ "user_id" => 2, "group_activity_id" => 1, "is_done" => false, "date" => "19-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 2, "is_done" => true, "date" => "19-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 3, "is_done" => true, "date" => "19-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 4, "is_done" => true, "date" => "19-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 5, "is_done" => false, "date" => "19-12-2021,"]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 1, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-9 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 2, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-9 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 3, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-9 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 4, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-9 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 5, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-9 days"))]);
 
-    Submission::create([ "user_id" => 1, "group_activity_id" => 6, "is_done" => true, "date" => "19-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 7, "is_done" => false, "date" => "19-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 8, "is_done" => false, "date" => "19-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 9, "is_done" => false, "date" => "19-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 10, "is_done" => true, "date" => "19-12-2021,"]);
-
-
-    // HARI 1
-    Submission::create([ "user_id" => 2, "group_activity_id" => 1, "is_done" => true, "date" => "20-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 2, "is_done" => true, "date" => "20-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 3, "is_done" => false, "date" => "20-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 4, "is_done" => false, "date" => "20-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 5, "is_done" => true, "date" => "20-12-2021,"]);
-
-    Submission::create([ "user_id" => 1, "group_activity_id" => 6, "is_done" => true, "date" => "20-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 7, "is_done" => true, "date" => "20-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 8, "is_done" => false, "date" => "20-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 9, "is_done" => false, "date" => "20-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 10, "is_done" => true, "date" => "20-12-2021,"]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 6, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-9 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 7, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-9 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 8, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-9 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 9, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-9 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 10, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-9 days"))]);
 
 
     // HARI 1
-    Submission::create([ "user_id" => 2, "group_activity_id" => 1, "is_done" => true, "date" => "21-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 2, "is_done" => false, "date" => "21-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 3, "is_done" => true, "date" => "21-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 4, "is_done" => true, "date" => "21-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 5, "is_done" => false, "date" => "21-12-2021,"]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 1, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-8 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 2, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-8 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 3, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-8 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 4, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-8 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 5, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-8 days"))]);
 
-    Submission::create([ "user_id" => 1, "group_activity_id" => 6, "is_done" => true, "date" => "21-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 7, "is_done" => true, "date" => "21-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 8, "is_done" => true, "date" => "21-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 9, "is_done" => true, "date" => "21-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 10, "is_done" => true, "date" => "21-12-2021,"]);
-
-
-    // HARI 1
-    Submission::create([ "user_id" => 2, "group_activity_id" => 1, "is_done" => false, "date" => "22-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 2, "is_done" => false, "date" => "22-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 3, "is_done" => false, "date" => "22-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 4, "is_done" => false, "date" => "22-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 5, "is_done" => false, "date" => "22-12-2021,"]);
-
-    Submission::create([ "user_id" => 1, "group_activity_id" => 6, "is_done" => true, "date" => "22-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 7, "is_done" => true, "date" => "22-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 8, "is_done" => true, "date" => "22-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 9, "is_done" => true, "date" => "22-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 10, "is_done" => true, "date" => "22-12-2021,"]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 6, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-8 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 7, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-8 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 8, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-8 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 9, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-8 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 10, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-8 days"))]);
 
 
     // HARI 1
-    Submission::create([ "user_id" => 2, "group_activity_id" => 1, "is_done" => false, "date" => "23-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 2, "is_done" => true, "date" => "23-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 3, "is_done" => true, "date" => "23-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 4, "is_done" => true, "date" => "23-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 5, "is_done" => false, "date" => "23-12-2021,"]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 1, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-7 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 2, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-7 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 3, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-7 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 4, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-7 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 5, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-7 days"))]);
 
-    Submission::create([ "user_id" => 1, "group_activity_id" => 6, "is_done" => false, "date" => "23-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 7, "is_done" => true, "date" => "23-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 8, "is_done" => true, "date" => "23-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 9, "is_done" => false, "date" => "23-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 10, "is_done" => true, "date" => "23-12-2021,"]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 6, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-7 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 7, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-7 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 8, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-7 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 9, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-7 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 10, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-7 days"))]);
+
+
+    // HARI 1
+    Submission::create([ "user_id" => 2, "group_activity_id" => 1, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-6 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 2, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-6 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 3, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-6 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 4, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-6 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 5, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-6 days"))]);
+
+    Submission::create([ "user_id" => 1, "group_activity_id" => 6, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-6 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 7, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-6 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 8, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-6 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 9, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-6 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 10, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-6 days"))]);
+
+
+    // HARI 1
+    Submission::create([ "user_id" => 2, "group_activity_id" => 1, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-5 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 2, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-5 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 3, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-5 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 4, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-5 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 5, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-5 days"))]);
+
+    Submission::create([ "user_id" => 1, "group_activity_id" => 6, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-5 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 7, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-5 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 8, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-5 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 9, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-5 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 10, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-5 days"))]);
+
+
+    // HARI 1
+    Submission::create([ "user_id" => 2, "group_activity_id" => 1, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-4 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 2, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-4 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 3, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-4 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 4, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-4 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 5, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-4 days"))]);
+
+    Submission::create([ "user_id" => 1, "group_activity_id" => 6, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-4 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 7, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-4 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 8, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-4 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 9, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-4 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 10, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-4 days"))]);
+
+
+    // HARI 1
+    Submission::create([ "user_id" => 2, "group_activity_id" => 1, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-3 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 2, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-3 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 3, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-3 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 4, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-3 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 5, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-3 days"))]);
+
+    Submission::create([ "user_id" => 1, "group_activity_id" => 6, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-3 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 7, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-3 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 8, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-3 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 9, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-3 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 10, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-3 days"))]);
+
+
+    // HARI 1
+    Submission::create([ "user_id" => 2, "group_activity_id" => 1, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-2 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 2, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-2 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 3, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-2 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 4, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-2 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 5, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-2 days"))]);
+
+    Submission::create([ "user_id" => 1, "group_activity_id" => 6, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-2 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 7, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-2 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 8, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-2 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 9, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-2 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 10, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-2 days"))]);
+
+
+    // HARI 1
+    Submission::create([ "user_id" => 2, "group_activity_id" => 1, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-1 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 2, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-1 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 3, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-1 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 4, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-1 days"))]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 5, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-1 days"))]);
+
+    Submission::create([ "user_id" => 1, "group_activity_id" => 6, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-1 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 7, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-1 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 8, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-1 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 9, "is_done" => false, "date" => date('Y-m-d', strtotime($dateNow . "-1 days"))]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 10, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-1 days"))]);
 
     
     // HARI 1
-    Submission::create([ "user_id" => 2, "group_activity_id" => 1, "is_done" => true, "date" => "24-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 2, "is_done" => true, "date" => "24-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 3, "is_done" => true, "date" => "24-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 4, "is_done" => true, "date" => "24-12-2021,"]);
-    Submission::create([ "user_id" => 2, "group_activity_id" => 5, "is_done" => false, "date" => "24-12-2021,"]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 1, "is_done" => true, "date" => $dateNow]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 2, "is_done" => true, "date" => $dateNow]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 3, "is_done" => true, "date" => $dateNow]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 4, "is_done" => true, "date" => $dateNow]);
+    Submission::create([ "user_id" => 2, "group_activity_id" => 5, "is_done" => false, "date" => $dateNow]);
 
-    Submission::create([ "user_id" => 1, "group_activity_id" => 6, "is_done" => false, "date" => "24-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 7, "is_done" => true, "date" => "24-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 8, "is_done" => true, "date" => "24-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 9, "is_done" => false, "date" => "24-12-2021,"]);
-    Submission::create([ "user_id" => 1, "group_activity_id" => 10, "is_done" => true, "date" => "24-12-2021,"]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 6, "is_done" => false, "date" => $dateNow]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 7, "is_done" => true, "date" => $dateNow]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 8, "is_done" => true, "date" => $dateNow]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 9, "is_done" => false, "date" => $dateNow]);
+    Submission::create([ "user_id" => 1, "group_activity_id" => 10, "is_done" => true, "date" => $dateNow]);
   }
 }
