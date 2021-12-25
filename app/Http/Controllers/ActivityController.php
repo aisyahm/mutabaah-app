@@ -170,7 +170,6 @@ class ActivityController extends Controller
     $activities_before = GroupActivity::where("group_id", $group_id)->with("submission")->get();
     $activities_check = $request->input('group_activity');
     $haid = $request->input('haid');
-    // dd($haid);
 
     foreach ($activities_before as $activity) {
       // JIKA SEBELUMNYA ADA SUBMISSION DI HARI TERSEBUT || SUDAH PERNAH MENGISI
@@ -179,6 +178,7 @@ class ActivityController extends Controller
           ->where("date", ">=", date('d-m-Y'))
           ->where("date", "<=", date('d-m-Y', strtotime(date('d-m-Y') . "+1 days"))))) {
 
+            
           // UPDATE MENJADI IS_DONE == FALSE SEMUANYA TERLEBIH DAHULU || RESET DATA IS_DONE
           if ($haid == 1) {
             $activity->submission->where("user_id", Auth::user()->id)
@@ -189,7 +189,6 @@ class ActivityController extends Controller
               "is_done" => false,
               "is_haid" => true
             ]);
-            // dd("haid");
           } else {
             $activity->submission
               ->where("user_id", Auth::user()->id)
