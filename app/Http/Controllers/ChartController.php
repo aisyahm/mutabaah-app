@@ -68,6 +68,9 @@ class ChartController extends Controller
       $values = 0;
     }
 
+    dump($totalPass);
+    dd($totalCurent);
+
     return view("user.analysis-member", [
       "group" => $group,
       "user" => $user,

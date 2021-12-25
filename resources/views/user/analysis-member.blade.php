@@ -2,6 +2,7 @@
 
 @section('meta')
   <link rel="stylesheet" href="/css/analysis.css" />
+  <link rel="stylesheet" href="/css/detail-activity.css" />
 @endsection
 
 @section('content')
@@ -46,12 +47,346 @@
     </div>
   </div>
 
+  <div class="detail-activity-container">
+    <div class="title-detail-amalan">
+        <h3>Detail Amalan</h3>
+        <p>22 Nov - 28 Nov 2021</p>
+    </div>
+    <div class="ket-container">
+        <p style="font-weight: bold;">Keterangan</p>
+    </div>
+    <div class="parent">
+        <div class="div1">
+            <h3>Shalat Wajib</h3>
+            <div class="activity-container">
+                <table>
+                <tr>
+                    <th></th>
+                    <th>Sen</th>
+                    <th>Sel</th>
+                    <th>Rab</th>
+                    <th>Kam</th>
+                    <th>Jum</th>
+                    <th>Sab</th>
+                    <th>Ahd</th>
+                </tr>
+                <tr>
+                    <td>Sholat Subuh</td>
+                    <td><div class="dot haid"></div></td>
+                    <td><div class="dot past-false"></div></td>
+                    <td><div class="dot past-true"></div></td>
+                    <td><div class="dot today-true"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                </tr>
+                <tr>
+                    <td>Sholat Dzuhur</td>
+                    <td><div class="dot haid"></div></td>
+                    <td><div class="dot past-true"></div></td>
+                    <td><div class="dot past-true"></div></td>
+                    <td><div class="dot today-false"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                </tr>
+                <tr>
+                    <td>Sholat Ashar</td>
+                    <td><div class="dot haid"></div></td>
+                    <td><div class="dot past-false"></div></td>
+                    <td><div class="dot past-true"></div></td>
+                    <td><div class="dot today-false"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                </tr>
+                <tr>
+                    <td>Sholat Maghrib</td>
+                    <td><div class="dot haid"></div></td>
+                    <td><div class="dot past-true"></div></td>
+                    <td><div class="dot past-true"></div></td>
+                    <td><div class="dot today-false"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                </tr>
+                <tr>
+                    <td>Sholat Isya</td>
+                    <td><div class="dot haid"></div></td>
+                    <td><div class="dot past-true"></div></td>
+                    <td><div class="dot past-true"></div></td>
+                    <td><div class="dot today-false"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="div2">
+            <h3>Sholat Rawatib</h3>
+            <div class="activity-container">
+                <table>
+                <tr>
+                    <th></th>
+                    <th>Sen</th>
+                    <th>Sel</th>
+                    <th>Rab</th>
+                    <th>Kam</th>
+                    <th>Jum</th>
+                    <th>Sab</th>
+                    <th>Ahd</th>
+                </tr>
+                <tr>
+                    <td>Sholat Qabliyah Subuh</td>
+                    <td><div class="dot haid"></div></td>
+                    <td><div class="dot past-false"></div></td>
+                    <td><div class="dot past-true"></div></td>
+                    <td><div class="dot today-true"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                </tr>
+                <tr>
+                    <td>Sholat Qabliyah Dzuhur</td>
+                    <td><div class="dot haid"></div></td>
+                    <td><div class="dot past-true"></div></td>
+                    <td><div class="dot past-true"></div></td>
+                    <td><div class="dot today-false"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                </tr>
+                <tr>
+                    <td>Sholat Ba’diyah Dzuhur</td>
+                    <td><div class="dot haid"></div></td>
+                    <td><div class="dot past-true"></div></td>
+                    <td><div class="dot past-true"></div></td>
+                    <td><div class="dot today-false"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                </tr>
+                <tr>
+                    <td>Sholat Qabliyah Asar</td>
+                    <td><div class="dot haid"></div></td>
+                    <td><div class="dot past-true"></div></td>
+                    <td><div class="dot past-true"></div></td>
+                    <td><div class="dot today-false"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                </tr>
+                <tr>
+                    <td>Sholat Qabliyah Maghrib</td>
+                    <td><div class="dot haid"></div></td>
+                    <td><div class="dot past-true"></div></td>
+                    <td><div class="dot past-true"></div></td>
+                    <td><div class="dot today-false"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                </tr>
+                <tr>
+                    <td>Sholat  Ba’diyah Maghrib</td>
+                    <td><div class="dot haid"></div></td>
+                    <td><div class="dot past-true"></div></td>
+                    <td><div class="dot past-true"></div></td>
+                    <td><div class="dot today-false"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                </tr>
+                <tr>
+                    <td>Sholat Qabliyah Isya</td>
+                    <td><div class="dot haid"></div></td>
+                    <td><div class="dot past-true"></div></td>
+                    <td><div class="dot past-true"></div></td>
+                    <td><div class="dot today-false"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                </tr>
+                <tr>
+                    <td>Sholat Ba’diyah Isya</td>
+                    <td><div class="dot haid"></div></td>
+                    <td><div class="dot past-true"></div></td>
+                    <td><div class="dot past-true"></div></td>
+                    <td><div class="dot today-false"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="div3">
+            <h3>Shalat Sunnah</h3>
+            <div class="activity-container">
+                <table>
+                <tr>
+                    <th></th>
+                    <th>Sen</th>
+                    <th>Sel</th>
+                    <th>Rab</th>
+                    <th>Kam</th>
+                    <th>Jum</th>
+                    <th>Sab</th>
+                    <th>Ahd</th>
+                </tr>
+                <tr>
+                    <td>Sholat Dhuha</td>
+                    <td><div class="dot haid"></div></td>
+                    <td><div class="dot past-false"></div></td>
+                    <td><div class="dot past-true"></div></td>
+                    <td><div class="dot today-true"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                </tr>
+                <tr>
+                    <td>Sholat Tahajud</td>
+                    <td><div class="dot haid"></div></td>
+                    <td><div class="dot past-true"></div></td>
+                    <td><div class="dot past-true"></div></td>
+                    <td><div class="dot today-false"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="div4">
+            <h3>Amalan Sunnah</h3>
+            <div class="activity-container">
+                <table>
+                <tr>
+                    <th></th>
+                    <th>Sen</th>
+                    <th>Sel</th>
+                    <th>Rab</th>
+                    <th>Kam</th>
+                    <th>Jum</th>
+                    <th>Sab</th>
+                    <th>Ahd</th>
+                </tr>
+                <tr>
+                    <td>Puasa Sunnah</td>
+                    <td><div class="dot haid"></div></td>
+                    <td><div class="dot past-false"></div></td>
+                    <td><div class="dot past-true"></div></td>
+                    <td><div class="dot today-true"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                </tr>
+                <tr>
+                    <td>Baca Al-Qur'an</td>
+                    <td><div class="dot haid"></div></td>
+                    <td><div class="dot past-true"></div></td>
+                    <td><div class="dot past-true"></div></td>
+                    <td><div class="dot today-false"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                </tr>
+                <tr>
+                    <td>Infaq</td>
+                    <td><div class="dot haid"></div></td>
+                    <td><div class="dot past-true"></div></td>
+                    <td><div class="dot past-true"></div></td>
+                    <td><div class="dot today-false"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                </tr>
+                <tr>
+                    <td>Kajian</td>
+                    <td><div class="dot haid"></div></td>
+                    <td><div class="dot past-true"></div></td>
+                    <td><div class="dot past-true"></div></td>
+                    <td><div class="dot today-false"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="div5">
+            <h3>Dzikir</h3>
+            <div class="activity-container">
+                <table>
+                <tr>
+                    <th></th>
+                    <th>Sen</th>
+                    <th>Sel</th>
+                    <th>Rab</th>
+                    <th>Kam</th>
+                    <th>Jum</th>
+                    <th>Sab</th>
+                    <th>Ahd</th>
+                </tr>
+                <tr>
+                    <td>Dzikir Pagi</td>
+                    <td><div class="dot haid"></div></td>
+                    <td><div class="dot past-false"></div></td>
+                    <td><div class="dot past-true"></div></td>
+                    <td><div class="dot today-true"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                </tr>
+                <tr>
+                    <td>Dzikir Petang</td>
+                    <td><div class="dot haid"></div></td>
+                    <td><div class="dot past-true"></div></td>
+                    <td><div class="dot past-true"></div></td>
+                    <td><div class="dot today-false"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                </tr>
+                <tr>
+                    <td>Istighfar</td>
+                    <td><div class="dot haid"></div></td>
+                    <td><div class="dot past-true"></div></td>
+                    <td><div class="dot past-true"></div></td>
+                    <td><div class="dot today-false"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                </tr>
+                <tr>
+                    <td>Sholawat</td>
+                    <td><div class="dot haid"></div></td>
+                    <td><div class="dot past-true"></div></td>
+                    <td><div class="dot past-true"></div></td>
+                    <td><div class="dot today-false"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                    <td><div class="dot no-value"></div></td>
+                </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
     const labels = {!! json_encode($activities) !!};
     const weekNow = {!! json_encode($totalCurent) !!};
     const weekBefore = {!! json_encode($totalPass) !!};
     document.querySelector(".chart").style.setProperty("--activity", labels.length);
+
+    console.log(weekBefore);
+    console.log(weekNow);
 
     const data = {
       labels: labels,

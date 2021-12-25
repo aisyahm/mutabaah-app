@@ -1,0 +1,95 @@
+.detail-activity-container {
+    margin: 0 1rem;
+}
+
+.activity-container {
+    box-sizing: border-box;
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 8px;
+}
+
+.ket-container {
+    box-sizing: border-box;
+    background: #fff;
+    padding: 0.5rem;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: row;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+}
+
+th,
+td {
+    text-align: left;
+    padding: 8px;
+}
+
+th {
+    font-weight: normal;
+}
+
+.dot {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+}
+
+.haid {
+    background-image: url("/assets/detail-amalan/haid.svg");
+    background-repeat: no-repeat;
+    background-size: auto;
+}
+
+.today-false {
+    background-image: url("/assets/detail-amalan/today-false.svg");
+}
+
+.today-true {
+    background-image: url("/assets/detail-amalan/today-true.svg");
+    background-repeat: no-repeat;
+    background-size: auto;
+}
+
+.no-value {
+    background-image: url("/assets/detail-amalan/no-value.svg");
+}
+
+.past-false {
+    background-image: url("/assets/detail-amalan/past-false.svg");
+}
+
+.past-true {
+    background-image: url("/assets/detail-amalan/past-true.svg");
+}
+
+.parent {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    /* grid-template-rows: repeat(3, 1fr); */
+    /* grid-auto-flow: row; */
+    grid-column-gap: 2rem;
+}
+
+.div1 {
+    grid-area: 1 / 1 / 2 / 2;
+}
+.div2 {
+    grid-area: 1 / 2 / 3 / 3;
+}
+.div3 {
+    grid-area: 2 / 1 / 3 / 2;
+}
+.div4 {
+    grid-area: 3 / 1 / 4 / 2;
+}
+.div5 {
+    grid-area: 3 / 2 / 4 / 3;
+}
