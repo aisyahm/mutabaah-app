@@ -72,9 +72,7 @@
 
       <!--======= SIMPAN =======-->
       <div class="bot-content submission">
-        <button type="submit" class="simpan my-bg-color">
-          <a class="my-tx-color" href="">Simpan</a>
-        </button>
+        <button type="submit" class="simpan my-bg-color">Simpan</button>
       </div>
 
     </form>

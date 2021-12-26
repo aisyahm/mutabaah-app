@@ -10,8 +10,6 @@ use App\Models\Submission;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
-use function PHPUnit\Framework\isNull;
-
 class ActivityController extends Controller
 {
   // TAMBAH TARGET AKTIVITAS GRUP & EDIT TARGET AKTIVITAS
@@ -102,6 +100,7 @@ class ActivityController extends Controller
     $submissions = [];
     $activities = [];
     $haid = false;
+    $now = Carbon::now()->format('Y-m-d');
 
     // JADIKAN ASSOSIATIF ARRAY DENGAN KEY: ID_CATEGORY & VALUE: AKTIVITAS & ID_AKTIVITAS
     foreach ($group_activities as $activity){
@@ -113,18 +112,15 @@ class ActivityController extends Controller
       // MEMBER: CARI SUBMISSION DI HARI TERSEBUT
       if (!Auth::user()->is_mentor) {
         // BUAT BARU SUBMISSION JIKA BELUM MEMILIKI SUBMISSION DI HARI TERSEBUT
-        if (!($activity->submission->where("user_id", Auth::user()->id)->where("date", ">=", date('d M Y'))->where("date", "<=", date('d M Y', strtotime(date('d M Y') . "+1 days")))->first())) {
+        if (!($activity->submission->where("user_id", Auth::user()->id)->where("date", $now)->first())) {
           Submission::create([
             "user_id" => Auth::user()->id,
-            "group_activity_id" => $activity->id,
-            "date" => date('d-m-Y')
+            "group_activity_id" => $activity->id
           ]);
         }
-
         // GET SUBMISSION DI HARI TERSEBUT
         $submissions[] = $activity->load('submission')->submission->where("user_id", Auth::user()->id)
-                            ->where("date", ">=", date('d M Y'))
-                            ->where("date", "<=", date('d M Y', strtotime(date('d M Y') . "+1 days")))->first();
+                          ->where("date", $now)->first();
       }
     }
 
@@ -132,15 +128,13 @@ class ActivityController extends Controller
     if (!Auth::user()->is_mentor) {
       foreach ($submissions as $submission) {
         if ($submission->user_id == Auth::user()->id
-            && $submission->date >= date('d-m-Y')
-            && $submission->date <= date('d-m-Y', strtotime(date('d-m-Y') . "+1 days"))
+            && $submission->date == $now
             && $submission->is_done == true) {
             
             $doneBefore[] = $submission->group_activity_id;
         }
         if ($submission->user_id == Auth::user()->id
-            && $submission->date >= date('d-m-Y')
-            && $submission->date <= date('d-m-Y', strtotime(date('d-m-Y') . "+1 days"))
+            && $submission->date == $now
             && $submission->is_haid == true) {
               $haid = true;
             }
@@ -170,21 +164,19 @@ class ActivityController extends Controller
     $activities_before = GroupActivity::where("group_id", $group_id)->with("submission")->get();
     $activities_check = $request->input('group_activity');
     $haid = $request->input('haid');
+    $now = Carbon::now()->format('Y-m-d');
 
     foreach ($activities_before as $activity) {
       // JIKA SEBELUMNYA ADA SUBMISSION DI HARI TERSEBUT || SUDAH PERNAH MENGISI
       if (($activity->submission->where("user_id", Auth::user()->id)
           ->where("group_activity_id", $activity->id)
-          ->where("date", ">=", date('d-m-Y'))
-          ->where("date", "<=", date('d-m-Y', strtotime(date('d-m-Y') . "+1 days"))))) {
-
+          ->where("date", $now))) {
             
           // UPDATE MENJADI IS_DONE == FALSE SEMUANYA TERLEBIH DAHULU || RESET DATA IS_DONE
           if ($haid == 1) {
             $activity->submission->where("user_id", Auth::user()->id)
             ->where("group_activity_id", $activity->id)
-            ->where("date", ">=", date('d-m-Y'))
-            ->where("date", "<=", date('d-m-Y', strtotime(date('d-m-Y') . "+1 days")))->first()
+            ->where("date", $now)->first()
             ->update([
               "is_done" => false,
               "is_haid" => true
@@ -193,8 +185,7 @@ class ActivityController extends Controller
             $activity->submission
               ->where("user_id", Auth::user()->id)
               ->where("group_activity_id", $activity->id)
-              ->where("date", ">=", date('d-m-Y'))
-              ->where("date", "<=", date('d-m-Y', strtotime(date('d-m-Y') . "+1 days")))->first()
+              ->where("date", $now)->first()
               ->update([
                 "is_done" => false,
                 "is_haid" => false
@@ -207,8 +198,7 @@ class ActivityController extends Controller
               $activity->submission
                 ->where("user_id", Auth::user()->id)
                 ->where("group_activity_id", $activity->id)
-                ->where("date", ">=", date('d-m-Y'))
-                ->where("date", "<=", date('d-m-Y', strtotime(date('d-m-Y') . "+1 days")))->first()
+                ->where("date", $now)->first()
                 ->update([
                   "is_done" => true
                 ]);

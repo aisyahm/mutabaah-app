@@ -17,8 +17,11 @@ class ChartController extends Controller
     $group = Group::find($groupId);
     
     // AMBIL GRUP AKTIVITAS BERDASARKAN GRUP YANG DIPILIH
-    $group_activity = GroupActivity::with("submission")->where("group_id", $group->id)->get();
+    $group_activity = GroupActivity::with("submission", "activity")->where("group_id", $group->id)->get();
+    // $group_activity = GroupActivity::with("submission", "activity")->where("group_id", $group->id)->get()
+    //                     ->sortBy('activity.category',SORT_REGULAR,false);
     $activities = [];
+    $activityDetail = [];
     $taskCurent = [];
     $taskPass = [];
     $totalCurent = [];
@@ -32,6 +35,8 @@ class ChartController extends Controller
     $strCurentWeek = $now->startOfWeek()->format('Y-m-d');
     $endCurentWeek = $now->endOfWeek()->format('Y-m-d');
 
+    $diffDayEndWeek = Carbon::parse(Carbon::now())->diffInDays($endCurentWeek);
+
     // LABEL DATE CHART
     $dates = [
       Carbon::parse($strLastWeek)->isoFormat('D MMM'),
@@ -40,21 +45,63 @@ class ChartController extends Controller
       Carbon::parse($endCurentWeek)->isoFormat('D MMM Y'),
     ];
     
-    // AMBIL VALUE BERDASARKAN USER ID YANG SEDANG LOGIN SAJA, DATE SAAT INI, DAN DATE MINGGU INI DAN MINGGU SEBELUMNYA
     foreach ($group_activity as $activity) {
       $activities[] = explode(" ", $activity->activity->name);
-
+      
+      // AMBIL VALUE BERDASARKAN USER ID YANG SEDANG LOGIN SAJA, DATE SAAT INI, DAN DATE MINGGU INI DAN MINGGU SEBELUMNYA
       if (count($activity->submission->where("user_id", $user->id)->where("date", ">=", $strCurentWeek)
-          ->where("date", "<=", $endCurentWeek))) {
+      ->where("date", "<=", $endCurentWeek))) {
         $taskCurent[] = $activity->submission->where("user_id", $user->id)->where("date", ">=", $strCurentWeek)
         ->where("date", "<=", $endCurentWeek);
+        
+        $activitySubmission = $activity->submission->where("user_id", $user->id)->where("date", ">=", $strCurentWeek)
+        ->where("date", "<=", $endCurentWeek);
+        foreach ($activitySubmission as $submission) {
+          $activityDetail[$activity->activity->category][$activity->activity->name][] = $submission->is_done;
+        }
       }
+      // JIKA SAMA SEKALI BELUM ADA SUBMISSION
+      // ISI 0 UNTUK TIDAK MENGERJAKAN, ISI -2 UNTUK BELUM DIISI (SELISIH DENGAN END WEEK)
+      else {
+        for ($i=0; $i < 7; $i++) { 
+          if ($i <= $diffDayEndWeek) {
+            $activityDetail[$activity->activity->category][$activity->activity->name][] = -2;
+          } else {
+            $activityDetail[$activity->activity->category][$activity->activity->name][] = 0;
+          }
+        }
+      }
+
+      // JIKA KURANG DARI 7 (MINGGU INI MASIH BERJALAN), ISI -2 SAMPAI COUNT ARRAY == 7
+      if (count($activityDetail[$activity->activity->category][$activity->activity->name]) < 7 &&
+          $diffDayEndWeek > 0) {
+        for ($i=0; $i < 7 - count($activityDetail[$activity->activity->category][$activity->activity->name]); $i++) { 
+          $activityDetail[$activity->activity->category][$activity->activity->name][] = -2;
+        }
+      } 
+      // JIKA HARI TERSEBUT ADALAH END WEEK
+      else if ($diffDayEndWeek == 0) {
+        for ($j=0; $j < 7 - count($activityDetail[$activity->activity->category][$activity->activity->name]); $j+1) { 
+          // BARU MENGISI SUBMISSION DI END WEEK, TAMBAHKAN 0 DI AWAL ARRAY
+          if ($submission->date == $now->format('Y-m-d')) {
+            array_unshift($activityDetail[$activity->activity->category][$activity->activity->name], 0);
+          } 
+          // SISIPKAN 0 DI ARRAY
+          else {
+            $activityDetail[$activity->activity->category][$activity->activity->name][] = 0;
+          }
+        }
+      }
+
       if (count($activity->submission->where("user_id", $user->id)->where("date", ">=", $strLastWeek)
           ->where("date", "<=", $endLastWeek))) {
         $taskPass[] = $activity->submission->where("user_id", $user->id)->where("date", ">=", $strLastWeek)
         ->where("date", "<=", $endLastWeek);
       }
     }
+
+    // URUTKAN BERDASARKAN AKTIVITAS TERBANYAK  ||  ESTETIKA DETAIL AKTIVITAS
+    arsort($activityDetail);
 
     // JUMLAHKAN VALUE IS DONE TIAP AKTIVITAS
     foreach ($taskCurent as $submission) {
@@ -72,16 +119,14 @@ class ChartController extends Controller
       $values = 0;
     }
 
-    dump($totalPass);
-    dd($totalCurent);
-
     return view("user.analysis-member", [
       "group" => $group,
       "user" => $user,
       "activities" => $activities,
       "totalCurent" => $totalCurent,
       "totalPass" => $totalPass,
-      "dates" => $dates
+      "dates" => $dates,
+      "activityDetail" => $activityDetail
     ]);
   }
 

@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Carbon\Carbon;
 
 class CreateSubmissionsTable extends Migration
 {
@@ -19,7 +20,7 @@ class CreateSubmissionsTable extends Migration
             $table->foreignId("group_activity_id");
             
             $table->boolean("is_done")->default(false);
-            $table->string("date")->default(date('Y-m-d'));
+            $table->string("date")->default(Carbon::now()->format('Y-m-d'));
             $table->boolean("is_haid")->default(false);
 
             $table->timestamps();
