@@ -1,0 +1,138 @@
+.detail-activity-container {
+    margin: 0 1rem;
+    margin-bottom: 5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.title-detail-amalan h3 {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 0.3rem;
+}
+.activity-container {
+    box-sizing: border-box;
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 8px;
+}
+
+.ket-container {
+    box-sizing: border-box;
+    background: #fff;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+}
+.ket-container p {
+    font-size: 0.9rem;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+}
+
+td {
+    text-align: center;
+    padding: 6px;
+    font-size: 0.9rem;
+}
+
+th {
+    font-weight: normal;
+    text-align: center;
+    font-size: 0.9rem;
+}
+.name-activity {
+    /* width: 9rem; */
+    width: 35%;
+    text-align: left;
+}
+.dot {
+    height: 40px;
+    width: 40px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    border-radius: 50%;
+    display: flex;
+    margin: 0 auto;
+    align-items: center;
+}
+
+.haid {
+    background-image: url("/assets/detail-amalan/haid.svg");
+}
+
+.today-false {
+    background-image: url("/assets/detail-amalan/today-false.svg");
+}
+
+.today-true {
+    background-image: url("/assets/detail-amalan/today-true.svg");
+}
+
+.no-value {
+    background-image: url("/assets/detail-amalan/no-value.svg");
+}
+
+.past-false {
+    background-image: url("/assets/detail-amalan/past-false.svg");
+}
+
+.past-true {
+    background-image: url("/assets/detail-amalan/past-true.svg");
+}
+
+.parent {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.8rem 1.2rem;
+}
+.div1 h3 {
+    font-weight: bold;
+    margin-bottom: 0.7rem;
+}
+.keterangan-info-container {
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+.keterangan-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.keterangan-info span {
+    display: inline-block;
+    width: 30px;
+    height: 5px;
+    border-radius: 3px;
+}
+.keterangan-info:nth-child(1) span {
+    background: #00a7a0;
+}
+.keterangan-info:nth-child(2) span {
+    background: #f2758f;
+}
+.keterangan-info:nth-child(3) span {
+    background: #d7dcdb;
+}
+/* .div1 {
+    grid-area: 1 / 1 / 2 / 2;
+}
+.div2 {
+    grid-area: 1 / 2 / 3 / 3;
+}
+.div3 {
+    grid-area: 2 / 1 / 3 / 2;
+}
+.div4 {
+    grid-area: 3 / 1 / 4 / 2;
+}
+.div5 {
+    grid-area: 3 / 2 / 4 / 3;
+} */

@@ -104,7 +104,7 @@
     const member = document.querySelectorAll(".grid-rank > div");
     document.querySelector(".chart").style.setProperty("--activity", labels.length);
     
-    if (rangking.length) {
+    if (rangking) {
       document.querySelector(".grid-rank").style.setProperty("--row", Math.ceil(member.length / 2));
     }
 

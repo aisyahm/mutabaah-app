@@ -2,6 +2,7 @@
 
 @section('meta')
   <link rel="stylesheet" href="/css/analysis.css" />
+  <link rel="stylesheet" href="/css/detail-activity.css" />
 @endsection
 
 @section('content')
@@ -46,12 +47,85 @@
     </div>
   </div>
 
+  <div class="detail-activity-container">
+    <div class="title-detail-amalan">
+        <h3>Detail Amalan</h3>
+        <p>{{ $dates[2] }} - {{ $dates[3] }}</p>
+    </div>
+    <div class="ket-container">
+        <p>Keterangan</p>
+        <div class="keterangan-info-container">
+          <div class="keterangan-info"><span></span>Mengerjakan</div>
+          <div class="keterangan-info"><span></span>Tidak Mengerjakan</div>
+          <div class="keterangan-info"><span></span>Belum Mengisi</div>
+        </div>
+    </div>
+    <div class="parent">
+      @foreach ($activityDetail as $key => $value)
+        <div class="div1">
+          {{-- @dd($activityDetail) --}}
+          @switch($key)
+              @case(1)
+                  <h3>Sholat Wajib</h3>
+                  @break
+              @case(2)
+                  <h3>Sholat Rawatib</h3>
+                  @break
+              @case(3)
+                  <h3>Sholat Sunnah</h3>
+                  @break
+              @case(4)
+                  <h3>Amalan Sunnah Lainnya</h3>
+                  @break
+              @default
+                  <h3>Dzikir</h3>
+          @endswitch
+
+            <div class="activity-container">
+                <table>
+                  <tr>
+                      <th></th>
+                      <th>Sen</th>
+                      <th>Sel</th>
+                      <th>Rab</th>
+                      <th>Kam</th>
+                      <th>Jum</th>
+                      <th>Sab</th>
+                      <th>Ahd</th>
+                  </tr>
+                @foreach ($value as $activity => $submissions)
+                <tr>
+                    <td class="name-activity">{{ $activity }}</td>
+                    @foreach ($submissions as $sub)
+                      @switch($sub)
+                        @case(1)
+                          <td><div class="dot past-true"></div></td>
+                          @break
+                        @case(0)
+                          <td><div class="dot haid"></div></td>
+                          @break
+                        @default
+                          <td><div class="dot no-value"></div></td>
+                      @endswitch
+                    @endforeach
+                  </tr>
+                @endforeach
+                </table>
+            </div>
+          </div>
+        @endforeach
+    </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
     const labels = {!! json_encode($activities) !!};
     const weekNow = {!! json_encode($totalCurent) !!};
     const weekBefore = {!! json_encode($totalPass) !!};
     document.querySelector(".chart").style.setProperty("--activity", labels.length);
+
+    console.log(weekBefore);
+    console.log(weekNow);
 
     const data = {
       labels: labels,

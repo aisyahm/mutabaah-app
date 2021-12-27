@@ -72,9 +72,7 @@
 
       <!--======= SIMPAN =======-->
       <div class="bot-content submission">
-        <button type="submit" class="simpan my-bg-color">
-          <a class="my-tx-color" href="">Simpan</a>
-        </button>
+        <button type="submit" class="simpan my-bg-color">Simpan</button>
       </div>
 
     </form>
@@ -95,26 +93,39 @@
     const haid = document.getElementById("haid");
     const group_activity = document.querySelectorAll('.content input');
     const info = document.querySelector('.content-list .info');
+    const is_haid = {!! json_encode($haid) !!}
 
+    const haidTrue = () => {
+      group_activity.forEach(activity => {
+        if (activity.getAttribute("id") < 17) {
+          activity.checked = false;
+          activity.setAttribute("disabled", "");
+          activity.parentNode.setAttribute("style", "color: grey");
+        }
+      });
+      info.classList.add("haid");
+    }
+
+    const haidFalse = () => {
+      group_activity.forEach(activity => {
+        if (activity.getAttribute("id") < 17) {
+          activity.removeAttribute("disabled");
+          activity.parentNode.removeAttribute("style");
+        }
+      });
+      info.classList.remove("haid");
+    }
+
+    if (is_haid) {
+      haid.checked = true;
+      haidTrue();
+    }
     if (haid) {
       haid.addEventListener("change", (event) => {
         if (event.target.checked) {
-          group_activity.forEach(activity => {
-            if (activity.getAttribute("id") < 17) {
-              activity.checked = false;
-              activity.setAttribute("disabled", "");
-              activity.parentNode.setAttribute("style", "color: grey");
-            }
-          });
-          info.classList.add("haid");
+          haidTrue();
         } else {
-          group_activity.forEach(activity => {
-            if (activity.getAttribute("id") < 17) {
-              activity.removeAttribute("disabled");
-              activity.parentNode.removeAttribute("style");
-            }
-          });
-          info.classList.remove("haid");
+          haidFalse();
         }
       });
     }
