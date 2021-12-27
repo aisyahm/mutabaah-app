@@ -1,81 +1,10 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,500;1,900&display=swap");
-* {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
-}
-/* header {
-    width: 100%;
-    display: flex;
-    height: 100vh;
-}
-header nav {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 5px;
-    width: 15%;
-    height: 100%;
-    box-shadow: 4px 4px 24px 3px rgba(0, 0, 0, 0.07);
-}
-header nav .logo-app {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    font-size: 14px;
-}
-header nav .logo-app .img {
-    display: flex;
-    align-items: center;
-}
-header nav .logo-app .atas {
-    margin-top: 2rem;
-}
-header nav .logo-app .atas li {
-    list-style: none;
-}
-header nav .logo-app .atas li a {
-    width: 100%;
-    padding-bottom: 2rem;
-    display: flex;
-    justify-content: space-evenly;
-}
-header nav .logo-app .atas li a {
-    text-decoration: none;
-}
-header nav .logo-app .atas::before {
-    content: "";
-    border-bottom: 5px solid #c8cbd9;
-    position: absolute;
-    bottom: 7rem;
-    width: 100%;
-}
-header nav ul li {
-    list-style: none;
-}
-header nav ul li a {
-    text-decoration: none;
-    color: black;
-}
-header nav ul li a .logos {
-    margin-right: 1rem;
-} */
 /* content */
-main {
-    padding: 0 !important;
-}
 .contenttop {
+    position: sticky;
+    top: 0;
     background: #fff;
-    width: 80%;
-    margin-left: 20%; /*menyesuaikan mentor.template */
-    height: 100%;
-}
-.contenttop > section {
-    width: 100%;
-    margin: auto;
-    height: 100%;
+    /* width: 80%; */
+    margin-left: 280px; /*menyesuaikan mentor.template */
 }
 .info-all {
     width: 100%;
@@ -90,14 +19,14 @@ main {
     align-items: stretch;
     justify-content: space-between;
 }
-.contenttop section img {
+.contenttop .text1 img {
     position: relative;
-    top: 0.1rem;
+    top: 0;
     left: 1rem;
     border-radius: 50%;
-    width: 48px;
+    width: 60px;
     margin-right: 1.5rem;
-    height: 48px;
+    height: 60px;
 }
 .info1 .text1 {
     display: flex;
@@ -212,15 +141,20 @@ main {
     color: #000;
 }
 /* info2 */
+
 .info2 {
     position: relative;
     width: 100%;
-    height: 10%;
+    /* height: 10%; */
+    height: 60px;
     border-top: 1px solid #c8cbd9;
     border-bottom: 1px solid #c8cbd9;
     display: flex;
 }
-.info2 .text1,
+.info2 .text-all:not(:last-child) {
+    margin-right: 10px;
+}
+.info2 .active,
 .info2 .text2,
 .info2 .text3 {
     cursor: pointer;
@@ -232,7 +166,7 @@ main {
     height: 56px;
     color: #00a7a0;
 }
-.info2 .text1::after {
+.info2 .active::after {
     position: absolute;
     bottom: -0.3rem;
     content: "";

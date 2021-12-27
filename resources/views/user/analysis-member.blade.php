@@ -1,28 +1,31 @@
-@extends('member.template')
+@extends(Auth::user()->is_mentor ? "mentor.template" : "member.template")
 
 @section('meta')
   <link rel="stylesheet" href="/css/analysis.css" />
 @endsection
 
 @section('content')
-  <div class="back">
-    <a href="/groups/{{ last(request()->segments()) }}">
-      <i class="fas fa-arrow-left"></i>
-      <h3>Kembali Ke Grup</h3>
-    </a>
-  </div>
-  <div class="profile-container">
-    <div class="profile">
-      <div class="profile-img">
-        <img src="/assets/ava/{{ $user->avatar }}.svg">
-      </div>
-      <div class="profile-detail">
-        <h3>{{ $user->name }}</h3>
-        <h4>{{ $user->no_telp }}</h4>
-      </div>
+  @if (Auth::user()->is_mentor)
+    <div class="back">
+      <a href="/groups/{{ $group->id }}">
+        <i class="fas fa-arrow-left"></i>
+        <h3>Kembali Ke Grup</h3>
+      </a>
     </div>
-    <a href="/groups/profile/{{ $user->id }}/{{ $group->id }}">Lihat Detail Akun</a>
-  </div>
+    <div class="profile-container">
+      <div class="profile">
+        <div class="profile-img">
+          <img src="/assets/ava/{{ $user->avatar }}.svg">
+        </div>
+        <div class="profile-detail">
+          <h3>{{ $user->name }}</h3>
+          <h4>{{ $user->no_telp }}</h4>
+        </div>
+      </div>
+      <a href="/groups/profile/{{ $user->id }}/{{ $group->id }}">Lihat Detail Akun</a>
+    </div>
+  @endif
+
   <div class="excel-content">
     <h2>Statistik Amalan Pribadi</h2>
     <a href="/download-laporan">Download Laporan</a>
@@ -30,7 +33,7 @@
   <div class="chart-container">
     <div class="chart-title">
       <h3>Amalan Sepekan</h3>
-      <h4>Week 3 Nov 2021 vs  <span>Week 4 Nov 2021</span></h4>
+      <h4>{{ $dates[0] . ' - ' . $dates[1] }} vs  <span>{{ $dates[2] . ' - ' . $dates[3] }}</span></h4>
     </div>
     <div class="inner">
       <div class="chart">

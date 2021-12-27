@@ -22,12 +22,10 @@
     display: flex;
     background-color: white;
     justify-content: space-between;
-    width: 98%;
     padding: 1rem;
     align-items: center;
     border-radius: 0.5rem;
     font-size: 0.8rem;
-    /* margin-top: 1rem; */
 }
 
 /* CARD PROFILE ANGGOTA STYLE ===================== */

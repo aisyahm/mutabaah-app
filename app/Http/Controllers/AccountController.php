@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class AccountController extends Controller
 {
+  // HALAMAN PROFILE MEMBER
   public function info($user, $group) {
     $member = User::find($user);
     $group = Group::find($group);
@@ -18,6 +19,7 @@ class AccountController extends Controller
     ]);
   }
 
+  // STORE INPUT FORM UPDATE PROFILE
   public function updateProfile(Request $request) {
     $user = User::find(Auth::user()->id);
 

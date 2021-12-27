@@ -3,6 +3,8 @@
 @endphp
 
 @extends('mentor.template')
+
+@include('mentor.top')
     
 @section('content')
     <!-- ======= KONFIRMASI ANGGOTA ======= -->
@@ -87,6 +89,12 @@
         <a href="./activities/{{ $group->id }}">Lihat Target Aktivitas</a>
       @else
         <a href="./add-activities/{{ $group->id }}">Tambah Aktivitas</a>
+      @endif
+    </div>
+
+    <div class="content-list">
+      @if (count(GroupActivity::where("group_id", $group->id)->get()))
+        <a href="/groups/chart/{{ $group->id }}">Lihat Statistik Amalan Harian</a>
       @endif
     </div>
 

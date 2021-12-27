@@ -39,7 +39,9 @@
               @foreach ($value as $activity)
                 <div class="amalan">
                   <label for="{{ $activity[0] }}"><b>{{ $activity[0] }}</b></label>
-                  <input id="{{ $activity[0] }}" name="group_activity[]" value="{{ $activity[1] }}" type="checkbox" />
+                  <input id="{{ $activity[0] }}" name="group_activity[]" value="{{ $activity[1] }}" type="checkbox" 
+                  {{ isset($group_activities_id) ? (in_array($activity[1], $group_activities_id) ? "checked" : "") : "" }}
+                  />
                 </div>
               @endforeach
 
@@ -52,8 +54,18 @@
       <input name="group_id" value="{{ $group->id }}" type="hidden">
 
       <!--======= SIMPAN =======-->
-      <div class="bot-content">
-        <button type="submit" class="simpan my-bg-color">
+      <div class="bot-content  {{ isset($group_activities_id) ? '' : 'warn' }}">
+        @if (isset($group_activities_id))
+          <div class="warning-container">
+            <img src="/assets/img/alert-warning.svg">
+            <h5 class="warning">Mengubah target amalan dapat menyebabkan riwayat aktivitas sebelumnya terhapus</h5>
+          </div>
+        @endif
+        <button type="submit" class="simpan my-bg-color" 
+        @if (isset($group_activities_id))
+          onclick="return confirm('Yakin ingin mengubah target amalan?')"
+        @endif
+        >
           Simpan Target Aktivitas
         </button>
       </div>

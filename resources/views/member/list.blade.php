@@ -5,10 +5,12 @@
 
 @extends('member.template')
 
-@section('meta')
-    <link rel="stylesheet" href="/css/my-style.css" />
-    <link rel="stylesheet" href="/css/list-member.css" />
+@section('meta')  
+  <link rel="stylesheet" href="/css/my-style.css" />
+  <link rel="stylesheet" href="/css/list-member.css" />
 @endsection
+
+@include('member.top')
 
 @section('content')
   <div class="content-list">

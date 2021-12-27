@@ -1,8 +1,12 @@
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Layout Top</title>
+@php
+  use Illuminate\Support\Facades\Auth;
+  use App\Models\User;
+
+  $group = last(request()->segments());
+  dd($group);
+@endphp
+
+@extends('main.template')
     {{-- css --}}
     <link rel="stylesheet" href="../css/layouttop/style.css" >
     {{-- FA 6 --}}
@@ -43,7 +47,7 @@
       </div>
       <div class="info3 info-all">
         
-        @yield('contenttop')
+        @yield('content-top')
         
       </div>
     </section>

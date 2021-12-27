@@ -30,8 +30,7 @@ Route::get('/forgot', [LoginController::class, 'forgot'])->name("forgot")->middl
 // HOME, JOIN GROUP, & CREATE GROUP
 Route::get('/home', [LoginController::class, 'home'])->name('home')->middleware('auth');
 Route::post('/join', [JoinController::class, 'join'])->name("join");
-Route::get('/create', [GroupController::class, 'create'])->name("create")->middleware('auth');
-Route::post('/create', [GroupController::class, 'storeCreate']);
+Route::post('/create', [GroupController::class, 'storeCreate'])->name("create");
 
 // ACCEPT & REJECT TO JOIN GROUP
 Route::get('/accept/{group}/{user}', [GroupController::class, 'accept'])->middleware('auth');
@@ -42,17 +41,17 @@ Route::get('/groups/profile/{user}/{group}', [AccountController::class, 'info'])
 Route::post('/update-profile', [AccountController::class, 'updateProfile'])->name("update");
 
 // OPEN GROUP 
-Route::get('/groups/{group:id}', [GroupController::class, 'groups'])->name("group")->middleware('auth');
+Route::get('/groups/analysis/{group:id}', [GroupController::class, 'groups'])->name("group")->middleware('auth');
 
 // CHART
-Route::get('/groups/chart/{userId}/{groupId}', [ChartController::class, 'self'])->name('chart')->middleware('auth');
+Route::get('/groups/chart/{userId}/{groupId}', [ChartController::class, 'self'])->name('chart-member')->middleware('auth');
+Route::get('/groups/chart/{group:id}', [ChartController::class, 'overall'])->name('chart-overall')->middleware('auth');
 
 // DELETE & LEAVE GROUP
-// Route::post('/delete', [GroupController::class, 'dangerGroup'])->name("delete");
+Route::post('/delete', [GroupController::class, 'dangerGroup'])->name("delete");
 
-// ADD, EDIT, & VIEW ACTIVITIES
+// ADD, EDIT, VIEW ACTIVITIES, & SUBMIT SUBMISSION
 Route::get('/groups/add-activities/{group:id}', [ActivityController::class, 'add'])->name('add-activities')->middleware('auth');
-Route::get('/groups/edit-activities/{group:id}', [ActivityController::class, 'edit'])->name('add-activities')->middleware('auth');
 Route::post('/groups/add-activities', [ActivityController::class, 'storeAdd']);
 Route::get('/groups/activities/{group:id}', [ActivityController::class, 'activities'])->name('group-activities')->middleware('auth');
 
@@ -63,3 +62,7 @@ Route::get('/home/mentoranalisis/exportlaporan/', [LaporanController::class, 'la
 Route::post('/edit-grup', [LaporanController::class, 'edit'])->name("edit-grup")->middleware('auth');
 Route::post('/delete', [LaporanController::class, 'dangerGroup'])->name("delete");
 
+Route::post('/submit-submission', [ActivityController::class, 'newSubmission'])->name('new-submission')->middleware('auth');
+
+// DELETE & LEAVE GROUP
+Route::post('/delete', [GroupController::class, 'dangerGroup'])->name("delete");

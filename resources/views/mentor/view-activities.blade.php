@@ -11,7 +11,7 @@
     <div class="head-content">
       <p><b>Target Amalan Grup</b></p>
       <div class="edit-amalan">
-        <a href="../edit-activities/{{ $group->id }}">Edit aktivitas grup</a>
+        <a href="{{ route("add-activities",$group->id ) }}">Edit aktivitas grup</a>
       </div>
     </div>
 
@@ -42,10 +42,9 @@
 
         <div class="isi">
           <div class="kolom">
-
             @foreach ($value as $activity)
             <div class="amalan">
-              <span><b>{{ $activity }}</b></span>
+              <span><b>{{ $activity[0]->name }}</b></span>
             </div>
             @endforeach
           </div>

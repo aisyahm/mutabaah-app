@@ -13,6 +13,15 @@
     $groupsInTemplate[] = $groupAcc->group;
     $membersInTemplate[] = $groupAcc->where("group_id", $groupAcc->group->id)->where("is_accept", true)->count() - 1;
   }
+
+  $memberPending = [];
+  foreach ($groupsTemplate as $group) {
+    if (!is_null(UserGroup::with("group")->where("group_id", $group->group_id)->where("is_accept", false)->first())) {
+      $memberPending[] = true;
+    } else {
+      $memberPending[] = false;
+    }
+  }
 @endphp
 
 <!DOCTYPE html>
@@ -37,10 +46,11 @@
             <h3>Buat grup</h3>
             <i class="new-group-btn fas fa-plus"></i>
           </div>
+          {{-- @dd(count($memberPending)) --}}
 
             @if ($groupsInTemplate)
               @for ($i = 0; $i < count($groupsInTemplate); $i++)
-                <a href="/groups/{{ $groupsInTemplate[$i]->id }}">
+                <a href="/groups/analysis/{{ $groupsInTemplate[$i]->id }}">
                   <div class="group {{ last(request()->segments()) == $groupsInTemplate[$i]->id ? "active" : "" }}">
                     <div class="ava-group">
                       <img src="/assets/ava/{{ $groupsInTemplate[$i]->avatar }}.svg" alt="">
@@ -49,6 +59,10 @@
                       <h4>{{ $groupsInTemplate[$i]->name }}</h4>
                       <h4>{{ $membersInTemplate[$i] }} anggota</h4>
                     </div>
+                    @if ($memberPending[$i])
+                        {{-- <img class="pending" src="/assets/img/alert-warning.svg"> --}}
+                        <div class="pending"></div>
+                    @endif
                   </div> 
                 </a>
               @endfor
@@ -236,6 +250,8 @@
         
 
       </div>
+
+     
     </main>
     <script
       src="https://kit.fontawesome.com/43c91d6ead.js"
