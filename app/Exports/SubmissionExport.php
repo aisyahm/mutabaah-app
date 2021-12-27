@@ -8,9 +8,9 @@ use App\Models\Submission;
 // use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Events\AfterSheet;
+use Maatwebsite\Excel\Events\BeforeSheet;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithTitle;
-use Maatwebsite\Excel\Events\BeforeSheet;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Events\BeforeExport;
@@ -22,7 +22,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use Maatwebsite\Excel\Concerns\WithCustomStartCell;
 use Maatwebsite\Excel\Concerns\WithMapping; //mengelompokkan untuk hide
 
-class SubmissionExport implements ShouldAutoSize, WithMapping, WithHeadings, WithEvents, FromQuery, WithDrawings, WithCustomStartCell, WithTitle
+class SubmissionExport implements  WithMapping, WithHeadings, WithEvents, FromQuery, WithDrawings, WithCustomStartCell, WithTitle, ShouldAutoSize
 // FromCollection
 {
     // Exportable Trait
