@@ -86,7 +86,7 @@
 
     <div class="content-list">
       @if (count(GroupActivity::where("group_id", $group->id)->get()))
-        <a href="./activities/{{ $group->id }}">Lihat Target Aktivitas</a>
+        <a href={{ route("group-activities", $group->id) }}>Lihat Target Aktivitas</a>
       @else
         <a href="./add-activities/{{ $group->id }}">Tambah Aktivitas</a>
       @endif

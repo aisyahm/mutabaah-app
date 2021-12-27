@@ -59,23 +59,6 @@ class SubmissionExport implements  WithHeadings, WithEvents, WithDrawings, WithC
     // public function query()
     public function collection()
     {
-    // //   return Submission::with('activity','user')->first();
-    //   return Submission::query()->with('activity','user')
-    //   ->whereYear('created_at', $this->year)
-    //   ->whereMonth('created_at', $this->month);
-    //     // dd($submission);
-
-    // UserGroup::where('group_id', $group->id)->with("user")->user->get();
-    // loop --> dapatkan nama masing2 user
-
-    // GroupActivity::where('group_id', $group->id)->with("activity")->activity->get();
-    // loop --> dapatkan nama masing2 template activity
-
-  //  return GroupActivity::with('submission','activity','group')->get();
-    //   ->where("is_mentor", !Auth::user()->is_mentor)
-        // ->whereYear('created_at', $this->year)
-        // ->whereMonth('created_at', $this->month);
-        // udd($sub);
     
 
     // return new Collection([
@@ -107,8 +90,18 @@ class SubmissionExport implements  WithHeadings, WithEvents, WithDrawings, WithC
         foreach ($groupActivity as $activityG) {
           $userGroup = $activityG->group->userGroup;
           $activities[] = $activityG->activity->name;
-          // $submission = $activityG->activity->where("date", ">=", "2021-11")
+          $groupActivityId[] = $activityG->id;
+          $submission[] = $activityG->submission->where("date", ">=", "2021-11-14")->where("date", "<=", "2021-12-27")->where("user_id", 1);
         }
+        
+        foreach ($submission as $sub) {
+          $value = 0;
+            foreach ($sub as $s) {
+              $value += $s->is_done;
+            }
+          $totalSubmission[] = $value;
+        }
+        dd($totalSubmission);
 
         foreach ($userGroup as $users) {
           if (!$users->user->is_mentor && $users->is_accept) {
@@ -117,12 +110,7 @@ class SubmissionExport implements  WithHeadings, WithEvents, WithDrawings, WithC
         }
 
         // dd($activities);
-
-        // foreach ($activities as $activity) {
-        //   $activityName = $activity->name;
-        // }
         
-        // dd($activityName);
         for ($i=0; $i < count($user); $i++) { 
           $query[] = [$user[$i], $activities[1]];
         }

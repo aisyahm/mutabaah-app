@@ -49,20 +49,6 @@ class LaporanController extends Controller
     //     return Excel::download(new LaporanMultiSheetExport(2021), $nama_file);
     // }
 
-    // EDIT Mentor
-    public function edit(Request $group) {
-       $group = Group::find($group);
-    //    $group = Group::all();
-       // dd($user);
-      
-       $group->update([
-              "name" => $group->name,
-              "description" => $group->description
-       ]);
-
-       return back();
-    }
-
      // ubah tahun terima data disini 2021
      public function laporanexport(){
         return $this->excel->download(new SubmissionMultiSheetExport(2021), 'submission.xlsx');

@@ -75,11 +75,7 @@
         <div class="text3 text-all {{ Request::segment(2) == "target" ? "active" : "" }}">Target</div>
       </div>
       <div class="info3 info-all">
-        {{-- download laporan --}}
-        <h1>Statistik Amalan Harian <span>21 Nov 2021</span></h1>
-        <a href="/home/mentoranalisis/exportlaporan">
-            <button>Download laporan</button>
-        </a>
+        
       </div>
   </div>
    {{-- Edit Grup --}}
@@ -89,66 +85,66 @@
         <i class="fas fa-times close"></i>
         </div>
         <form action="{{ route('edit-grup') }}" method="POST">
-        @csrf
-        <label>Pilih Avatar<span>*</span></label>
-        <div class="ava-container">
-            <div class="ava">
-            <input type="radio" name="avatar" value="1" >
-            <span id="mentor"></span>
-            <img src="/assets/ava/1.svg">
-            </div>
-            <div class="ava">
-            <input type="radio" name="avatar" value="2" >
-            <span id="mentor"></span>
-            <img src="/assets/ava/2.svg">
-            </div>
-            <div class="ava">
-            <input type="radio" name="avatar" value="3" checked >
-            <span id="mentor"></span>
-            <img src="/assets/ava/3.svg">
-            </div>
-            <div class="ava">
-            <input type="radio" name="avatar" value="4" >
-            <span id="mentor"></span>
-            <img src="/assets/ava/4.svg">
-            </div>
-            <div class="ava">
-            <input type="radio" name="avatar" value="5" >
-            <span id="mentor"></span>
-            <img src="/assets/ava/5.svg">
-            </div>
-        </div>
+          @csrf
+          <label>Pilih Avatar<span>*</span></label>
+          <div class="ava-container">
+              <div class="ava">
+              <input type="radio" name="avatar" value="1" {{  $group->avatar == 1 ? "checked" : "" }}>
+              <span id="mentor"></span>
+              <img src="/assets/ava/1.svg">
+              </div>
+              <div class="ava">
+              <input type="radio" name="avatar" value="2" {{  $group->avatar == 2 ? "checked" : "" }}>
+              <span id="mentor"></span>
+              <img src="/assets/ava/2.svg">
+              </div>
+              <div class="ava">
+              <input type="radio" name="avatar" value="3" {{  $group->avatar == "" ? "checked" : $group->avatar == 3 ? "checked" : "" }}>
+              <span id="mentor"></span>
+              <img src="/assets/ava/3.svg">
+              </div>
+              <div class="ava">
+              <input type="radio" name="avatar" value="4"{{  $group->avatar == 4 ? "checked" : "" }} >
+              <span id="mentor"></span>
+              <img src="/assets/ava/4.svg">
+              </div>
+              <div class="ava">
+              <input type="radio" name="avatar" value="5" {{  $group->avatar == 5 ? "checked" : "" }}>
+              <span id="mentor"></span>
+              <img src="/assets/ava/5.svg">
+              </div>
+          </div>
 
-        <label for="name">Nama grup<span>*</span></label>
-        <input
-        type="text"
-        id="name"
-        name="name"
-        autofocus value="{{ old("name") }}" 
-        autocomplete="off"
-        required
-        />
+          <label for="name">Nama grup<span>*</span></label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            autofocus value="{{ $group->name }}" 
+            autocomplete="off"
+            required
+          />
 
-        <label for="desc">Deskripsi grup<span>*</span></label>
-        <textarea
-        id="desc"
-        name="desc"
-        cols="30"
-        rows="10"
-        autocomplete="off"
-        placeholder="Masukkan deskripsi grup"
-        required>
-        </textarea>
-        <h4 class="wajib"><span>*</span>Wajib diisi</h4>
-        <button type="submit">Simpan</button>
-
+          <label for="description">Deskripsi grup<span>*</span></label>
+          <textarea
+          id="description"
+          name="description"
+          cols="30"
+          rows="10"
+          autocomplete="off"
+          placeholder="Masukkan deskripsi grup"
+          required>{{ $group->description }}
+          </textarea>
+          <h4 class="wajib"><span>*</span>Wajib diisi</h4>
+          <input type="hidden" name="group" value={{ $group->id }}>
+          <button type="submit">Simpan</button>
         </form>
     </div>
 
     {{-- Hapus Grup --}}
     <div class="pop-up mentor-hapus-group-pop-up">
         <div class="pop-up-title">
-        <h3>Konfirmasi hapus Grup: NAMA Grup</h3>
+        <h3>Konfirmasi hapus Grup: {{ $group->name }}</h3>
         <i class="fas fa-times close"></i>
         </div>
         <div class="box-hapus-text">
@@ -156,12 +152,10 @@
         </div>
         <div class="box-hapus-button">
         <button class="btn-batal">Batal</button>
-            <form action="" method="post" class="form-hapus">
-            {{-- <form action="{{ route("delete") }}" method="post"> --}}
+            <form action="{{ route("delete") }}" method="post" class="form-hapus">
                 @csrf
-                {{-- <input type="hidden" name="group_id" value="{{ $group->id }}"> --}}
-                <input type="hidden" name="group_id" value="">
-                <button class="btn-hapus" type="submit" id="danger-btn" name="delete" value="1" onclick="return confirm('Yakin ingin menghapus grup ini?')">Hapus</button>
+                <input type="hidden" name="group_id" value="{{ $group->id }}">
+                <button class="btn-hapus" type="submit" id="danger-btn" name="delete" value="1">Hapus</button>
             </form>
         </div>
     </div>

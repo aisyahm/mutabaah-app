@@ -96,6 +96,19 @@ class GroupController extends Controller
       return back();
     }
 
+    // STORE DATA EDIT GROUP
+    public function edit(Request $request) {
+      $group = Group::find($request->group);
+
+      $group->update([
+          "name" => $request->name,
+          "description" => $request->description,
+          "avatar" => $request->avatar,
+      ]);
+
+      return back();
+    }
+
     // TERIMA PERMINTAAN MEMBER BERGABUNG DALAM GRUP
     public function accept($group, $user) {
       if (Auth::user()->is_mentor == false) return back();
@@ -122,11 +135,15 @@ class GroupController extends Controller
       // JIKA REQUEST HAPUS GRUP  ||  DILAKUKAN OLEH MENTOR
       // HAPUS SEMUA USER DI TABEL USER_GRUP YANG GROUP_ID == GROUP->ID, 
       // HAPUS GRUP DARI TABEL GRUP, HAPUS AKTIVITAS GRUP DI TABEL GROUP_ACTIVITY
+      // dd($request->all());
+
       if ($request->delete) {
         $userGroup = UserGroup::where("group_id", $request->group_id);
         $group = Group::find($request->group_id);
         $groupActivity = GroupActivity::where("group_id", $request->group_id);
         
+        // dd($groupActivity);
+
         $userGroup->delete();
         $group->delete();
         $groupActivity->delete();
