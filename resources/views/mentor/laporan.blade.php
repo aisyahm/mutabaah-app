@@ -41,11 +41,6 @@
               border-radius: 8px;
             }
         </style>
-        {{-- download laporan --}}
-        <h1>Statistik Amalan Harian <span>21 Nov 2021</span></h1>
-        <a href="/home/mentoranalisis/exportlaporan">
-            <button>Download laporan</button>
-        </a>
 
         {{-- Edit Grup --}}
         <div class="pop-up mentor-group-pop-up">

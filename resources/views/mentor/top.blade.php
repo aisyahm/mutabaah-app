@@ -74,6 +74,13 @@
         <div class="text2 text-all {{ Request::segment(2) == "member" ? "active" : "" }}">Anggota ({{ count($membersIn) }} Orang)</div>
         <div class="text3 text-all {{ Request::segment(2) == "target" ? "active" : "" }}">Target</div>
       </div>
+      <div class="info3 info-all">
+        {{-- download laporan --}}
+        <h1>Statistik Amalan Harian <span>21 Nov 2021</span></h1>
+        <a href="/home/mentoranalisis/exportlaporan">
+            <button>Download laporan</button>
+        </a>
+      </div>
   </div>
    {{-- Edit Grup --}}
     <div class="pop-up mentor-group-pop-up">

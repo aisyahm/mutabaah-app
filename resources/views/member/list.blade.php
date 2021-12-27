@@ -1,6 +1,8 @@
 @php
   use App\Models\GroupActivity; 
   use Illuminate\Support\Facades\Auth;
+
+  
 @endphp
 
 @extends('member.template')
