@@ -5,6 +5,7 @@ use App\Http\Controllers\JoinController;
 use App\Http\Controllers\ChartController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\RegisterController;
@@ -51,6 +52,10 @@ Route::get('/groups/add-activities/{group:id}', [ActivityController::class, 'add
 Route::post('/groups/add-activities', [ActivityController::class, 'storeAdd']);
 Route::get('/groups/activities/{group:id}', [ActivityController::class, 'activities'])->name('group-activities')->middleware('auth');
 Route::post('/submit-submission', [ActivityController::class, 'newSubmission'])->name('new-submission')->middleware('auth');
+
+// DOWNLOAD LAPORAN EXCEL
+Route::get('/download-report/{user:id}/{group:id}', [ReportController::class, 'member'])->name('report-member')->middleware('auth');
+Route::get('/download-report/{group:id}', [ReportController::class, 'group'])->name('report-group')->middleware('auth');
 
 // DELETE & LEAVE GROUP
 Route::post('/delete', [GroupController::class, 'dangerGroup'])->name("delete");

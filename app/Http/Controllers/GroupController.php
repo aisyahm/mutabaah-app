@@ -14,7 +14,7 @@ class GroupController extends Controller
     // HALAMAN AWAL GROUP
     public function groups(Group $group) {
       // GET USER DALAM GRUP, SUDAH DITERIMA, ATAU MASIH PENDING (MENUNGGU KONFIRMASI BERGABUNG)
-      $users = UserGroup::where("group_id", $group->id)->get();
+      $users = UserGroup::with("user")->where("group_id", $group->id)->get();
       $usersOut = $users->where("is_accept", false);
       $usersIn = $users->where("is_accept", true);
 

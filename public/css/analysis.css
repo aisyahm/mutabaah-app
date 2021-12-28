@@ -141,12 +141,13 @@
 }
 .legend {
     flex-direction: row;
+    justify-content: center;
+    gap: 2rem;
 }
 .legend > span {
     display: flex;
     align-items: center;
     margin-top: 1rem;
-    margin-right: 2rem;
     font-size: 0.8rem;
 }
 span > span {

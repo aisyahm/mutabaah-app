@@ -8,6 +8,70 @@
 @endsection
 
 @section('content')
+  @if (count($activities) != 0)
+
+    {{-- CHART PER CATEGORY ACTIVITY --}}
+    @foreach ($activityDetail as $key => $value)
+      <div class="chart-container">
+          @switch($key)
+              @case(1)
+                  <div class="chart-title">
+                    <h3>Sholat Wajib</h3>
+                  </div>
+                  <div class="inner">
+                    <div class="chart">
+                      <canvas id="wajibChart"></canvas>
+                    </div>
+                  </div>
+                  @break
+              @case(2)
+                  <div class="chart-title">
+                    <h3>Sholat Rawatib</h3>
+                  </div>
+                  <div class="inner">
+                    <div class="chart">
+                      <canvas id="rawatibChart"></canvas>
+                    </div>
+                  </div>
+                  @break
+              @case(3)
+                  <div class="chart-title">
+                    <h3>Sholat Sunnah</h3>
+                  </div>
+                  <div class="inner">
+                    <div class="chart">
+                      <canvas id="sunnahChart"></canvas>
+                    </div>
+                  </div>
+                  @break
+              @case(4)
+                  <div class="chart-title">
+                    <h3>Sholat Sunnah Lainnya</h3>
+                  </div>
+                  <div class="inner">
+                    <div class="chart">
+                      <canvas id="lainnyaChart"></canvas>
+                    </div>
+                  </div>
+                  @break
+              @default
+                  <div class="chart-title">
+                    <h3>Dzikir</h3>
+                  </div>
+                  <div class="inner">
+                    <div class="chart">
+                      <canvas id="dzikirChart"></canvas>
+                    </div>
+                  </div>
+          @endswitch
+        <div class="legend">
+          <span><span></span>Kemarin</span>
+          <span><span></span>Hari Ini</span>
+        </div>
+    </div>
+    @endforeach
+  @endif
+
   @if (count($rangking) != 0)
   <div class="rank-container">
     <div class="ranking"> 
@@ -76,23 +140,26 @@
   </div>
   @endif
 
-  {{-- @dd(count($activities)) --}}
+  <a href={{ route("report-group", $group->id) }}>Download Laporan</a>
+
   @if (count($activities) != 0)
-  <div class="chart-container">
-    <div class="chart-title">
-      <h3>Rata-Rata Amalan Sepekan</h3>
-      <h4>{{ $dates[0] . ' - ' . $dates[1] }} vs  <span>{{ $dates[2] . ' - ' . $dates[3] }}</span></h4>
-    </div>
-    <div class="inner">
-      <div class="chart">
-        <canvas id="myChart"></canvas>
+    <div class="chart-container">
+      <div class="chart-title">
+        <h3>Rata-Rata Amalan Sepekan</h3>
+        <h4>{{ $dates[0] . ' - ' . $dates[1] }} vs  <span>{{ $dates[2] . ' - ' . $dates[3] }}</span></h4>
+      </div>
+
+      {{-- CHART AVERAGE ACTIVITY --}}
+      <div class="inner">
+        <div class="chart">
+          <canvas id="averageChart"></canvas>
+        </div>
+      </div>
+      <div class="legend">
+        <span><span></span>Pekan lalu</span>
+        <span><span></span>Pekan Ini</span>
       </div>
     </div>
-    <div class="legend">
-      <span><span></span>Pekan lalu</span>
-      <span><span></span>Pekan Ini</span>
-    </div>
-  </div>
   @endif
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -154,8 +221,8 @@
       }
     }
 
-    const myChart = new Chart(
-      document.getElementById('myChart'),
+    const averageChart = new Chart(
+      document.getElementById('averageChart'),
       config
     );
   </script>

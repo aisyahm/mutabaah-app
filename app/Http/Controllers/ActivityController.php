@@ -115,7 +115,8 @@ class ActivityController extends Controller
         if (!($activity->submission->where("user_id", Auth::user()->id)->where("date", $now)->first())) {
           Submission::create([
             "user_id" => Auth::user()->id,
-            "group_activity_id" => $activity->id
+            "group_activity_id" => $activity->id,
+            "date" => $now
           ]);
         }
         // GET SUBMISSION DI HARI TERSEBUT
