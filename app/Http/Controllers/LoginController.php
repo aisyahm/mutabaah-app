@@ -16,14 +16,16 @@ class LoginController extends Controller
     }
 
     public function authenticate(Request $request) {
+      
       $credentials = $request->validate([
         'email' => ['required', 'email:rfc,dns'],
         'password' => ['required'],
       ]); 
-      
-      if (Auth::attempt($credentials)) {
-         $request->session()->regenerate();
-         return redirect()->intended(route("home"));
+
+      $remember_me = $request->has('remember_me') ? true : false;
+      if (Auth::attempt($credentials, $remember_me)) {
+         //$request->session()->regenerate();
+         return redirect()->route("home");
       }
 
       $request->flash("email");

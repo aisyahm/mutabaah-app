@@ -111,7 +111,7 @@
 
           <div class="remember my-mt-login">
             <div>
-              <input type="checkbox" name="remember" >
+              <input type="checkbox" name="remember_me">
               <label for="remember">Ingat saya</label>
             </div>
 
