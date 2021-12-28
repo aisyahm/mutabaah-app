@@ -24,8 +24,8 @@ class LoginController extends Controller
 
       $remember_me = $request->has('remember_me') ? true : false;
       if (Auth::attempt($credentials, $remember_me)) {
-         //$request->session()->regenerate();
-         return redirect()->route("home");
+         $request->session()->regenerate();
+         return redirect()->intended(route("home"));
       }
 
       $request->flash("email");
