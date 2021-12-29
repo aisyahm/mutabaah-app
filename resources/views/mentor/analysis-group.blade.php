@@ -164,9 +164,9 @@
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-    const labels = {!! json_encode($activities) !!};
-    const weekNow = {!! json_encode($averageCurent) !!};
-    const weekBefore = {!! json_encode($averagePass) !!};
+    let labels = {!! json_encode($activities) !!};
+    let weekNow = {!! json_encode($averageCurent) !!};
+    let weekBefore = {!! json_encode($averagePass) !!};
     const rangking = {!! json_encode($rangking) !!};
     const member = document.querySelectorAll(".grid-rank > div");
     document.querySelector(".chart").style.setProperty("--activity", labels.length);
@@ -175,7 +175,7 @@
       document.querySelector(".grid-rank").style.setProperty("--row", Math.ceil(member.length / 2));
     }
 
-    const data = {
+    let data = {
       labels: labels,
       datasets: [{
         data: weekBefore,
@@ -192,7 +192,7 @@
       }]
     };
 
-    const config = {
+    let config = {
       type: 'bar',
       data: data,
       options: {
@@ -225,5 +225,101 @@
       document.getElementById('averageChart'),
       config
     );
+  </script>
+  <script>
+    const activityDetail = {!! json_encode($activityDetail) !!};
+    let labelsToday = [];
+    let Yesterday = [];
+    let Today = [];
+
+    for (let key in activityDetail) {
+      let labelsToday = [];
+      let yesterday = [];
+      let today = [];
+      for (let activity in activityDetail[key]) {
+        labelsToday.push(activity);
+        yesterday.push(activityDetail[key][activity][0]);
+        today.push(activityDetail[key][activity][1]);
+      }
+
+      let dataDay = {
+        labels: labelsToday,
+        datasets: [{
+          data: yesterday,
+          backgroundColor: '#CCEDEC',
+          categoryPercentage: 0.3,
+          barPercentage: 0.2,
+          borderRadius: 20,
+        },{
+          data: today,
+          backgroundColor: '#00A7A0',
+          categoryPercentage: 0.3,
+          barPercentage: 0.2,
+          borderRadius: 20,
+        }]
+      };
+
+      let configDay = {
+        type: 'bar',
+        data: dataDay,
+        options: {
+          maintainAspectRatio: false,
+          responsive: true,
+          plugins: {
+            legend: {
+              display: false
+            }
+          },
+          scales: {
+            y: {
+              ticks: {
+                stepSize: 1,
+                color: "#6e6e6e",
+                padding: 5
+              },
+            },
+            x: {
+              ticks: {
+                maxTicksLimit: 0,
+                color: "#000"
+              },
+            },
+          },
+        }
+      }
+
+      switch (key) {
+        case "1":
+          console.log(configDay)
+          const wajibChart = new Chart(
+            document.getElementById('wajibChart'),
+            configDay
+          );
+          break;
+        case "2":
+          const rawatibChart = new Chart(
+            document.getElementById('rawatibChart'),
+            configDay
+          );
+          break;
+        case "3":
+          const sunnahChart = new Chart(
+            document.getElementById('sunnahChart'),
+            configDay
+          );
+          break;
+        case "4":
+          const lainnyaChart = new Chart(
+            document.getElementById('lainnyaChart'),
+            configDay
+          );
+          break;
+        default:
+          const dzikirChart = new Chart(
+            document.getElementById('dzikirChart'),
+            configDay
+          );
+      }
+    }
   </script>
 @endsection
