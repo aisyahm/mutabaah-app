@@ -15,26 +15,36 @@ use App\Exports\LaporanMultiSheetExport;
 use App\Exports\SubmissionMultiSheetExport;
 use App\Http\Controllers\Controller;
 
+use Carbon\Carbon;
+
+
 class LaporanController extends Controller
 {
-    public function laporan()
+    public function laporanMember($user, $group)
     {   
-        $member = User::where("is_mentor", !Auth::user()->is_mentor)->get();
-        // $group = Group::find($group);
-        $group = Group::all();
-        $user = Auth::user();
-        GroupActivity::all();
-        // $groupActivity = GroupActivity::where("group_id", 1)->get();
-        // $nameActivity = [];
+      $user = User::find($user);
+      $group = Group::find($group);
 
-        // foreach ($groupActivity as $group) {
-        //     $nameActivity[] = $group->activity->name;
-        // }
-        // dd($nameActivity);
+      session([
+        "user" => $user,
+        "group" => $group
+      ]);
+        // $member = User::where("is_mentor", !Auth::user()->is_mentor)->get();
+        // // $group = Group::find($group);
+        // $group = Group::all();
+        // $user = Auth::user();
+        // GroupActivity::all();
+        // // $groupActivity = GroupActivity::where("group_id", 1)->get();
+        // // $nameActivity = [];
+
+        // // foreach ($groupActivity as $group) {
+        // //     $nameActivity[] = $group->activity->name;
+        // // }
+        // // dd($nameActivity);
         
-        return view('mentor.laporan', [
-            "group" => $group
-          ]);
+        return view('mentor.laporan');
+        // COLUMN EXCEL: NAMA AKTIVITAS, HAID
+      // ROW EXCEL: DATE, IS_DONE, HAID
     }
     
     private $excel;
@@ -50,7 +60,15 @@ class LaporanController extends Controller
     // }
 
      // ubah tahun terima data disini 2021
-     public function laporanexport(){
+     public function laporanexport($user, $group){
+      $user = User::find($user);
+      $group = Group::find($group);
+
+      session([
+        "user" => $user,
+        "group" => $group
+      ]);
+
         return $this->excel->download(new SubmissionMultiSheetExport(2021), 'submission.xlsx');
     }
 }

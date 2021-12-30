@@ -56,7 +56,7 @@
   </div>
 
   <div class="content-list">
-    <a href="chart/{{ Auth::user()->id }}/{{ $group->id }}">Analisis Amalan</a>
+    <a href="{{ route("chart-member", ["userId" => Auth::user()->id, "groupId" => $group->id]) }}">Analisis Amalan</a>
   </div>
 
   {{-- <div class="content-list">

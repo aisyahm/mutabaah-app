@@ -4,6 +4,7 @@ namespace App\Exports;
 
 use DateTime;
 use App\Models\User;
+use App\Models\Group;
 use App\Models\Submission;
 use App\Models\GroupActivity;
 // use Illuminate\Contracts\Support\Responsable;
@@ -23,10 +24,14 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use Maatwebsite\Excel\Concerns\WithCustomStartCell;
+// use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Concerns\WithMapping; //mengelompokkan untuk hide
 
-class SubmissionExport implements  WithHeadings, WithEvents, WithDrawings, WithCustomStartCell, WithTitle, ShouldAutoSize, FromCollection
-// FromCollection FromQuery WithMapping,
+use Carbon\Carbon;
+
+
+class SubmissionExport implements WithEvents, WithDrawings, WithCustomStartCell, ShouldAutoSize, FromCollection
+// FromCollection FromQuery WithMapping, WithTitle,WithHeadings,FromCollection
 {
     // Exportable Trait
     use Exportable;
@@ -59,117 +64,97 @@ class SubmissionExport implements  WithHeadings, WithEvents, WithDrawings, WithC
     // public function query()
     public function collection()
     {
-    
+      $strMonth = Carbon::now()->startOfMonth()->format('Y-m-d');
+      $endMonth = Carbon::now()->endOfMonth()->format('Y-m-d');
+      $user = session("user");
+      $group = session("group");
 
-    // return new Collection([
-    //     ['nama','hahah']
-    // ]);
-    
-    // [
-    //   [
-    //     Shidqi,
-    //     [5,6,9,10],
-    //     7
-    //   ],
-    //   [
-    //     Rizki,
-    //     [5,6,9,10],
-    //     7
-    //   ],
-    //   [
-    //     Ell,
-    //     [5,6,9,10],
-    //     7
-    //   ],
-    // ]
-
-
-        $query = [];
-
-        $groupActivity = GroupActivity::with('submission','activity','group')->where("group_id", 1)->get();
-        foreach ($groupActivity as $activityG) {
-          $userGroup = $activityG->group->userGroup;
-          $activities[] = $activityG->activity->name;
-          $groupActivityId[] = $activityG->id;
-          $submission[] = $activityG->submission->where("date", ">=", "2021-11-14")->where("date", "<=", "2021-12-27")->where("user_id", 1);
-        }
+      $activityUser = GroupActivity::with("submission", "activity")->where("group_id", $group->id)->get();
+      foreach ($activityUser as $activities) {
+        $activitiesSub = $activities->submission->where("user_id", $user->id)->where("date", ">=", $strMonth)->where("date", "<=", $endMonth);
+        // $activitiesSub = $activities->submission->where("user_id", $user->id)
+        //                     ->whereYear('created_at', $this->year)
+        //                     ->whereMonth('created_at', $this->month);
         
-        foreach ($submission as $sub) {
-          $value = 0;
-            foreach ($sub as $s) {
-              $value += $s->is_done;
-            }
-          $totalSubmission[] = $value;
-        }
-        dd($totalSubmission);
+        $activitiesName[] = $activities->activity->name;
+        $value = [];
+        $userDate = [];
+        $userHaid = [];
+        
+        foreach ($activitiesSub as $activity) {
+          $true = "\u{02713}";
+          $false = "\u{000D7}";
+          $date[] = $activity->date;
+          $value[] = $activity->is_done ? json_decode('"'.$true.'"') : json_decode('"'.$false.'"');
 
-        foreach ($userGroup as $users) {
-          if (!$users->user->is_mentor && $users->is_accept) {
-            $user[] = $users->user->name;
+          if (count($userHaid) <= count($activitiesSub)) {
+            $userHaid[] = $activity->is_haid ? json_decode('"'.$true.'"') : json_decode('"'.$false.'"');
+            $userDate[] = $activity->date;
           }
         }
+        $userPoint[] = $value;
+      }
 
-        // dd($activities);
+      $activitiesName = ["Date", ...$activitiesName];
+    //   dd($userDate);
+      $activitiesName;                                // TABLE HEAD NAME ACTIVITY
+      $query = [$userDate, $userPoint, $userHaid];    // DATA VALUE TABLE
+      $query = collect($userDate);    // DATA VALUE TABLE
+    //   $query = [[$userDate], [$userPoint], [$userHaid]];    // DATA VALUE TABLE
 
-        for ($i=0; $i < count($user); $i++) { 
-          $query[] = [$user[$i], $activities[1]];
-        }
+    //   dump($activitiesName);
+    //   dd($query);
 
-        // dd($query);
-        
-        return new Collection($query);
+    return $query;
 
-    //       return new Collection([
-    //     ['nama','hahah']
+    // return new Collection([
+    //     ['nama','email'], 
+    //     [$userDate,$userPoint], 
     // ]);
-      // session(["user" => $user]);
-
-      // return new Collection($query);
-
+        // return $query;
+        // return $query;
+        // $export = new SubmissionExport();
+        // return $export->map([$query]);
     }
- 
-    // // mapping (yang muncul hanya)
-    // public function map($submission): array
+
+    // // heading
+    // public function headings(): array
     // {
-    //     // $haid = $submission->submission->is_haid ? "haid" : "tidak haid";
-    //     // $done = $submission->submission->is_done ? "ngerjain" : "gak ngerjain";
-    //     return [
-    //         // FIELD DALAM EXCEL
-    //         // nama | activity | is_done | date | is_haid
-    //         // $submission->group->userGroup->user->name, ,
-    //         // $submission->userGroup->id, //karena gak ada id di field group activity
-    //         // $submission->activity->name, 
-    //         $user, 
-    //         // $submission->submission, 
-    //         // $submission->submission->is_haid, 
-    //     ];
+    //     $groupActivity = GroupActivity::with('submission','activity','group')->where("group_id", 1)->get();
+    //     foreach ($groupActivity as $activityG) {
+    //       $userGroup = $activityG->group->userGroup;
+    //       $activities[] = $activityG->activity->name;
+    //     }
+
+    //     return ["Nama", ...$activities];
+        
+        
+
+    //     // return [
+    //     //     '#',
+    //     //     'Name',
+    //     //     'Username',
+    //     //     'is_mentor',
+    //     //     'Aktivitas',
+    //     //     // 'value',
+    //     //     'date',
+    //     //     'is_haid',
+    //     //     'created_at',
+    //     //     'updated_at'
+    //     // ];
     // }
 
-    // heading
-    public function headings(): array
+    // mapping (yang muncul hanya)
+    public function map($query): array
     {
-        $groupActivity = GroupActivity::with('submission','activity','group')->where("group_id", 1)->get();
-        foreach ($groupActivity as $activityG) {
-          $userGroup = $activityG->group->userGroup;
-          $activities[] = $activityG->activity->name;
-        }
-
-        return ["Nama", ...$activities];
-        
-        
-
-        // return [
-        //     '#',
-        //     'Name',
-        //     'Username',
-        //     'is_mentor',
-        //     'Aktivitas',
-        //     // 'value',
-        //     'date',
-        //     'is_haid',
-        //     'created_at',
-        //     'updated_at'
-        // ];
+        // $haid = $submission->submission->is_haid ? "haid" : "tidak haid";
+        // $done = $submission->submission->is_done ? "ngerjain" : "gak ngerjain";
+        return [
+            // FIELD DALAM EXCEL
+            // nama | activity | is_done | date | is_haid
+            $query[0],
+            $query[2],
+        ];
     }
 
     public function registerEvents(): array
@@ -252,6 +237,8 @@ class SubmissionExport implements  WithHeadings, WithEvents, WithDrawings, WithC
                 // $event->sheet->getPageSetup()->setPrintArea('A1:E2,G4:M20');
                 // $event->sheet->getSheetView()->setZoomScale(75);
                 // $event->sheet->getDefaultRowDimension()->setRowHeight(100, 'pt');
+                $event->sheet->getStyle('B8:G13')
+                ->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_TOP);
                 $event->sheet->mergeCells('F3:J3');
                 $event->sheet->mergeCells('F4:J4');
                 // $event->sheet->insertNewRowBefore(1, 2);
@@ -283,9 +270,9 @@ class SubmissionExport implements  WithHeadings, WithEvents, WithDrawings, WithC
         return 'B7';
     }
 
-    // nama bulan di multipleexport
-    public function title(): string
-    {
-        return DateTime::createFromFormat('!m', $this->month)->format('F');
-    }
+    // // nama bulan di multipleexport
+    // public function title(): string
+    // {
+    //     return DateTime::createFromFormat('!m', $this->month)->format('F');
+    // }
 }
