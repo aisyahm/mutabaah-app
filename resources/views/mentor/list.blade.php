@@ -11,9 +11,9 @@
 <!-- ======= KONFIRMASI ANGGOTA ======= -->
 <div class="info3 info-all">
   <h1>Statistik Amalan Pribadi <span>21 Nov 2021</span></h1>
-  <a href="/home/mentoranalisis/exportsubmission"><button>Download laporan</button> </a>
+  <a href="{{ route("mentoranalisis", ["group" => $group->id])}}"><button>Download laporan</button> </a>
 </div>
-@include('mentor.analysis-group')
+{{-- @include('mentor.analysis-group') --}}
 
 
 
