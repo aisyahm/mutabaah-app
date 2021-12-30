@@ -71,9 +71,9 @@
         </div>
       </div>
       <div class="info2 info-all">
-        <div class="text1 text-all {{ Request::segment(2) == "analysis" ? "active" : "" }}">Analisis</div>
-        <div class="text2 text-all {{ Request::segment(2) == "member" ? "active" : "" }}">Anggota({{ count($membersIn) }} Orang)</div>
         <div class="text3 text-all {{ Request::segment(2) == "target" ? "active" : "" }}">Target</div>
+        <div class="text1 text-all {{ Request::segment(2) == "analysis" ? "active" : "" }}">Analisis</div>
+        <div class="text2 text-all {{ Request::segment(2) == "anggota" ? "active" : "" }}">Anggota({{ count($membersIn) }} Orang)</div>
       </div>
     </div>
     

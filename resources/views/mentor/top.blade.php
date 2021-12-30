@@ -76,7 +76,7 @@
             <a href="/groups/analysis/{{ $group->id }}">Analisis</a>
           @endif
         </div>
-        <div class="text2 text-all {{ Request::segment(2) == "member" ? "active" : "" }}">
+        <div class="text2 text-all {{ Request::segment(2) == "anggota" ? "active" : "" }}">
           @if (count(GroupActivity::where("group_id", $group->id)->get()))
             <a href="/groups/anggota/{{ $group->id }}">Anggota ({{ count($membersIn) }} Orang)</a>
           @endif
