@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Models\UserGroup;
 use App\Models\Group;
 use App\Models\Activity;
 use Illuminate\Http\Request;
@@ -153,10 +155,24 @@ class ActivityController extends Controller
       ]);
     }
 
-    return view("mentor.view-activities", [
+     // GET MEMBER DALAM GRUP(Tambahan link Target)
+     $users = UserGroup::where("group_id", $group->id)->get();
+     $usersIn = $users->where("is_accept", true);
+     $membersIn = [];
+     foreach ($usersIn as $user) {
+       $user->user->is_mentor == false ? $membersIn[] = $user->user : "";
+     }
+
+    return view("mentor.target", [
       "activities" => $activities,
+      "membersIn" => $membersIn,
       "group" => $group,
     ]);
+
+    // return view("mentor.list", [
+    //   "activities" => $activities,
+    //   "group" => $group,
+    // ]);
   }
 
   // STORE INPUT FORM SUBMISSION

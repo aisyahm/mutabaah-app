@@ -8,7 +8,7 @@
 @section('content')
   @if (Auth::user()->is_mentor)
     <div class="back">
-      <a href="/groups/{{ $group->id }}">
+      <a href="/groups/anggota/{{ $group->id }}">
         <i class="fas fa-arrow-left"></i>
         <h3>Kembali Ke Grup</h3>
       </a>
@@ -29,7 +29,7 @@
 
   <div class="excel-content">
     <h2>Statistik Amalan Pribadi</h2>
-    <a href={{ route("report-member", ["user" => $user->id, "group" => $group->id]) }}>Download Laporan</a>
+    <a href={{ route("exportlaporanmember", ["user" => $user->id, "group" => $group->id]) }}>Download Laporan</a>
   </div>
   <div class="chart-container">
     <div class="chart-title">

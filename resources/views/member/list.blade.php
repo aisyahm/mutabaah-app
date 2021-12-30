@@ -1,14 +1,18 @@
 @php
   use App\Models\GroupActivity; 
   use Illuminate\Support\Facades\Auth;
+
+  
 @endphp
 
 @extends('member.template')
 
-@section('meta')
-    <link rel="stylesheet" href="/css/my-style.css" />
-    <link rel="stylesheet" href="/css/list-member.css" />
+@section('meta')  
+  <link rel="stylesheet" href="/css/my-style.css" />
+  <link rel="stylesheet" href="/css/list-member.css" />
 @endsection
+
+@include('member.top')
 
 @section('content')
   <div class="content-list">
@@ -52,10 +56,10 @@
   </div>
 
   <div class="content-list">
-    <a href="chart/{{ Auth::user()->id }}/{{ $group->id }}">Analisis Amalan</a>
+    <a href="{{ route("chart-member", ["userId" => Auth::user()->id, "groupId" => $group->id]) }}">Analisis Amalan</a>
   </div>
 
-  <div class="content-list">
+  {{-- <div class="content-list">
     <div class="danger-container">
       <form action="{{ route("delete") }}" method="post">
         @csrf
@@ -63,7 +67,7 @@
         <button type="submit" id="danger-btn" name="leave" value="1" onclick="return confirm('Yakin ingin keluar grup?')">Keluar grup ini</button>
       </form>
     </div>
-  </div>
+  </div> --}}
 @endsection
 
 

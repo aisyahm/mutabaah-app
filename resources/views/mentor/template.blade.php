@@ -50,7 +50,7 @@
 
             @if ($groupsInTemplate)
               @for ($i = 0; $i < count($groupsInTemplate); $i++)
-                <a href="/groups/{{ $groupsInTemplate[$i]->id }}">
+                <a href="/groups/analysis/{{ $groupsInTemplate[$i]->id }}">
                   <div class="group {{ last(request()->segments()) == $groupsInTemplate[$i]->id ? "active" : "" }}">
                     <div class="ava-group">
                       <img src="/assets/ava/{{ $groupsInTemplate[$i]->avatar }}.svg" alt="">
@@ -247,7 +247,11 @@
 
       <div class="main-container">
         @yield('content')
+        
+
       </div>
+
+     
     </main>
     <script
       src="https://kit.fontawesome.com/43c91d6ead.js"

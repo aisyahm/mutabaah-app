@@ -8,7 +8,8 @@
 @section('content')
   <div class="content-list">
     <div>
-      <a href="/groups/{{ last(request()->segments()) }}">
+      {{-- /groups/chart/{{ $user->id }}/{{ $group->id }} --}}
+      <a href="/groups/chart/{{ $member->id }}/{{ last(request()->segments()) }}">
         <i class="fas fa-arrow-left"></i>
         <h3>Kembali</h3>
       </a>

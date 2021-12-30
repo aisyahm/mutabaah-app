@@ -1,39 +1,14 @@
 @php
   use App\Models\GroupActivity;  
-  $i = 1;
 @endphp
 
 @extends('mentor.template')
 
 @include('mentor.top')
-
+    
 @section('content')
-<!-- ======= KONFIRMASI ANGGOTA ======= -->
-<div class="info3 info-all">
-  <h1>Statistik Amalan Pribadi <span>21 Nov 2021</span></h1>
-  <a href="/home/mentoranalisis/exportsubmission"><button>Download laporan</button> </a>
-</div>
-@include('mentor.analysis-group')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    {{-- @include('mentor.view-activities') --}}
-    {{-- @if (count($membersOut))
+    <!-- ======= KONFIRMASI ANGGOTA ======= -->
+    @if (count($membersOut))
     <div class="content-list">
       <div class="head-content">
         <p class=""><b>Persetujuan Masuk Grup</b></p>
@@ -69,10 +44,10 @@
       </div>
     </div>
       <!--  AKHIR KONFIRMASI ANGGOTA  -->
-    @endif --}}
+    @endif
 
 
-    {{-- @if (count($membersIn))
+    @if (count($membersIn))
       <div class="content-list">
         <div class="head-content list-member">
           <p class=""><b>Daftar Anggota ({{ count($membersIn) }} Orang)</b></p>
@@ -107,31 +82,8 @@
       <div class="content-list">
         <h3>Belum ada anggota di grub ini.</h3>
       </div>
-    @endif --}}
+    @endif
 
-    {{-- <div class="content-list">
-      @if (count(GroupActivity::where("group_id", $group->id)->get()))
-        <a href={{ route("group-activities", $group->id) }}>Lihat Target Aktivitas</a>
-      @else
-        <a href="./add-activities/{{ $group->id }}">Tambah Aktivitas</a>
-      @endif
-    </div> --}}
-{{-- 
-    <div class="content-list">
-      @if (count(GroupActivity::where("group_id", $group->id)->get()))
-        <a href="/groups/chart/{{ $group->id }}">Lihat Statistik Amalan Harian</a>
-      @endif
-    </div> --}}
-
-    {{-- <div class="content-list">
-      <div class="danger-container">
-        <form action="{{ route("delete") }}" method="post">
-          @csrf
-          <input type="hidden" name="group_id" value="{{ $group->id }}">
-          <button type="submit" id="danger-btn" name="delete" value="1" onclick="return confirm('Yakin ingin menghapus grup ini?')">Hapus grup ini</button>
-        </form>
-      </div>
-    </div> --}}
 @endsection
 
 @section('meta')
