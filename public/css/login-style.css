@@ -1,6 +1,7 @@
 * {
-    /* background-color: #f6f6f6; */
     box-sizing: border-box;
+    padding: 0;
+    margin: 0;
 }
 body {
     background-color: #f6f6f6;
@@ -18,8 +19,6 @@ a {
     justify-content: center;
     background-color: white;
     padding: 0;
-    /* margin-bottom: 120px; */
-    /* padding: 7px; */
 }
 .navbar .app-logo {
     width: 35px;
@@ -42,11 +41,14 @@ a {
 .error,
 .register {
     position: absolute;
-    top: 20px;
+    top: 1rem;
     left: 50%;
     transform: translateX(-50%);
     z-index: 3;
+    border-radius: 12px;
     width: 430px;
+    padding: 0.3rem 0;
+    text-align: center;
     visibility: hidden;
 }
 .alert,
@@ -60,8 +62,8 @@ a {
     background: #fce3e9;
 }
 .register.success {
-    color: #008822;
-    background: #a4ffa4;
+    color: #00a7a0;
+    background: #ccedec;
 }
 .error div,
 .register div {
@@ -84,6 +86,15 @@ a {
 }
 
 /* LOGIN STYLING ================================*/
+.container {
+    height: calc(100vh - 60px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    text-align: center;
+}
 .login {
     margin-top: 0;
     width: 430px;
@@ -93,10 +104,6 @@ a {
     background-color: white;
     font-family: "Poppins";
     border-radius: 10px;
-    position: absolute;
-    left: 50%;
-    top: 340px;
-    transform: translate(-50%, -50%);
 }
 .login h2 {
     margin-top: 20px;

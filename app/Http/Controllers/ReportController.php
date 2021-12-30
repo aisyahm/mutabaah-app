@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Group;
 use App\Models\GroupActivity;
-use App\Models\Submission;
 use App\Models\User;
-use Illuminate\Http\Request;
-use PhpParser\Node\Stmt\Echo_;
+use Carbon\Carbon;
 
 class ReportController extends Controller
 {
@@ -15,12 +13,14 @@ class ReportController extends Controller
       // COLUMN EXCEL: NAMA AKTIVITAS, HAID
       // ROW EXCEL: DATE, IS_DONE, HAID
 
+      $strMonth = Carbon::now()->startOfMonth()->format('Y-m-d');
+      $endMonth = Carbon::now()->endOfMonth()->format('Y-m-d');
       $user = User::find($user);
       $group = Group::find($group);
 
       $activityUser = GroupActivity::with("submission", "activity")->where("group_id", $group->id)->get();
       foreach ($activityUser as $activities) {
-        $activitiesSub = $activities->submission->where("user_id", $user->id);
+        $activitiesSub = $activities->submission->where("user_id", $user->id)->where("date", ">=", $strMonth)->where("date", "<=", $endMonth);
         $activitiesName[] = $activities->activity->name;
         $value = [];
         $userDate = [];
@@ -52,9 +52,10 @@ class ReportController extends Controller
     public function group(Group $group) {
       // COLUMN EXCEL: NAMA MEMBER
       // ROW EXCEL: NAMA AKTIVITAS, TOTAL IS_DONE + TOTAL HAID (DI PALING AKHIR), 
-
+      $strMonth = Carbon::now()->startOfMonth()->format('Y-m-d');
+      $endMonth = Carbon::now()->endOfMonth()->format('Y-m-d');
       $activityUser = GroupActivity::with("submission", "activity", "group")->where("group_id", $group->id)->get();
-      $userBefore = $activityUser->first()->submission->first()->user->id;
+      $userBefore = $activityUser->first()->submission->where("date", ">=", $strMonth)->where("date", "<=", $endMonth)->first()->user->id;
       $memberName = [];
       $userHaid = [];
       $value = 0;
@@ -62,7 +63,7 @@ class ReportController extends Controller
       $i = 1;
 
       foreach ($activityUser as $activities) {
-        $activitiesSub = $activities->submission;
+        $activitiesSub = $activities->submission->where("date", ">=", $strMonth)->where("date", "<=", $endMonth);
         $memberGroup = $activities->group->userGroup->where("is_accept", true);
         $activitiesName[] = $activities->activity->name;
 
@@ -102,7 +103,7 @@ class ReportController extends Controller
 
       if (count($memberName) != count($userPoint)) {
         for ($i=count($userPoint); $i < count($memberName); $i++) {
-          $key = mt_rand(0, 1000); 
+          $key = mt_rand(0, 10000); 
 
           for ($j=0; $j <= count($userPoint[$userBefore]); $j++) { 
             $userPoint[$key][] = 0;

@@ -72,26 +72,6 @@
           @enderror
           <input name="email" type="email" placeholder="Masukkan email" class="shadow-sm rounded form-control my-fo-size my-bg-color-2 input @error('email') is-invalid @enderror" id="email" required value="{{ old('email') }}" />
 
-          <label for="password" class="my-fo-size my-mt-login"
-          ><b>Password<span class="my-color-red">*</span></b></label
-          >
-          @error('password')
-              <div class="invalid-feedback">
-              {{ $message }}
-              </div>
-          @enderror
-          <input name="password" type="password" placeholder="Masukkan Password" class="shadow-sm rounded form-control my-fo-size my-bg-color-2 input @error('password') is-invalid @enderror" id="password" required />
-
-          <label for="confirm" class="my-fo-size my-mt-login"
-              ><b>Konfirmasi Password<span class="my-color-red">*</span></b></label
-          >
-          @error('password')
-              <div class="invalid-feedback">
-              {{ $message }}
-              </div>
-          @enderror
-          <input name="confirm" type="password" placeholder="Masukkan Kembali Password" class="shadow-sm rounded form-control my-fo-size my-bg-color-2 input @error('password') is-invalid @enderror" required />
-
           <label for="no_telp" class="my-fo-size mt-3"
             ><b>No HP<span class="my-color-red">*</span></b></label
           >
@@ -113,14 +93,30 @@
               <label for="ukhti"><b>Ukhti</b></label>
             </div>
           </div>
-         </div>
-
+          
+          <label for="password" class="my-fo-size my-mt-login"><b>Password<span class="my-color-red">*</span></b></label>
+          @error('password')
+          <div class="invalid-feedback">
+            {{ $message }}
+          </div>
+          @enderror
+          <input name="password" type="password" placeholder="Masukkan Password" class="shadow-sm rounded form-control my-fo-size my-bg-color-2 input @error('password') is-invalid @enderror" id="password" required />
+          
+          <label for="confirm" class="my-fo-size my-mt-login"><b>Konfirmasi Password<span class="my-color-red">*</span></b></label>
+          @error('password')
+          <div class="invalid-feedback">
+            {{ $message }}
+          </div>
+          @enderror
+          <input name="confirm" type="password" placeholder="Masukkan Kembali Password" class="shadow-sm rounded form-control my-fo-size my-bg-color-2 input @error('password') is-invalid @enderror" required />
+          
           <div class="wajib-isi my-mt-login">
             <h4>*Wajib disi</h4>
           </div>
-
-         <button type="submit" class="btn btn-login my-bg-color">Register Akun</b>
-         </button>
+          
+          <button type="submit" class="btn btn-login my-bg-color">Register Akun</b>
+          </button>
+        </div>
       </form>
 
       <div class="regist-link my-fo-size my-mt-login has-account">
