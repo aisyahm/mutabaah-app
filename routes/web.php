@@ -54,7 +54,7 @@ Route::get('/groups/activities/{group:id}', [ActivityController::class, 'activit
 Route::post('/submit-submission', [ActivityController::class, 'newSubmission'])->name('new-submission')->middleware('auth');
 
 // DOWNLOAD LAPORAN EXCEL
-Route::get('/download-report/{user:id}/{group:id}', [ReportController::class, 'member'])->name('report-member')->middleware('auth');
+Route::get('/download-report/{userId}/{groupId}', [ReportController::class, 'member'])->name('report-member')->middleware('auth');
 Route::get('/download-report/{group:id}', [ReportController::class, 'group'])->name('report-group')->middleware('auth');
 
 // DELETE & LEAVE GROUP
