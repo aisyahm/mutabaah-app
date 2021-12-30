@@ -42,6 +42,8 @@ Route::post('/update-profile', [AccountController::class, 'updateProfile'])->nam
 
 // OPEN GROUP 
 Route::get('/groups/analysis/{group:id}', [GroupController::class, 'groups'])->name("group")->middleware('auth');
+// halaman anggota
+Route::get('/groups/anggota/{group:id}', [GroupController::class, 'anggota'])->name("anggota")->middleware('auth');
 
 // CHART
 Route::get('/groups/chart/{userId}/{groupId}', [ChartController::class, 'self'])->name('chart-member')->middleware('auth');

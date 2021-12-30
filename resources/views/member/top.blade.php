@@ -64,7 +64,7 @@
         <div class="icon">
           <i class="fas fa-ellipsis-v"></i>
           <div class="box-ubah">
-            <div class="box-edit">
+            <div class="box-edit box-keluar">
               <h1>Keluar Grup</h1>
             </div>
           </div>
@@ -75,91 +75,28 @@
         <div class="text2 text-all {{ Request::segment(2) == "member" ? "active" : "" }}">Anggota({{ count($membersIn) }} Orang)</div>
         <div class="text3 text-all {{ Request::segment(2) == "target" ? "active" : "" }}">Target</div>
       </div>
-
-       {{-- Edit Grup --}}
-      <div class="pop-up mentor-group-pop-up">
+    </div>
+    
+      {{-- Keluar Grup --}}
+      <div class="pop-up member-keluar-group-pop-up">
         <div class="pop-up-title">
-          <h3>Edit Grup</h3>
-          <i class="fas fa-times close"></i>
-        </div>
-        <form action="{{ route('edit-grup') }}" method="POST">
-          @csrf
-          <label>Pilih Avatar<span>*</span></label>
-          <div class="ava-container">
-            <div class="ava">
-              <input type="radio" name="avatar" value="1" >
-              <span id="mentor"></span>
-              <img src="/assets/ava/1.svg">
-            </div>
-            <div class="ava">
-              <input type="radio" name="avatar" value="2" >
-              <span id="mentor"></span>
-              <img src="/assets/ava/2.svg">
-            </div>
-            <div class="ava">
-              <input type="radio" name="avatar" value="3" checked >
-              <span id="mentor"></span>
-              <img src="/assets/ava/3.svg">
-            </div>
-            <div class="ava">
-              <input type="radio" name="avatar" value="4" >
-              <span id="mentor"></span>
-              <img src="/assets/ava/4.svg">
-            </div>
-            <div class="ava">
-              <input type="radio" name="avatar" value="5" >
-              <span id="mentor"></span>
-              <img src="/assets/ava/5.svg">
-            </div>
-          </div>
-
-          <label for="name">Nama grup<span>*</span></label>
-          <input
-          type="text"
-          id="name"
-          name="name"
-          autofocus value="{{ old("name") }}" 
-          autocomplete="off"
-          required
-          />
-
-          <label for="desc">Deskripsi grup<span>*</span></label>
-          <textarea
-          id="desc"
-          name="desc"
-          cols="30"
-          rows="10"
-          autocomplete="off"
-          placeholder="Masukkan deskripsi grup"
-          required>
-          </textarea>
-          <h4 class="wajib"><span>*</span>Wajib diisi</h4>
-          <button type="submit">Simpan</button>
-
-        </form>
-      </div>
-
-      {{-- Hapus Grup --}}
-      <div class="pop-up mentor-hapus-group-pop-up">
-        <div class="pop-up-title">
-          <h3>Konfirmasi hapus Grup: NAMA Grup</h3>
+          <h3>Konfirmasi keluar Grup: {{ $group->name }}</h3>
           <i class="fas fa-times close"></i>
         </div>
         <div class="box-hapus-text">
-          <h5>Data grup yang telah dihapus tidak bisa dikembalikan. Mohon pastikan data yang anda butuhkan sudah di export sebelumnya.</h5>
+          <h5>Apakah Kamu Yakin untuk Keluar Grup? apabila yakin bisa klik Keluar dan apabila tidak yakin bisa klik batal atau silang</h5>
         </div>
         <div class="box-hapus-button">
           <button class="btn-batal">Batal</button>
-          <form action="" method="post" class="form-hapus">
-          {{-- <form action="{{ route("delete") }}" method="post"> --}}
+          <form action="{{ route("delete") }}" method="post" class="form-hapus">
             @csrf
-            {{-- <input type="hidden" name="group_id" value="{{ $group->id }}"> --}}
-            <input type="hidden" name="group_id" value="">
-            <button class="btn-hapus" type="submit" id="danger-btn" name="delete" value="1" onclick="return confirm('Yakin ingin menghapus grup ini?')">Hapus</button>
+            <input type="hidden" name="group_id" value="{{ $group->id }}">
+            {{-- <button class="btn-hapus" type="submit" id="danger-btn" name="leave" value="1" onclick="return confirm('Yakin ingin menghapus grup ini?')">Keluar</button> --}}
+            <button class="btn-hapus" type="submit" id="danger-btn" name="leave" value="1">Keluar</button>
           </form>
         </div>
       </div>
-  </div>
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script>
       const icon= document.querySelector('.fa-ellipsis-v');
@@ -174,79 +111,49 @@
         container.classList.remove("active");
       });
 
-
-      function copy(element) {
-        var $temp = $("<input>");
-        $("body").append($temp);
-        $temp.val($(element).text()).select();
-        document.execCommand("copy");
-        $temp.remove();
-      }
-
-      const boxedit = document.querySelector(".box-edit");
+      const boxkeluar = document.querySelector(".box-keluar");
       const closes = document.querySelectorAll(".close");
-      const boxhapus = document.querySelector(".box-hapus");
-      mentorgrupedit = document.querySelector(".mentor-group-pop-up");
-      mentorgruphapus = document.querySelector(".mentor-hapus-group-pop-up");
+      membergrupkeluar = document.querySelector(".member-keluar-group-pop-up");
       const body3 = document.querySelector('.info2');
+      const batals = document.querySelectorAll(".btn-batal");
 
       closes.forEach(close => {
         close.addEventListener("click", () => {
           shadowPopUp.classList.remove("active");
-          mentorgrupedit.classList.remove("active");
-          mentorgruphapus.classList.remove("active");
+          membergrupkeluar.classList.remove("active");
         })
       });
 
-    //   edit remove
-      boxedit.addEventListener("click", () => {
+      batals.forEach(batal => {
+        batal.addEventListener("click", () => {
+          shadowPopUp.classList.remove("active");
+          membergrupkeluar.classList.remove("active");
+        })
+      });
+
+    //  keluar remove
+      boxkeluar.addEventListener("click", () => {
         shadowPopUp.classList.add("active");
         container.classList.remove("active");
 
         shadowPopUp.addEventListener(("click"), () => {
           popUpGroup.classList.remove("container");
           shadowPopUp.classList.remove("active");
-          mentorgrupedit.classList.remove("active");
-        });
-      })
-    //   Hapus remove
-    boxhapus.addEventListener("click", () => {
-        shadowPopUp.classList.add("active");
-        container.classList.remove("active");
-
-        shadowPopUp.addEventListener(("click"), () => {
-          popUpGroup.classList.remove("container");
-          shadowPopUp.classList.remove("active");
-          mentorgruphapus.classList.remove("active");
+          membergrupkeluar.classList.remove("active");
         });
       })
       // edit
-      const mentoredit = () => {
-        mentorgrupedit.classList.add("active");
+      const memberkeluar = () => {
+        membergrupkeluar.classList.add("active");
 
           closeBtn.forEach((close) => {
               close.addEventListener("click", () => {
-                mentorgrupedit.classList.remove("active");
+                membergrupkeluar.classList.remove("active");
               });
           });
       };
       body3.addEventListener('click', () => {
-          mentorgrupedit.classList.remove("active");
+        membergrupkeluar.classList.remove("active");
       });
-      boxedit.addEventListener("click", mentoredit);
-
-      // Hapus
-      const mentorhapus= () => {
-        mentorgruphapus.classList.add("active");
-
-          closeBtn.forEach((close) => {
-              close.addEventListener("click", () => {
-                mentorgruphapus.classList.remove("active");
-              });
-          });
-      };
-      body3.addEventListener('click', () => {
-        mentorgruphapus.classList.remove("active");
-      });
-      boxhapus.addEventListener("click", mentorhapus);
+      boxkeluar.addEventListener("click", memberkeluar);
   </script>

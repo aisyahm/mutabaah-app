@@ -1,6 +1,7 @@
 @php
   use Illuminate\Support\Facades\Auth;
   use App\Models\User;
+  use App\Models\GroupActivity;  
 @endphp
 
 <link rel="stylesheet" href="/css/layouttop/style.css" >
@@ -70,12 +71,23 @@
         </div>
       </div>
       <div class="info2 info-all">
-        <div class="text1 text-all {{ Request::segment(2) == "analysis" ? "active" : "" }}">Analisis</div>
-        <div class="text2 text-all {{ Request::segment(2) == "member" ? "active" : "" }}">Anggota ({{ count($membersIn) }} Orang)</div>
-        <div class="text3 text-all {{ Request::segment(2) == "target" ? "active" : "" }}">Target</div>
-      </div>
-      <div class="info3 info-all">
-        
+        <div class="text1 text-all {{ Request::segment(2) == "analysis" ? "active" : "" }}">
+          @if (count(GroupActivity::where("group_id", $group->id)->get()))
+            <a href="/groups/analysis/{{ $group->id }}">Analisis</a>
+          @endif
+        </div>
+        <div class="text2 text-all {{ Request::segment(2) == "member" ? "active" : "" }}">
+          @if (count(GroupActivity::where("group_id", $group->id)->get()))
+            <a href="/groups/anggota/{{ $group->id }}">Anggota ({{ count($membersIn) }} Orang)</a>
+          @endif
+        </div>
+        <div class="text3 text-all {{ Request::segment(2) == "target" ? "active" : "" }}">
+          @if (count(GroupActivity::where("group_id", $group->id)->get()))
+          <a href={{ route("group-activities", $group->id) }}>Target</a>
+          @else
+            <a href="./add-activities/{{ $group->id }}">Tambah Aktivitas</a>
+          @endif
+        </div>
       </div>
   </div>
    {{-- Edit Grup --}}
@@ -191,11 +203,20 @@
       mentorgrupedit = document.querySelector(".mentor-group-pop-up");
       mentorgruphapus = document.querySelector(".mentor-hapus-group-pop-up");
       const body3 = document.querySelector('.info2');
+      const batals = document.querySelectorAll(".btn-batal");
+
 
       closes.forEach(close => {
         close.addEventListener("click", () => {
           shadowPopUp.classList.remove("active");
           mentorgrupedit.classList.remove("active");
+          mentorgruphapus.classList.remove("active");
+        })
+      });
+
+      batals.forEach(batal => {
+        batal.addEventListener("click", () => {
+          shadowPopUp.classList.remove("active");
           mentorgruphapus.classList.remove("active");
         })
       });

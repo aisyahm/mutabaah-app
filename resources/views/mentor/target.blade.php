@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="/css/view-activities.css" />
 @endsection
 
+@include('mentor.top')
+
 @section('content') 
   <div class="content-list">
     <!--======= HEAD CONTENT ======= -->

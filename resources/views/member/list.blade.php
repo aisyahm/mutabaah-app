@@ -59,7 +59,7 @@
     <a href="chart/{{ Auth::user()->id }}/{{ $group->id }}">Analisis Amalan</a>
   </div>
 
-  <div class="content-list">
+  {{-- <div class="content-list">
     <div class="danger-container">
       <form action="{{ route("delete") }}" method="post">
         @csrf
@@ -67,7 +67,7 @@
         <button type="submit" id="danger-btn" name="leave" value="1" onclick="return confirm('Yakin ingin keluar grup?')">Keluar grup ini</button>
       </form>
     </div>
-  </div>
+  </div> --}}
 @endsection
 
 

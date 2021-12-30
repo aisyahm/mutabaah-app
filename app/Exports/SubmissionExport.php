@@ -110,7 +110,7 @@ class SubmissionExport implements  WithHeadings, WithEvents, WithDrawings, WithC
         }
 
         // dd($activities);
-        
+
         for ($i=0; $i < count($user); $i++) { 
           $query[] = [$user[$i], $activities[1]];
         }
