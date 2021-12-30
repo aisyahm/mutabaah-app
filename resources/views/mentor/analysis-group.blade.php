@@ -8,6 +8,70 @@
 @endsection
 
 @section('content')
+  @if (count($activities) != 0)
+
+    {{-- CHART PER CATEGORY ACTIVITY --}}
+    @foreach ($activityDetail as $key => $value)
+      <div class="chart-container">
+          @switch($key)
+              @case(1)
+                  <div class="chart-title">
+                    <h3>Sholat Wajib</h3>
+                  </div>
+                  <div class="inner">
+                    <div class="chart">
+                      <canvas id="wajibChart"></canvas>
+                    </div>
+                  </div>
+                  @break
+              @case(2)
+                  <div class="chart-title">
+                    <h3>Sholat Rawatib</h3>
+                  </div>
+                  <div class="inner">
+                    <div class="chart">
+                      <canvas id="rawatibChart"></canvas>
+                    </div>
+                  </div>
+                  @break
+              @case(3)
+                  <div class="chart-title">
+                    <h3>Sholat Sunnah</h3>
+                  </div>
+                  <div class="inner">
+                    <div class="chart">
+                      <canvas id="sunnahChart"></canvas>
+                    </div>
+                  </div>
+                  @break
+              @case(4)
+                  <div class="chart-title">
+                    <h3>Sholat Sunnah Lainnya</h3>
+                  </div>
+                  <div class="inner">
+                    <div class="chart">
+                      <canvas id="lainnyaChart"></canvas>
+                    </div>
+                  </div>
+                  @break
+              @default
+                  <div class="chart-title">
+                    <h3>Dzikir</h3>
+                  </div>
+                  <div class="inner">
+                    <div class="chart">
+                      <canvas id="dzikirChart"></canvas>
+                    </div>
+                  </div>
+          @endswitch
+        <div class="legend">
+          <span><span></span>Kemarin</span>
+          <span><span></span>Hari Ini</span>
+        </div>
+    </div>
+    @endforeach
+  @endif
+
   @if (count($rangking) != 0)
   <div class="rank-container">
     <div class="ranking"> 
@@ -76,30 +140,33 @@
   </div>
   @endif
 
-  {{-- @dd(count($activities)) --}}
+  <a href={{ route("report-group", $group->id) }}>Download Laporan</a>
+
   @if (count($activities) != 0)
-  <div class="chart-container">
-    <div class="chart-title">
-      <h3>Rata-Rata Amalan Sepekan</h3>
-      <h4>{{ $dates[0] . ' - ' . $dates[1] }} vs  <span>{{ $dates[2] . ' - ' . $dates[3] }}</span></h4>
-    </div>
-    <div class="inner">
-      <div class="chart">
-        <canvas id="myChart"></canvas>
+    <div class="chart-container">
+      <div class="chart-title">
+        <h3>Rata-Rata Amalan Sepekan</h3>
+        <h4>{{ $dates[0] . ' - ' . $dates[1] }} vs  <span>{{ $dates[2] . ' - ' . $dates[3] }}</span></h4>
+      </div>
+
+      {{-- CHART AVERAGE ACTIVITY --}}
+      <div class="inner">
+        <div class="chart">
+          <canvas id="averageChart"></canvas>
+        </div>
+      </div>
+      <div class="legend">
+        <span><span></span>Pekan lalu</span>
+        <span><span></span>Pekan Ini</span>
       </div>
     </div>
-    <div class="legend">
-      <span><span></span>Pekan lalu</span>
-      <span><span></span>Pekan Ini</span>
-    </div>
-  </div>
   @endif
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-    const labels = {!! json_encode($activities) !!};
-    const weekNow = {!! json_encode($averageCurent) !!};
-    const weekBefore = {!! json_encode($averagePass) !!};
+    let labels = {!! json_encode($activities) !!};
+    let weekNow = {!! json_encode($averageCurent) !!};
+    let weekBefore = {!! json_encode($averagePass) !!};
     const rangking = {!! json_encode($rangking) !!};
     const member = document.querySelectorAll(".grid-rank > div");
     document.querySelector(".chart").style.setProperty("--activity", labels.length);
@@ -108,7 +175,7 @@
       document.querySelector(".grid-rank").style.setProperty("--row", Math.ceil(member.length / 2));
     }
 
-    const data = {
+    let data = {
       labels: labels,
       datasets: [{
         data: weekBefore,
@@ -125,7 +192,7 @@
       }]
     };
 
-    const config = {
+    let config = {
       type: 'bar',
       data: data,
       options: {
@@ -154,9 +221,105 @@
       }
     }
 
-    const myChart = new Chart(
-      document.getElementById('myChart'),
+    const averageChart = new Chart(
+      document.getElementById('averageChart'),
       config
     );
+  </script>
+  <script>
+    const activityDetail = {!! json_encode($activityDetail) !!};
+    let labelsToday = [];
+    let Yesterday = [];
+    let Today = [];
+
+    for (let key in activityDetail) {
+      let labelsToday = [];
+      let yesterday = [];
+      let today = [];
+      for (let activity in activityDetail[key]) {
+        labelsToday.push(activity);
+        yesterday.push(activityDetail[key][activity][0]);
+        today.push(activityDetail[key][activity][1]);
+      }
+
+      let dataDay = {
+        labels: labelsToday,
+        datasets: [{
+          data: yesterday,
+          backgroundColor: '#CCEDEC',
+          categoryPercentage: 0.3,
+          barPercentage: 0.2,
+          borderRadius: 20,
+        },{
+          data: today,
+          backgroundColor: '#00A7A0',
+          categoryPercentage: 0.3,
+          barPercentage: 0.2,
+          borderRadius: 20,
+        }]
+      };
+
+      let configDay = {
+        type: 'bar',
+        data: dataDay,
+        options: {
+          maintainAspectRatio: false,
+          responsive: true,
+          plugins: {
+            legend: {
+              display: false
+            }
+          },
+          scales: {
+            y: {
+              ticks: {
+                stepSize: 1,
+                color: "#6e6e6e",
+                padding: 5
+              },
+            },
+            x: {
+              ticks: {
+                maxTicksLimit: 0,
+                color: "#000"
+              },
+            },
+          },
+        }
+      }
+
+      switch (key) {
+        case "1":
+          console.log(configDay)
+          const wajibChart = new Chart(
+            document.getElementById('wajibChart'),
+            configDay
+          );
+          break;
+        case "2":
+          const rawatibChart = new Chart(
+            document.getElementById('rawatibChart'),
+            configDay
+          );
+          break;
+        case "3":
+          const sunnahChart = new Chart(
+            document.getElementById('sunnahChart'),
+            configDay
+          );
+          break;
+        case "4":
+          const lainnyaChart = new Chart(
+            document.getElementById('lainnyaChart'),
+            configDay
+          );
+          break;
+        default:
+          const dzikirChart = new Chart(
+            document.getElementById('dzikirChart'),
+            configDay
+          );
+      }
+    }
   </script>
 @endsection

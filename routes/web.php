@@ -5,6 +5,7 @@ use App\Http\Controllers\JoinController;
 use App\Http\Controllers\ChartController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\ActivityController;
@@ -65,6 +66,10 @@ Route::get('/home/mentoranalisis/exportlaporan', [LaporanController::class, 'lap
 // Route::post('/delete', [LaporanController::class, 'dangerGroup'])->name("delete");
 
 Route::post('/submit-submission', [ActivityController::class, 'newSubmission'])->name('new-submission')->middleware('auth');
+
+// DOWNLOAD LAPORAN EXCEL
+Route::get('/download-report/{user:id}/{group:id}', [ReportController::class, 'member'])->name('report-member')->middleware('auth');
+Route::get('/download-report/{group:id}', [ReportController::class, 'group'])->name('report-group')->middleware('auth');
 
 // DELETE & LEAVE GROUP
 Route::post('/delete', [GroupController::class, 'dangerGroup'])->name("delete");

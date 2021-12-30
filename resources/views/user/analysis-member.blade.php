@@ -29,7 +29,7 @@
 
   <div class="excel-content">
     <h2>Statistik Amalan Pribadi</h2>
-    <a href="/download-laporan">Download Laporan</a>
+    <a href={{ route("report-member", ["user" => $user->id, "group" => $group->id]) }}>Download Laporan</a>
   </div>
   <div class="chart-container">
     <div class="chart-title">

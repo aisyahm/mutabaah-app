@@ -92,7 +92,7 @@ class SubmissionSeeder extends Seeder
       "user_id" => 1,
       "group_activity_id" => 1,
       "is_done" => true,
-      "date" => date('Y-m-d', strtotime($dateNow . "-13 days")),
+      "date" => date('Y-m-d', strtotime($dateNow . "-12 days")),
     ]);
     Submission::create([
       "user_id" => 1,

@@ -18,8 +18,6 @@ class ChartController extends Controller
     
     // AMBIL GRUP AKTIVITAS BERDASARKAN GRUP YANG DIPILIH
     $group_activity = GroupActivity::with("submission", "activity")->where("group_id", $group->id)->get();
-    // $group_activity = GroupActivity::with("submission", "activity")->where("group_id", $group->id)->get()
-    //                     ->sortBy('activity.category',SORT_REGULAR,false);
     $activities = [];
     $activityDetail = [];
     $taskCurent = [];
@@ -63,11 +61,11 @@ class ChartController extends Controller
       // JIKA SAMA SEKALI BELUM ADA SUBMISSION
       // ISI 0 UNTUK TIDAK MENGERJAKAN, ISI -2 UNTUK BELUM DIISI (SELISIH DENGAN END WEEK)
       else {
-        for ($i=0; $i < 7; $i++) { 
-          if ($i <= $diffDayEndWeek) {
-            $activityDetail[$activity->activity->category][$activity->activity->name][] = -2;
-          } else {
+        for ($i=0; $i < 7; $i+1) { 
+          if ($i == $now->dayOfWeek) {
             $activityDetail[$activity->activity->category][$activity->activity->name][] = 0;
+          } else {
+            $activityDetail[$activity->activity->category][$activity->activity->name][] = -2;
           }
         }
       }
@@ -75,7 +73,7 @@ class ChartController extends Controller
       // JIKA KURANG DARI 7 (MINGGU INI MASIH BERJALAN), ISI -2 SAMPAI COUNT ARRAY == 7
       if (count($activityDetail[$activity->activity->category][$activity->activity->name]) < 7 &&
           $diffDayEndWeek > 0) {
-        for ($i=0; $i < 7 - count($activityDetail[$activity->activity->category][$activity->activity->name]); $i++) { 
+        for ($i=0; $i < 7 - count($activityDetail[$activity->activity->category][$activity->activity->name]); $i+1) { 
           $activityDetail[$activity->activity->category][$activity->activity->name][] = -2;
         }
       } 
@@ -135,7 +133,7 @@ class ChartController extends Controller
     if (!Auth::user()->is_mentor) return back();
     
     // AMBIL GRUP AKTIVITAS BERDASARKAN GRUP YANG DIPILIH
-    $group_activity = GroupActivity::with("submission")->where("group_id", $group->id)->get();
+    $group_activity = GroupActivity::with("submission.user", "activity")->where("group_id", $group->id)->get();
     $totalMember = count($group->userGroup->where("is_accept", true)) - 1;
     $userGroup = UserGroup::with("user")->where("group_id", $group->id)->where("is_accept", true)->get();
     $activities = [];
@@ -153,6 +151,7 @@ class ChartController extends Controller
 
     // AUTO GENERATE DATE  ||  DATE UNTUK FILTER SUBMISSION BY WEEK  ||  DIMULAI SAAT HARI SENIN - MINGGU
     $now = Carbon::now();
+    $yesterday = $now->copy()->subDays(1)->format('Y-m-d');
     $strLastWeek = $now->startOfWeek()->copy()->subDays(7)->format('Y-m-d');
     $endLastWeek = $now->endOfWeek()->copy()->subDays(7)->format('Y-m-d');
     $strCurentWeek = $now->startOfWeek()->format('Y-m-d');
@@ -171,13 +170,22 @@ class ChartController extends Controller
 
       if (count($activity->submission->where("date", ">=", $strCurentWeek)->where("date", "<=", $endCurentWeek))) {
         $taskCurent[] = $activity->submission->where("date", ">=", $strCurentWeek)->where("date", "<=", $endCurentWeek);
+        $activityYesterday[] = $activity->submission->where("date", $yesterday);
       }
       if (count($activity->submission->where("date", ">=", $strLastWeek)->where("date", "<=", $endLastWeek))) {
         $taskPass[] = $activity->submission->where("date", ">=", $strLastWeek)->where("date", "<=", $endLastWeek);
+        $activityToday[] = $activity->submission->where("date", Carbon::now()->format('Y-m-d'));
       }
     }
 
     // JUMLAHKAN VALUE IS DONE TIAP ACTIVITY (RATA-RATA)  ||  JUMLAHKAN VALUE BERDASARKAN NAMA USER (RANGKING)
+    foreach ($taskPass as $submission) {
+      foreach ($submission as $task) {
+        $values += $task->is_done;
+      }
+      $averagePass[] = round($values / $totalMember, 1);
+      $values = 0;
+    }
     foreach ($taskCurent as $submission) {
       foreach ($submission as $task) {
         $values += $task->is_done;
@@ -186,13 +194,25 @@ class ChartController extends Controller
       $averageCurent[] = round($values / $totalMember, 1);
       $values = 0;
     }
-    foreach ($taskPass as $submission) {
+
+    foreach ($activityYesterday as $submission) {
       foreach ($submission as $task) {
         $values += $task->is_done;
       }
-      $averagePass[] = round($values / $totalMember, 1);
+      $activityDetail[$task->groupActivity->activity->category][$task->groupActivity->activity->name][] = $values;
       $values = 0;
     }
+    foreach ($activityToday as $submission) {
+      foreach ($submission as $task) {
+        $values += $task->is_done;
+      }
+      $activityDetail[$task->groupActivity->activity->category][$task->groupActivity->activity->name][] = $values;
+      $values = 0;
+    }
+
+    // dump(($activityToday));
+    // dd(($activityYesterday));
+    // dd($activityDetail);
 
     // URUTKAN ARRAY BERDASARKAN VALUE TERBESAR, FILTER UNIQUE VALUE, AMBIL PERINGKAT 3 BESAR
     arsort($scoreMember);   
@@ -210,7 +230,8 @@ class ChartController extends Controller
       "dates" => $dates,
       "rangking" => $scoreMember,
       "topRated" => $topRated,
-      "totalActivity" => count($group_activity)
+      "totalActivity" => count($group_activity),
+      "activityDetail" => $activityDetail
     ]);
   }
 }
