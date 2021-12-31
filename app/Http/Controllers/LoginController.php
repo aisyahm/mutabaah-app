@@ -32,7 +32,7 @@ class LoginController extends Controller
 
       // NOTIFIKASI JIKA EMAIL DAN PASSWORD TIDAK COCOK
       $request->flash("email");
-      return back()->withErrors(['loginFail' => 'Email or password is wrong']);
+      return back()->withErrors(['loginFail' => 'Email atau password kamu salah']);
     }
 
     // HALAMAN LOGIN BY GOOGLE

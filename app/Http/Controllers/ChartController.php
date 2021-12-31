@@ -124,7 +124,8 @@ class ChartController extends Controller
       "totalCurent" => $totalCurent,
       "totalPass" => $totalPass,
       "dates" => $dates,
-      "activityDetail" => $activityDetail
+      "activityDetail" => $activityDetail,
+      "today" => Carbon::now()->dayOfWeek
     ]);
   }
 

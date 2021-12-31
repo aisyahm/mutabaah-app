@@ -1,4 +1,4 @@
-@extends('member.template')
+@extends(Auth::user()->is_mentor ? 'mentor.template' : 'member.template')
 
 @section('meta')
     <link rel="stylesheet" href="/css/profile.css" />
