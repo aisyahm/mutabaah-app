@@ -9,6 +9,7 @@
 
 @section('content')
   @if (count($activities) != 0)
+  <div class="wrap-chart">
 
     {{-- CHART PER CATEGORY ACTIVITY --}}
     @foreach ($activityDetail as $key => $value)
@@ -70,7 +71,10 @@
         </div>
     </div>
     @endforeach
+
+  </div>
   @endif
+
 
   @if (count($rangking) != 0)
   <div class="rank-container">
@@ -143,6 +147,7 @@
   <a href={{ route("report-group", $group->id) }}>Download Laporan</a>
 
   @if (count($activities) != 0)
+  <div class="wrap-average">
     <div class="chart-container">
       <div class="chart-title">
         <h3>Rata-Rata Amalan Sepekan</h3>
@@ -160,6 +165,7 @@
         <span><span></span>Pekan Ini</span>
       </div>
     </div>
+  </div>
   @endif
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -226,6 +232,7 @@
       config
     );
   </script>
+
   <script>
     const activityDetail = {!! json_encode($activityDetail) !!};
     let labelsToday = [];
@@ -237,7 +244,7 @@
       let yesterday = [];
       let today = [];
       for (let activity in activityDetail[key]) {
-        labelsToday.push(activity);
+        labelsToday.push(activity.split(' '));
         yesterday.push(activityDetail[key][activity][0]);
         today.push(activityDetail[key][activity][1]);
       }

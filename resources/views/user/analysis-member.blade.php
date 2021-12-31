@@ -60,6 +60,7 @@
           <div class="keterangan-info"><span></span>Belum Mengisi</div>
         </div>
     </div>
+
     <div class="parent">
       @foreach ($activityDetail as $key => $value)
         <div class="div1">
@@ -85,28 +86,30 @@
                 <table>
                   <tr>
                       <th></th>
-                      <th>Sen</th>
-                      <th>Sel</th>
-                      <th>Rab</th>
-                      <th>Kam</th>
-                      <th>Jum</th>
-                      <th>Sab</th>
-                      <th>Ahd</th>
+                      <th class="{{ $today == 1 ? "today" : "" }}">Sen</th>
+                      <th class="{{ $today == 2 ? "today" : "" }}">Sel</th>
+                      <th class="{{ $today == 3 ? "today" : "" }}">Rab</th>
+                      <th class="{{ $today == 4 ? "today" : "" }}">Kam</th>
+                      <th class="{{ $today == 5 ? "today" : "" }}">Jum</th>
+                      <th class="{{ $today == 6 ? "today" : "" }}">Sab</th>
+                      <th class="{{ $today == 7 ? "today" : "" }}">Ahd</th>
                   </tr>
                 @foreach ($value as $activity => $submissions)
                 <tr>
                     <td class="name-activity">{{ $activity }}</td>
-                    @foreach ($submissions as $sub)
-                      @switch($sub)
-                        @case(1)
-                          <td><div class="dot past-true"></div></td>
-                          @break
-                        @case(0)
-                          <td><div class="dot haid"></div></td>
-                          @break
-                        @default
-                          <td><div class="dot no-value"></div></td>
-                      @endswitch
+                    @foreach ($submissions as $index => $sub)
+                      <td class="{{ $index == $today - 1 ? "today" : "" }}">
+                        @switch($sub)
+                          @case(1)
+                            <div class="dot doing"></div>
+                            @break
+                          @case(0)
+                            <div class="dot not-doing"></div>
+                            @break
+                          @default
+                            <div class="dot no-value"></div>
+                        @endswitch
+                      </td>
                     @endforeach
                   </tr>
                 @endforeach
