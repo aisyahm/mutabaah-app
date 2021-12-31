@@ -97,7 +97,7 @@
 
     const haidTrue = () => {
       group_activity.forEach(activity => {
-        if (activity.getAttribute("id") < 17) {
+        if (activity.getAttribute("id") < 19) {
           activity.checked = false;
           activity.setAttribute("disabled", "");
           activity.parentNode.setAttribute("style", "color: grey");
@@ -108,7 +108,7 @@
 
     const haidFalse = () => {
       group_activity.forEach(activity => {
-        if (activity.getAttribute("id") < 17) {
+        if (activity.getAttribute("id") < 19) {
           activity.removeAttribute("disabled");
           activity.parentNode.removeAttribute("style");
         }

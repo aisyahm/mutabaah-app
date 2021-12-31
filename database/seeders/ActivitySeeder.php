@@ -39,7 +39,7 @@ class ActivitySeeder extends Seeder
 
         // Amalan Sunnah Lainnya
         Activity::create(["name" => "Puasa Sunnah", "category" => 4]);
-        Activity::create(["name" => "Baca Al-Qur'an", "category" => 4]);
+        Activity::create(["name" => "Baca Al-Qur'an", "category" => 4, "female_only" => true]);
         Activity::create(["name" => "Infaq", "category" => 4, "female_only" => true]);
         Activity::create(["name" => "Kajian", "category" => 4, "female_only" => true]);
 

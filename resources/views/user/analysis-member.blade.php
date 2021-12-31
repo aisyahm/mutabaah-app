@@ -31,19 +31,21 @@
     <h2>Statistik Amalan Pribadi</h2>
     <a href={{ route("report-member", ["user" => $user->id, "group" => $group->id]) }}>Download Laporan</a>
   </div>
-  <div class="chart-container">
-    <div class="chart-title">
-      <h3>Amalan Sepekan</h3>
-      <h4>{{ $dates[0] . ' - ' . $dates[1] }} vs  <span>{{ $dates[2] . ' - ' . $dates[3] }}</span></h4>
-    </div>
-    <div class="inner">
-      <div class="chart">
-        <canvas id="myChart"></canvas>
+  <div class="wrap-average">
+    <div class="chart-container">
+      <div class="chart-title">
+        <h3>Amalan Sepekan</h3>
+        <h4>{{ $dates[0] . ' - ' . $dates[1] }} vs  <span>{{ $dates[2] . ' - ' . $dates[3] }}</span></h4>
       </div>
-    </div>
-    <div class="legend">
-      <span><span></span>Pekan lalu</span>
-      <span><span></span>Pekan Ini</span>
+      <div class="inner">
+        <div class="chart">
+          <canvas id="myChart"></canvas>
+        </div>
+      </div>
+      <div class="legend">
+        <span><span></span>Pekan lalu</span>
+        <span><span></span>Pekan Ini</span>
+      </div>
     </div>
   </div>
 
