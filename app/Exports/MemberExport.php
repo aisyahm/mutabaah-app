@@ -110,7 +110,7 @@ class MemberExport implements WithEvents, WithDrawings, WithCustomStartCell, Sho
             },
             BeforeSheet::class => function(BeforeSheet $event){
                 $event->sheet->setCellValue('F3','Laporan ' . session("user")->name);
-                $event->sheet->setCellValue('F4', 'Grup ' . session("group")->name . ' di bulan ' . Carbon::now()->format('F'));
+                $event->sheet->setCellValue('F4', 'Grup ' . session("group")->name . ' di bulan ' . Carbon::now()->isoFormat('MMMM'));
             },
             AfterSheet::class => function(AfterSheet $event){
                 $event->sheet->getStyle('B8:J8')->applyFromArray([

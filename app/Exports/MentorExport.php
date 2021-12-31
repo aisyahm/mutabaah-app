@@ -31,7 +31,7 @@ use Carbon\Carbon;
 
 
 class MentorExport implements WithEvents, WithDrawings, WithCustomStartCell, ShouldAutoSize, FromCollection,WithHeadings
-// FromCollection FromQuery WithMapping, WithTitle,FromCollection
+// FromQuery WithMapping, WithTitle
 {
     // Exportable Trait
     use Exportable;
@@ -160,8 +160,8 @@ class MentorExport implements WithEvents, WithDrawings, WithCustomStartCell, Sho
                         ->setKeywords("Laporan Istiqomah Web");
             },
             BeforeSheet::class => function(BeforeSheet $event){
-                $event->sheet->setCellValue('H3','Laporan Grup ' . session("group")->name);
-                $event->sheet->setCellValue('H4', 'di bulan ' . Carbon::now()->format('F'));
+                $event->sheet->setCellValue('E3','Laporan Grup ' . session("group")->name);
+                $event->sheet->setCellValue('E4', 'di bulan ' . Carbon::now()->isoFormat('MMMM'));
             },
             AfterSheet::class => function(AfterSheet $event){
                 $event->sheet->getStyle('B8:E8')->applyFromArray([
@@ -180,7 +180,7 @@ class MentorExport implements WithEvents, WithDrawings, WithCustomStartCell, Sho
                         'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
                     ]
                 ]);
-                $event->sheet->getStyle('H3:H4')->applyFromArray([
+                $event->sheet->getStyle('E3:E4')->applyFromArray([
                     'font' => [
                         'bold' => true,
                         'name' => 'Arial',
@@ -190,7 +190,10 @@ class MentorExport implements WithEvents, WithDrawings, WithCustomStartCell, Sho
                         'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
                     ]
                 ]);
-                $event->sheet->getStyle('B9:E14')->applyFromArray([
+                $event->sheet->getStyle(  'C9:' . 
+                    $event->sheet->getHighestColumn() . 
+                    $event->sheet->getHighestRow()
+                    )->applyFromArray([
                     'borders' => [
                         'allBorders' => [
                             'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
@@ -202,7 +205,7 @@ class MentorExport implements WithEvents, WithDrawings, WithCustomStartCell, Sho
                         ],
                     ],
                     'alignment' => [
-                        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_JUSTIFY,
+                        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
                     ],
                     'fill' => [
                         'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
@@ -218,8 +221,8 @@ class MentorExport implements WithEvents, WithDrawings, WithCustomStartCell, Sho
                 
                 // $event->sheet->getStyle('B8:F13')
                 // ->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_TOP);
-                $event->sheet->mergeCells('H3:L3');
-                $event->sheet->mergeCells('H4:L4');
+                $event->sheet->mergeCells('E3:M3');
+                $event->sheet->mergeCells('E4:M4');
                 // $event->sheet->insertNewRowBefore(1, 2);
                 $event->sheet->getStyle(
                     'B8:' . 

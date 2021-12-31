@@ -40,13 +40,21 @@ class ReportController extends Controller
         $userPoint[] = $value;
       }
 
-      $activitiesName = ["Date", ...$activitiesName];
+      $activitiesName = ["Date", ...$activitiesName, "Haid"];
 
-      $activitiesName;                                // TABLE HEAD NAME ACTIVITY
-      $query = [$userDate, $userPoint, $userHaid];    // DATA VALUE TABLE
+      for ($i=0; $i < count($userDate); $i++) { 
+        $pointQuery = [];
+        for ($j=0; $j < count($userPoint); $j++) { 
+          $pointQuery[] = $userPoint[$j][$i];
+        }
+        $userQuery[] = [$userDate[$i], ...$pointQuery, $userHaid[$i]];
+      }
 
+      $activitiesName;   // TABLE HEAD NAME ACTIVITY
+      $userQuery;        // DATA VALUE TABLE
+      
       dump($activitiesName);
-      dd($query);
+      dd($userQuery);
     }
 
     public function group(Group $group) {
@@ -101,26 +109,32 @@ class ReportController extends Controller
       }
       $userPoint[$userBefore][] = $value;
 
+      foreach ($userHaid as $key => $haid) {
+        $haidQuery[$key] = $haid;
+      }
       if (count($memberName) != count($userPoint)) {
         for ($i=count($userPoint); $i < count($memberName); $i++) {
-          $key = mt_rand(0, 10000); 
+          $key = mt_rand(0, 10000);
 
           for ($j=0; $j <= count($userPoint[$userBefore]); $j++) { 
             $userPoint[$key][] = 0;
+            $haidQuery[$key] = 0;
           }
         }
       }
 
-      foreach ($userHaid as $key => $haid) {
-        $userPoint[$key][] = $haid;
+      for ($i=0; $i < count($activitiesName); $i++) { 
+        $pointQuery = [];
+        foreach ($userPoint as $key => $user) {
+          $pointQuery[] = $userPoint[$key][$i];
+        }
+        $userQuery[] = [$activitiesName[$i], ...$pointQuery];
       }
 
-      $memberName = ["Aktivitas", ...$memberName];
-
-      // $memberName;                                                   // TABLE HEAD NAME MEMBER
-      $query = [[...$activitiesName, "Total Haid"], $userPoint];     // DATA VALUE TABLE
+      $memberName = ["Aktivitas", ...$memberName];   // TABLE HEAD NAME MEMBER
+      $userQuery[] = ["Haid", ...$haidQuery];        // DATA VALUE TABLE
 
       dump($memberName);
-      dd($query);
+      dd($userQuery);
     }
 }

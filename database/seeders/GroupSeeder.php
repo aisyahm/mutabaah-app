@@ -14,17 +14,9 @@ class GroupSeeder extends Seeder
      */
     public function run()
     {
-        Group::create([
-          "name" => "Fullstack Web Dev",
-          "description" => "Group mentoring Fullstack Web Development di Yaumi",
-          "avatar" => 1,
-          "invitation_code" => "FWD21"
-        ]);
-        Group::create([
-          "name" => "User Interface",
-          "description" => "Group mentoring UIUX Design di Yaumi",
-          "avatar" => 2,
-          "invitation_code" => "UIUX21"
-        ]);
+        Group::create([ "name" => "Fullstack Web Dev", "description" => "Group mentoring Fullstack Web Development di Yaumi", "avatar" => 1, "invitation_code" => "FWD21" ]);
+        Group::create([ "name" => "User Interface", "description" => "Group mentoring UIUX Design di Yaumi", "avatar" => 2, "invitation_code" => "UIUX21" ]);
+        Group::create([ "name" => "FWD UKHTI", "description" => "Group mentoring tim FWD Ukhti Squad", "avatar" => 3, "invitation_code" => "FWD45" ]);
+
     }
 }

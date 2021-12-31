@@ -94,13 +94,21 @@
     flex-direction: column;
     justify-content: center;
 }
+.wrap-chart {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1rem;
+}
+.wrap-average {
+    margin: 1rem;
+}
 .chart-container {
     box-sizing: border-box;
+    position: relative;
     background: #fff;
     padding: 2rem;
     border-radius: 12px;
-    margin: 1rem;
-    margin-bottom: 2rem;
 }
 .chart-title {
     text-align: center;
@@ -120,10 +128,20 @@
 }
 .inner {
     height: 200px;
+    position: relative;
     padding: 0 1rem;
     overflow: auto;
     visibility: hidden;
     transition: visibility 0.3s;
+}
+.chart-container::before {
+    content: "Anggota";
+    position: absolute;
+    left: 0;
+    top: 44%;
+    transform: translateY(-50%) rotate(270deg);
+    color: #9ba8a4;
+    font-size: 0.85rem;
 }
 .inner:hover {
     transition: visibility 0s 0.2s;

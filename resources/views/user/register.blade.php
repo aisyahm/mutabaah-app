@@ -50,6 +50,8 @@
             </div>
           </div>
 
+          <h3 class="check-member">Pastikan sudah punya grup yang dibuatkan mentormu, ya!</h3>
+
          
           <label for="name" class="my-fo-size mt-3"
               ><b>Nama Lengkap<span class="my-color-red">*</span></b></label
@@ -80,17 +82,17 @@
               {{ $message }}
             </div>
           @enderror
-          <input name="no_telp" type="text" placeholder="Masukkan no hp" class="shadow-sm rounded form-control my-fo-size my-bg-color-2 input @error('no_telp') is-invalid @enderror" id="no_telp" required value="{{ old('no_telp') }}" />
+          <input name="no_telp" type="text" placeholder="Masukkan nomor telepon" class="shadow-sm rounded form-control my-fo-size my-bg-color-2 input @error('no_telp') is-invalid @enderror" id="no_telp" required value="{{ old('no_telp') }}" />
           
           <label class="gender">Gender<span class="my-color-red">*</span></label>
           <div class="user">
             <div class="anggota my-radio-style shadow-sm">
               <input type="radio" name="gender" id="akhi" value="Akhi" required />
-              <label for="akhi"><b>Akhi</b></label>
+              <label for="akhi"><b>Ikhwan</b></label>
             </div>
             <div class="mentor my-radio-style shadow-sm">
               <input type="radio" name="gender" id="ukhti" value="Ukhti" required />
-              <label for="ukhti"><b>Ukhti</b></label>
+              <label for="ukhti"><b>Akhwat</b></label>
             </div>
           </div>
           
@@ -125,6 +127,41 @@
     </center>
     
     <!-- SCRIPT -->
+    <script>
+      const radioRole = document.querySelectorAll("input[name='is_mentor']");
+      const radioGender = document.querySelectorAll("input[name='gender']");
+      const checkMember = document.querySelector(".check-member");
+
+      const checkRole = (index) => {
+        radioRole.forEach(radio => {
+          radioRole[index].parentElement.classList.contains('active') ? '' : radio.parentElement.classList.remove('active');
+        });
+
+        checkMember.classList.toggle("active");
+        
+        radioRole[index].parentElement.classList.toggle('active');
+      }
+      const checkGender = (index) => {
+        radioGender.forEach(radio => {
+          radioGender[index].parentElement.classList.contains('active') ? '' : radio.parentElement.classList.remove('active');
+        });
+        
+        radioGender[index].parentElement.classList.toggle('active');
+      }
+      
+
+      radioRole.forEach((radio, index) => {
+        radio.addEventListener("change", () => {
+          checkRole(index);
+        })
+      });
+      radioGender.forEach((radio, index) => {
+        radio.addEventListener("change", () => {
+          checkGender(index);
+        })
+      });
+    </script>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   </body>
 </html>

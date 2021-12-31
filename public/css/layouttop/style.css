@@ -2,8 +2,9 @@
 .contenttop {
     position: sticky;
     top: 0;
-    background: #fff;
+    background: #ffffff;
     /* width: 80%; */
+    z-index: 9999;
     margin-left: 280px; /*menyesuaikan mentor.template */
 }
 .info-all {

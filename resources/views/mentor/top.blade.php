@@ -2,6 +2,10 @@
   use Illuminate\Support\Facades\Auth;
   use App\Models\User;
   use App\Models\GroupActivity;  
+
+use Carbon\Carbon;
+
+$today = Carbon::now()->isoFormat('D MMMM Y');
 @endphp
 
 <link rel="stylesheet" href="/css/layouttop/style.css" >
@@ -81,7 +85,7 @@
             <a href="/groups/anggota/{{ $group->id }}">Anggota ({{ count($membersIn) }} Orang)</a>
           @endif
         </div>
-        <div class="text3 text-all {{ Request::segment(2) == "target" ? "active" : "" }}">
+        <div class="text3 text-all {{ Request::segment(2) == "activities" ? "active" : "" }}">
           @if (count(GroupActivity::where("group_id", $group->id)->get()))
           <a href={{ route("group-activities", $group->id) }}>Target</a>
           @else
@@ -89,7 +93,11 @@
           @endif
         </div>
       </div>
-  </div>
+    </div>
+    <div class="info3 info-all">
+      <h1>Statistik Amalan Pribadi <span><?php echo $today; ?></span></h1>
+      <a href="{{ route("mentoranalisis", ["group" => $group->id])}}"><button>Download laporan</button> </a>
+    </div>
    {{-- Edit Grup --}}
     <div class="pop-up mentor-group-pop-up">
         <div class="pop-up-title">
