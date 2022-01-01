@@ -9,7 +9,7 @@
   <div class="content-list">
     <div>
       {{-- /groups/chart/{{ $user->id }}/{{ $group->id }} --}}
-      <a href="/groups/chart/{{ $member->id }}/{{ last(request()->segments()) }}">
+      <a href="{{ route("chart-member", ["userId" => $member->id, "groupId" => $group->id]) }}">
         <i class="fas fa-arrow-left"></i>
         <h3>Kembali</h3>
       </a>

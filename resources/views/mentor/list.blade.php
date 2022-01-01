@@ -14,23 +14,6 @@
 <!-- ======= KONFIRMASI ANGGOTA ======= -->
 @include('mentor.analysis-group')
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     {{-- @include('mentor.view-activities') --}}
     {{-- @if (count($membersOut))
     <div class="content-list">

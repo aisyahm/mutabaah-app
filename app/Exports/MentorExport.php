@@ -76,7 +76,7 @@ class MentorExport implements WithEvents, WithDrawings, WithCustomStartCell, Sho
               $haid = 0;
             }
 
-            $userPoint[$userBefore][] = $value;
+            $userPoint[$userBefore][] = $value == 0 ? json_decode('"'.$false.'"') : $value;
             $value = 0;
             $userBefore = $activity->user->id;
             if ($activity->user->id == $userBefore) {
@@ -84,12 +84,13 @@ class MentorExport implements WithEvents, WithDrawings, WithCustomStartCell, Sho
               $haid += $activity->is_haid;
 
               if (++$i == count($activitiesSub)) {
-                $userPoint[$userBefore][] = $value;
+                $userPoint[$userBefore][] = $value == 0 ? json_decode('"'.$false.'"') : $value;
               }
             }
           }
         }
       }
+
       $userPoint[$userBefore][] = $value;
 
       foreach ($userHaid as $key => $haid) {
@@ -100,8 +101,6 @@ class MentorExport implements WithEvents, WithDrawings, WithCustomStartCell, Sho
           $key = mt_rand(0, 10000);
 
           for ($j=0; $j <= count($userPoint[$userBefore]); $j++) { 
-            // $userPoint[$key][] = 0;
-            // $haidQuery[$key] = 0;
             $userPoint[$key][] = json_decode('"'.$false.'"');
             $haidQuery[$key] = json_decode('"'.$false.'"');
           }

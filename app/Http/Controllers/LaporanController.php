@@ -59,11 +59,11 @@ class LaporanController extends Controller
      // MEMBER ubah tahun terima data disini 2021
     public function memberexport(){
         // return $this->excel->download(new MemberMultiSheetExport(2021), 'member.xlsx');
-        return $this->excel->download(new MemberExport(2021), 'member.xlsx');
+        return $this->excel->download(new MemberExport(2022), 'member.xlsx');
     }
 
     // MENTOR ubah tahun terima data disini 2021
     public function mentorexport(){
-        return $this->excel->download(new MentorExport(2021), 'mentor.xlsx');
+        return $this->excel->download(new MentorExport(2022), 'mentor.xlsx');
     }
 }

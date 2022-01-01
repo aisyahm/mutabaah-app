@@ -2,6 +2,7 @@
   $i = 1;
 
   use Carbon\Carbon;
+  use App\models\GroupActivity;
 
 $today = Carbon::now()->isoFormat('D MMMM Y');
 @endphp
@@ -13,10 +14,12 @@ $today = Carbon::now()->isoFormat('D MMMM Y');
 @endsection
 
 @section('content')
+  @if (count(GroupActivity::where("group_id", $group->id)->get()))
     <div class="info3 info-all">
       <h1>Statistik Amalan Pribadi <span><?php echo $today; ?></span></h1>
       <a href="{{ route("mentoranalisis", ["group" => $group->id])}}"><button>Download laporan</button> </a>
     </div>
+  @endif
   @if (count($activities) != 0)
   <div class="wrap-chart">
 
@@ -177,6 +180,12 @@ $today = Carbon::now()->isoFormat('D MMMM Y');
   </div>
   @endif
 
+
+  @if (!count(GroupActivity::where("group_id", $group->id)->get()))
+    <a href="{{ route("add-activities", $group->id)}}">Tambah Aktivitas</a>
+  @endif
+
+
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
     let labels = {!! json_encode($activities) !!};
@@ -184,9 +193,14 @@ $today = Carbon::now()->isoFormat('D MMMM Y');
     let weekBefore = {!! json_encode($averagePass) !!};
     const rangking = {!! json_encode($rangking) !!};
     const member = document.querySelectorAll(".grid-rank > div");
-    document.querySelector(".chart").style.setProperty("--activity", labels.length);
+
+    if (labels.length) {
+      console.log(labels);
+      document.querySelector(".chart").style.setProperty("--activity", labels.length);
+    }
     
-    if (rangking) {
+    
+    if (rangking.length) {
       document.querySelector(".grid-rank").style.setProperty("--row", Math.ceil(member.length / 2));
     }
 

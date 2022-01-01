@@ -5,8 +5,6 @@
   <link rel="stylesheet" href="/css/detail-activity.css" />
 @endsection
 
-{{-- @include('mentor.top') --}}
-
 @section('content')
   @if (Auth::user()->is_mentor)
     <div class="back">
@@ -28,7 +26,7 @@
       <a href="/groups/profile/{{ $user->id }}/{{ $group->id }}">Lihat Detail Akun</a>
     </div>
   @endif
-
+  
   <div class="excel-content">
     <h2>Statistik Amalan Pribadi</h2>
     <a href={{ route("memberanalisis", ["user" => $user->id, "group" => $group->id]) }}>Download Laporan</a>

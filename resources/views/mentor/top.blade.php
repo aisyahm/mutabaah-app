@@ -74,25 +74,19 @@ $today = Carbon::now()->isoFormat('D MMMM Y');
           </div>
         </div>
       </div>
-      <div class="info2 info-all">
-        <div class="text1 text-all {{ Request::segment(2) == "chart" ? "active" : "" }}">
-          @if (count(GroupActivity::where("group_id", $group->id)->get()))
+      @if (count(GroupActivity::where("group_id", $group->id)->get()))
+        <div class="info2 info-all">
+          <div class="text1 text-all {{ Request::segment(2) == "chart" ? "active" : "" }}">
             <a href="/groups/chart/{{ $group->id }}">Analisis</a>
-          @endif
-        </div>
-        <div class="text2 text-all {{ Request::segment(2) == "anggota" ? "active" : "" }}">
-          @if (count(GroupActivity::where("group_id", $group->id)->get()))
+          </div>
+          <div class="text2 text-all {{ Request::segment(2) == "anggota" ? "active" : "" }}">
             <a href="/groups/anggota/{{ $group->id }}">Anggota ({{ count($membersIn) }} Orang)</a>
-          @endif
+          </div>
+          <div class="text3 text-all {{ Request::segment(2) == "activities" ? "active" : "" }}">
+            <a href={{ route("group-activities", $group->id) }}>Target</a>
+          </div>
         </div>
-        <div class="text3 text-all {{ Request::segment(2) == "activities" ? "active" : "" }}">
-          @if (count(GroupActivity::where("group_id", $group->id)->get()))
-          <a href={{ route("group-activities", $group->id) }}>Target</a>
-          @else
-            <a href="./add-activities/{{ $group->id }}">Tambah Aktivitas</a>
-          @endif
-        </div>
-      </div>
+      @endif
     </div>
    {{-- Edit Grup --}}
     <div class="pop-up mentor-group-pop-up">
@@ -188,9 +182,11 @@ $today = Carbon::now()->isoFormat('D MMMM Y');
         container.classList.add("active");
       });
 
-      body.addEventListener('click', () => {
-        container.classList.remove("active");
-      });
+      if (body) {
+        body.addEventListener('click', () => {
+          container.classList.remove("active");
+        });
+      }
 
 
       function copy(element) {
@@ -250,16 +246,18 @@ $today = Carbon::now()->isoFormat('D MMMM Y');
       // edit
       const mentoredit = () => {
         mentorgrupedit.classList.add("active");
-
           closeBtn.forEach((close) => {
               close.addEventListener("click", () => {
                 mentorgrupedit.classList.remove("active");
               });
           });
       };
-      body3.addEventListener('click', () => {
-          mentorgrupedit.classList.remove("active");
-      });
+
+      if (body3) {
+        body3.addEventListener('click', () => {
+            mentorgrupedit.classList.remove("active");
+        });
+      }
       boxedit.addEventListener("click", mentoredit);
 
       // Hapus
@@ -272,8 +270,11 @@ $today = Carbon::now()->isoFormat('D MMMM Y');
               });
           });
       };
-      body3.addEventListener('click', () => {
-        mentorgruphapus.classList.remove("active");
-      });
+      if(body3){
+        body3.addEventListener('click', () => {
+          mentorgruphapus.classList.remove("active");
+        });
+      }
+    
       boxhapus.addEventListener("click", mentorhapus);
   </script>

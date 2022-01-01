@@ -16,26 +16,6 @@ class ChartController extends Controller
     $user = User::find($userId);
     $group = Group::find($groupId);
 
-        $users = UserGroup::with("user")->where("group_id", $group->id)->get();
-        $usersOut = $users->where("is_accept", false);
-        $usersIn = $users->where("is_accept", true);
-
-        // GET MENTOR DALAM GRUP
-        $mentors = [];
-        foreach ($usersIn as $mentor) {
-          if ($mentor->user->is_mentor) $mentors[] = $mentor->user->name;
-        }
-
-        // GET MEMBER DALAM GRUP
-        $membersIn = [];
-        foreach ($usersIn as $user) {
-          $user->user->is_mentor == false ? $membersIn[] = $user->user : "";
-        }
-        $membersOut = [];
-        foreach ($usersOut as $user) {
-          $membersOut[] = $user->user;
-        }
-    
     // AMBIL GRUP AKTIVITAS BERDASARKAN GRUP YANG DIPILIH
     $group_activity = GroupActivity::with("submission", "activity")->where("group_id", $group->id)->get();
     $activities = [];
@@ -46,14 +26,15 @@ class ChartController extends Controller
     $totalPass = [];
     $values = 0;
 
+    // dd("group_activity");
+
     // AUTO GENERATE DATE  ||  DATE UNTUK FILTER SUBMISSION BY WEEK  ||  DIMULAI SAAT HARI SENIN - MINGGU
     $now = Carbon::now();
     $strLastWeek = $now->startOfWeek()->copy()->subDays(7)->format('Y-m-d');
     $endLastWeek = $now->endOfWeek()->copy()->subDays(7)->format('Y-m-d');
     $strCurentWeek = $now->startOfWeek()->format('Y-m-d');
     $endCurentWeek = $now->endOfWeek()->format('Y-m-d');
-
-    $diffDayEndWeek = Carbon::parse(Carbon::now())->diffInDays($endCurentWeek);
+    $diffDayEndWeek = 7 - Carbon::now()->dayOfWeek;
 
     // LABEL DATE CHART
     $dates = [
@@ -65,7 +46,10 @@ class ChartController extends Controller
     
     foreach ($group_activity as $activity) {
       $activities[] = explode(" ", $activity->activity->name);
-      
+      // dd("foreach");
+      // dd($group_activity);
+      // dump(count($activity->submission->where("user_id", $user->id)->where("date", ">=", $strCurentWeek)
+      // ->where("date", "<=", $endCurentWeek)));
       // AMBIL VALUE BERDASARKAN USER ID YANG SEDANG LOGIN SAJA, DATE SAAT INI, DAN DATE MINGGU INI DAN MINGGU SEBELUMNYA
       if (count($activity->submission->where("user_id", $user->id)->where("date", ">=", $strCurentWeek)
       ->where("date", "<=", $endCurentWeek))) {
@@ -77,7 +61,10 @@ class ChartController extends Controller
         foreach ($activitySubmission as $submission) {
           $activityDetail[$activity->activity->category][$activity->activity->name][] = $submission->is_done;
         }
+        // dd("if");
       }
+
+      
       // JIKA SAMA SEKALI BELUM ADA SUBMISSION
       // ISI 0 UNTUK TIDAK MENGERJAKAN, ISI -2 UNTUK BELUM DIISI (SELISIH DENGAN END WEEK)
       else {
@@ -89,6 +76,7 @@ class ChartController extends Controller
           }
         }
       }
+      // dd($diffDayEndWeek);
 
       // JIKA KURANG DARI 7 (MINGGU INI MASIH BERJALAN), ISI -2 SAMPAI COUNT ARRAY == 7
       if (count($activityDetail[$activity->activity->category][$activity->activity->name]) < 7 &&
@@ -96,7 +84,9 @@ class ChartController extends Controller
         for ($i=0; $i < 7 - count($activityDetail[$activity->activity->category][$activity->activity->name]); $i+1) { 
           $activityDetail[$activity->activity->category][$activity->activity->name][] = -2;
         }
+        // dd("benar");
       } 
+      
       // JIKA HARI TERSEBUT ADALAH END WEEK
       else if ($diffDayEndWeek == 0) {
         for ($j=0; $j < 7 - count($activityDetail[$activity->activity->category][$activity->activity->name]); $j+1) { 
@@ -111,15 +101,23 @@ class ChartController extends Controller
         }
       }
 
+      // dd("unshift");
+
+      
+
       if (count($activity->submission->where("user_id", $user->id)->where("date", ">=", $strLastWeek)
           ->where("date", "<=", $endLastWeek))) {
         $taskPass[] = $activity->submission->where("user_id", $user->id)->where("date", ">=", $strLastWeek)
         ->where("date", "<=", $endLastWeek);
       }
+      // dd("taskPass");
+      
     }
 
+    // dd($activityDetail);
     // URUTKAN BERDASARKAN AKTIVITAS TERBANYAK  ||  ESTETIKA DETAIL AKTIVITAS
     arsort($activityDetail);
+    // dd("arsort");
 
     // JUMLAHKAN VALUE IS DONE TIAP AKTIVITAS
     foreach ($taskCurent as $submission) {
@@ -145,41 +143,42 @@ class ChartController extends Controller
       "totalPass" => $totalPass,
       "dates" => $dates,
       "activityDetail" => $activityDetail,
-      "today" => Carbon::now()->dayOfWeek,
-              "membersIn" => $membersIn,
-              "membersOut" => $membersOut,
-              "mentors" => $mentors
+      "today" => Carbon::now()->dayOfWeek
     ]);
   }
 
   // CHART OVERALL GRUP (SEMUA MEMBER DALAM GRUP TERSEBUT)
   public function overall(Group $group) {
     if (!Auth::user()->is_mentor) return back();
+
             $users = UserGroup::with("user")->where("group_id", $group->id)->get();
-            $usersOut = $users->where("is_accept", false);
+            // $usersOut = $users->where("is_accept", false);
             $usersIn = $users->where("is_accept", true);
 
             // GET MENTOR DALAM GRUP
-            $mentors = [];
-            foreach ($usersIn as $mentor) {
-              if ($mentor->user->is_mentor) $mentors[] = $mentor->user->name;
-            }
+            // $mentors = [];
+            // foreach ($usersIn as $mentor) {
+            //   if ($mentor->user->is_mentor) $mentors[] = $mentor->user->name;
+            // }
 
             // GET MEMBER DALAM GRUP
             $membersIn = [];
             foreach ($usersIn as $user) {
               $user->user->is_mentor == false ? $membersIn[] = $user->user : "";
             }
-            $membersOut = [];
-            foreach ($usersOut as $user) {
-              $membersOut[] = $user->user;
-            }
+            // $membersOut = [];
+            // foreach ($usersOut as $user) {
+            //   $membersOut[] = $user->user;
+            // }
     
     // AMBIL GRUP AKTIVITAS BERDASARKAN GRUP YANG DIPILIH
     $group_activity = GroupActivity::with("submission.user", "activity")->where("group_id", $group->id)->get();
     $totalMember = count($group->userGroup->where("is_accept", true)) - 1;
     $userGroup = UserGroup::with("user")->where("group_id", $group->id)->where("is_accept", true)->get();
     $activities = [];
+    $activityYesterday = [];
+    $activityToday = [];
+    $activityDetail = [];
     $taskCurent = [];
     $taskPass = [];
     $averageCurent = [];
@@ -187,6 +186,17 @@ class ChartController extends Controller
     $values = 0;
     $scoreMember = [];
     $topRated = [];
+
+    if (!count(GroupActivity::where("group_id", $group->id)->get())) {
+      return view("mentor.analysis-group", [
+        "group" => $group,
+        "activities" => [],
+        "rangking" => [],
+        "averagePass" => [],
+        "averageCurent" => [],
+        "activityDetail" => []
+      ]);
+    }
 
     foreach ($userGroup as $user) {
       if ($user->user->is_mentor == false) $scoreMember[$user->user->name] = 0;
@@ -214,10 +224,12 @@ class ChartController extends Controller
       if (count($activity->submission->where("date", ">=", $strCurentWeek)->where("date", "<=", $endCurentWeek))) {
         $taskCurent[] = $activity->submission->where("date", ">=", $strCurentWeek)->where("date", "<=", $endCurentWeek);
         $activityYesterday[] = $activity->submission->where("date", $yesterday);
+        // dd("current");
       }
       if (count($activity->submission->where("date", ">=", $strLastWeek)->where("date", "<=", $endLastWeek))) {
         $taskPass[] = $activity->submission->where("date", ">=", $strLastWeek)->where("date", "<=", $endLastWeek);
         $activityToday[] = $activity->submission->where("date", Carbon::now()->format('Y-m-d'));
+        // dd("yesterday");
       }
     }
 
@@ -275,9 +287,9 @@ class ChartController extends Controller
       "topRated" => $topRated,
       "totalActivity" => count($group_activity),
       "activityDetail" => $activityDetail,
-            "membersIn" => $membersIn,
-            "membersOut" => $membersOut,
-            "mentors" => $mentors
+      "membersIn" => $membersIn
+      // "membersOut" => $membersOut,
+      // "mentors" => $mentors
     ]);
   }
 }

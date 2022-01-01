@@ -26,20 +26,20 @@ class SubmissionSeeder extends Seeder
 
     // 30 HARI
     // AWAL 1 DESEMBER
-    Submission::create(["user_id" => 7, "group_activity_id" => 1, "is_done" => true, "is_haid" => false,"date" => date('Y-m-d', strtotime($dateNow . "-29 days")),]);
-    Submission::create([
-      "user_id" => 8,
-      "group_activity_id" => 1,
-      "is_done" => false,
-      "is_haid" => true,
-      "date" => date('Y-m-d', strtotime($dateNow . "-29 days")),
-    ]);
+    // Submission::create(["user_id" => 7, "group_activity_id" => 1, "is_done" => true, "is_haid" => false,"date" => date('Y-m-d', strtotime($dateNow . "-29 days")),]);
+    // Submission::create([
+    //   "user_id" => 8,
+    //   "group_activity_id" => 1,
+    //   "is_done" => false,
+    //   "is_haid" => true,
+    //   "date" => date('Y-m-d', strtotime($dateNow . "-29 days")),
+    // ]);
 
 
-    Submission::create([ "user_id" => 1, "group_activity_id" => 1, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-28 days")), ]);
+    // Submission::create([ "user_id" => 1, "group_activity_id" => 1, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-28 days")), ]);
 
-    // AKHIT DESEMBER
-    Submission::create([ "user_id" => 1, "group_activity_id" => 2, "is_done" => true, "date" => date($dateNow), ]);
+    // // AKHIT DESEMBER
+    // Submission::create([ "user_id" => 1, "group_activity_id" => 2, "is_done" => true, "date" => date($dateNow), ]);
 
     //hari 1 =======
     Submission::create([ "user_id" => 1, "group_activity_id" => 1, "is_done" => true, "date" => date('Y-m-d', strtotime($dateNow . "-13 days")), ]);

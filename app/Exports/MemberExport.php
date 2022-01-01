@@ -109,13 +109,16 @@ class MemberExport implements WithEvents, WithDrawings, WithCustomStartCell, Sho
                         ->setKeywords("Laporan Istiqomah Web");
             },
             BeforeSheet::class => function(BeforeSheet $event){
-                $event->sheet->setCellValue('F3','Laporan ' . session("user")->name);
-                $event->sheet->setCellValue('F4', 'Grup ' . session("group")->name . ' di bulan ' . Carbon::now()->isoFormat('MMMM'));
+                $event->sheet->setCellValue('E3','Laporan ' . session("user")->name);
+                $event->sheet->setCellValue('E4', 'Grup ' . session("group")->name . ' di bulan ' . Carbon::now()->isoFormat('MMMM'));
             },
             AfterSheet::class => function(AfterSheet $event){
-                $event->sheet->getStyle('B8:J8')->applyFromArray([
+                $event->sheet->getStyle( 'B8:' . 
+                $event->sheet->getHighestColumn() . 
+                $event->sheet->getHighestRow()
+                )->applyFromArray([
                     'font' => [
-                        'bold' => true,
+                        'bold' => false,
                         'name' => 'Arial',
                         'size' => 11,
                     ],
@@ -129,7 +132,7 @@ class MemberExport implements WithEvents, WithDrawings, WithCustomStartCell, Sho
                         'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
                     ]
                 ]);
-                $event->sheet->getStyle('F3:F4')->applyFromArray([
+                $event->sheet->getStyle('E3:E4')->applyFromArray([
                     'font' => [
                         'bold' => true,
                         'name' => 'Arial',
@@ -139,7 +142,10 @@ class MemberExport implements WithEvents, WithDrawings, WithCustomStartCell, Sho
                         'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
                     ]
                 ]);
-                $event->sheet->getStyle('B9:J11')->applyFromArray([
+                $event->sheet->getStyle( 'B9:' . 
+                $event->sheet->getHighestColumn() . 
+                $event->sheet->getHighestRow()
+                )->applyFromArray([
                     'borders' => [
                         'allBorders' => [
                             'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
@@ -151,23 +157,23 @@ class MemberExport implements WithEvents, WithDrawings, WithCustomStartCell, Sho
                         ],
                     ],
                     'alignment' => [
-                        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_JUSTIFY,
+                        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
                     ],
                     'fill' => [
                         'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                         'rotation' => 90,
                         'startColor' => [
-                            'argb' => '#00FFFF',
+                            'argb' => '00A7A0',
                         ],
                         'endColor' => [
-                            'argb' => '#00FFFF',
+                            'argb' => '00A7A0',
                         ],
                     ],
                 ]);
-                $event->sheet->getStyle('B8:G13')
-                ->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_TOP);
-                $event->sheet->mergeCells('F3:K3');
-                $event->sheet->mergeCells('F4:K4');
+                // $event->sheet->getStyle('B8:G13')
+                // ->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_TOP);
+                $event->sheet->mergeCells('E3:M3');
+                $event->sheet->mergeCells('E4:M4');
                 // $event->sheet->insertNewRowBefore(1, 2);
                 $event->sheet->getStyle(
                     'B8:' . 
