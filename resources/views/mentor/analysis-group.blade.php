@@ -182,7 +182,9 @@ $today = Carbon::now()->isoFormat('D MMMM Y');
 
 
   @if (!count(GroupActivity::where("group_id", $group->id)->get()))
-    <a href="{{ route("add-activities", $group->id)}}">Tambah Aktivitas</a>
+    <div class="no-activity">
+      <a href="{{ route("add-activities", $group->id)}}">Tambah Aktivitas</a>
+    </div>
   @endif
 
 

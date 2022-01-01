@@ -69,7 +69,7 @@ th {
     font-weight: bold;
     position: relative;
     overflow: visible;
-    z-index: 6;
+    z-index: 0;
 }
 .today::before {
     position: absolute;

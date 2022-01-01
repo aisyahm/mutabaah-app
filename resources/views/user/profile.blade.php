@@ -8,8 +8,9 @@
 @section('content')
   <div class="content-list">
     <div>
-      {{-- /groups/chart/{{ $user->id }}/{{ $group->id }} --}}
-      <a href="{{ route("chart-member", ["userId" => $member->id, "groupId" => $group->id]) }}">
+      {{-- Buat apabila member balik ke profile apabila mentor balik ke analisis --}}
+      <a href="{{ URL::previous() }}">
+      {{-- <a href="{{ route(back()) }}"> --}}
         <i class="fas fa-arrow-left"></i>
         <h3>Kembali</h3>
       </a>

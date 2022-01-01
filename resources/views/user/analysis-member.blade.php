@@ -5,6 +5,10 @@
   <link rel="stylesheet" href="/css/detail-activity.css" />
 @endsection
 
+@if (!Auth::user()->is_mentor)
+  @include('member.top')
+@endif
+
 @section('content')
   @if (Auth::user()->is_mentor)
     <div class="back">

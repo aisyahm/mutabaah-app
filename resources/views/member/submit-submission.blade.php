@@ -5,6 +5,9 @@
     <link rel="stylesheet" href="/css/submit-submission.css" />
 @endsection
 
+@include('member.top')
+
+
 @section('content')
   <div class="content-list">
     <form action="{{ route("new-submission") }}" method="post">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Group;
 use App\Models\UserGroup;
+use App\Models\Submission;
 use App\Models\GroupActivity;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -35,6 +36,7 @@ class ChartController extends Controller
     $strCurentWeek = $now->startOfWeek()->format('Y-m-d');
     $endCurentWeek = $now->endOfWeek()->format('Y-m-d');
     $diffDayEndWeek = 7 - Carbon::now()->dayOfWeek;
+    $today = Carbon::now()->dayOfWeek;
 
     // LABEL DATE CHART
     $dates = [
@@ -43,6 +45,8 @@ class ChartController extends Controller
       Carbon::parse($strCurentWeek)->isoFormat('D MMM'),
       Carbon::parse($endCurentWeek)->isoFormat('D MMM Y'),
     ];
+
+    // dd($group_activity->last()->submission);
     
     foreach ($group_activity as $activity) {
       $activities[] = explode(" ", $activity->activity->name);
@@ -58,10 +62,10 @@ class ChartController extends Controller
         
         $activitySubmission = $activity->submission->where("user_id", $user->id)->where("date", ">=", $strCurentWeek)
         ->where("date", "<=", $endCurentWeek);
+        // dd($activitySubmission);
         foreach ($activitySubmission as $submission) {
-          $activityDetail[$activity->activity->category][$activity->activity->name][] = $submission->is_done;
+            $activityDetail[$activity->activity->category][$activity->activity->name][] = $submission->is_done;
         }
-        // dd("if");
       }
 
       
@@ -114,7 +118,7 @@ class ChartController extends Controller
       
     }
 
-    // dd($activityDetail);
+    // dd("done");
     // URUTKAN BERDASARKAN AKTIVITAS TERBANYAK  ||  ESTETIKA DETAIL AKTIVITAS
     arsort($activityDetail);
     // dd("arsort");
@@ -135,6 +139,8 @@ class ChartController extends Controller
       $values = 0;
     }
 
+    // dd($activityDetail);
+
     return view("user.analysis-member", [
       "group" => $group,
       "user" => $user,
@@ -143,7 +149,7 @@ class ChartController extends Controller
       "totalPass" => $totalPass,
       "dates" => $dates,
       "activityDetail" => $activityDetail,
-      "today" => Carbon::now()->dayOfWeek
+      "today" => Carbon::now()->dayOfWeek,
     ]);
   }
 

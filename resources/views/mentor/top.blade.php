@@ -2,10 +2,19 @@
   use Illuminate\Support\Facades\Auth;
   use App\Models\User;
   use App\Models\GroupActivity;  
+  use App\Models\UserGroup;
 
-use Carbon\Carbon;
+  $users = UserGroup::where("group_id", $group->id)->get();
+  $usersIn = $users->where("is_accept", true);
 
-$today = Carbon::now()->isoFormat('D MMMM Y');
+  $membersIn = [];
+  foreach ($usersIn as $user) {
+    $user->user->is_mentor == false ? $membersIn[] = $user->user : "";
+  }
+
+  use Carbon\Carbon;
+
+  $today = Carbon::now()->isoFormat('D MMMM Y');
 @endphp
 
 <link rel="stylesheet" href="/css/layouttop/style.css" >
@@ -80,7 +89,7 @@ $today = Carbon::now()->isoFormat('D MMMM Y');
             <a href="/groups/chart/{{ $group->id }}">Analisis</a>
           </div>
           <div class="text2 text-all {{ Request::segment(2) == "anggota" ? "active" : "" }}">
-            <a href="/groups/anggota/{{ $group->id }}">Anggota ({{ count($membersIn) }} Orang)</a>
+            <a href="/groups/anggota/{{ $group->id }}">Anggota ({{ count($membersIn) }})</a>
           </div>
           <div class="text3 text-all {{ Request::segment(2) == "activities" ? "active" : "" }}">
             <a href={{ route("group-activities", $group->id) }}>Target</a>
