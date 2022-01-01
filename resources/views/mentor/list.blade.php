@@ -12,11 +12,7 @@
 
 @section('content')
 <!-- ======= KONFIRMASI ANGGOTA ======= -->
-<div class="info3 info-all">
-  <h1>Statistik Amalan Pribadi <span><?php echo $today; ?></span></h1>
-  <a href="{{ route("mentoranalisis", ["group" => $group->id])}}"><button>Download laporan</button> </a>
-</div>
-{{-- @include('mentor.analysis-group') --}}
+@include('mentor.analysis-group')
 
 
 

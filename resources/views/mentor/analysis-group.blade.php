@@ -1,13 +1,22 @@
 @php
   $i = 1;
+
+  use Carbon\Carbon;
+
+$today = Carbon::now()->isoFormat('D MMMM Y');
 @endphp
 @extends("mentor.template")
+@include('mentor.top')
 
 @section('meta')
   <link rel="stylesheet" href="/css/analysis.css" />
 @endsection
 
 @section('content')
+    <div class="info3 info-all">
+      <h1>Statistik Amalan Pribadi <span><?php echo $today; ?></span></h1>
+      <a href="{{ route("mentoranalisis", ["group" => $group->id])}}"><button>Download laporan</button> </a>
+    </div>
   @if (count($activities) != 0)
   <div class="wrap-chart">
 

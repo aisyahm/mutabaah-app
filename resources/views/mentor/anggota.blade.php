@@ -67,7 +67,7 @@
                     </div>
                   </div>
                   
-                  <a href="/groups/chart/{{ $member->id }}/{{ $group->id }}">
+                  <a href="/groups/analysis/{{ $member->id }}/{{ $group->id }}">
                     <button class="lihat-profile btn btn-outline-success my-color">Lihat Amalan</button>
                   </a>
                   

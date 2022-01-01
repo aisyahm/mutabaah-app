@@ -75,9 +75,9 @@ $today = Carbon::now()->isoFormat('D MMMM Y');
         </div>
       </div>
       <div class="info2 info-all">
-        <div class="text1 text-all {{ Request::segment(2) == "analysis" ? "active" : "" }}">
+        <div class="text1 text-all {{ Request::segment(2) == "chart" ? "active" : "" }}">
           @if (count(GroupActivity::where("group_id", $group->id)->get()))
-            <a href="/groups/analysis/{{ $group->id }}">Analisis</a>
+            <a href="/groups/chart/{{ $group->id }}">Analisis</a>
           @endif
         </div>
         <div class="text2 text-all {{ Request::segment(2) == "anggota" ? "active" : "" }}">
@@ -93,10 +93,6 @@ $today = Carbon::now()->isoFormat('D MMMM Y');
           @endif
         </div>
       </div>
-    </div>
-    <div class="info3 info-all">
-      <h1>Statistik Amalan Pribadi <span><?php echo $today; ?></span></h1>
-      <a href="{{ route("mentoranalisis", ["group" => $group->id])}}"><button>Download laporan</button> </a>
     </div>
    {{-- Edit Grup --}}
     <div class="pop-up mentor-group-pop-up">

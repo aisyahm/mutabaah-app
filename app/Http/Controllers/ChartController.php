@@ -15,6 +15,26 @@ class ChartController extends Controller
   public function self($userId, $groupId) {
     $user = User::find($userId);
     $group = Group::find($groupId);
+
+        $users = UserGroup::with("user")->where("group_id", $group->id)->get();
+        $usersOut = $users->where("is_accept", false);
+        $usersIn = $users->where("is_accept", true);
+
+        // GET MENTOR DALAM GRUP
+        $mentors = [];
+        foreach ($usersIn as $mentor) {
+          if ($mentor->user->is_mentor) $mentors[] = $mentor->user->name;
+        }
+
+        // GET MEMBER DALAM GRUP
+        $membersIn = [];
+        foreach ($usersIn as $user) {
+          $user->user->is_mentor == false ? $membersIn[] = $user->user : "";
+        }
+        $membersOut = [];
+        foreach ($usersOut as $user) {
+          $membersOut[] = $user->user;
+        }
     
     // AMBIL GRUP AKTIVITAS BERDASARKAN GRUP YANG DIPILIH
     $group_activity = GroupActivity::with("submission", "activity")->where("group_id", $group->id)->get();
@@ -125,13 +145,35 @@ class ChartController extends Controller
       "totalPass" => $totalPass,
       "dates" => $dates,
       "activityDetail" => $activityDetail,
-      "today" => Carbon::now()->dayOfWeek
+      "today" => Carbon::now()->dayOfWeek,
+              "membersIn" => $membersIn,
+              "membersOut" => $membersOut,
+              "mentors" => $mentors
     ]);
   }
 
   // CHART OVERALL GRUP (SEMUA MEMBER DALAM GRUP TERSEBUT)
   public function overall(Group $group) {
     if (!Auth::user()->is_mentor) return back();
+            $users = UserGroup::with("user")->where("group_id", $group->id)->get();
+            $usersOut = $users->where("is_accept", false);
+            $usersIn = $users->where("is_accept", true);
+
+            // GET MENTOR DALAM GRUP
+            $mentors = [];
+            foreach ($usersIn as $mentor) {
+              if ($mentor->user->is_mentor) $mentors[] = $mentor->user->name;
+            }
+
+            // GET MEMBER DALAM GRUP
+            $membersIn = [];
+            foreach ($usersIn as $user) {
+              $user->user->is_mentor == false ? $membersIn[] = $user->user : "";
+            }
+            $membersOut = [];
+            foreach ($usersOut as $user) {
+              $membersOut[] = $user->user;
+            }
     
     // AMBIL GRUP AKTIVITAS BERDASARKAN GRUP YANG DIPILIH
     $group_activity = GroupActivity::with("submission.user", "activity")->where("group_id", $group->id)->get();
@@ -232,7 +274,10 @@ class ChartController extends Controller
       "rangking" => $scoreMember,
       "topRated" => $topRated,
       "totalActivity" => count($group_activity),
-      "activityDetail" => $activityDetail
+      "activityDetail" => $activityDetail,
+            "membersIn" => $membersIn,
+            "membersOut" => $membersOut,
+            "mentors" => $mentors
     ]);
   }
 }

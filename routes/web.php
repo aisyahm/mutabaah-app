@@ -48,7 +48,7 @@ Route::get('/groups/anggota/{group:id}', [GroupController::class, 'anggota'])->n
 
 // CHART
 Route::get('/groups/analysis/{userId}/{groupId}', [ChartController::class, 'self'])->name('chart-member')->middleware('auth');
-// Route::get('/groups/chart/{group:id}', [ChartController::class, 'overall'])->name('chart-overall')->middleware('auth');
+Route::get('/groups/chart/{group:id}', [ChartController::class, 'overall'])->name('chart-overall')->middleware('auth');
 
 // DELETE & LEAVE GROUP
 Route::post('/delete', [GroupController::class, 'dangerGroup'])->name("delete");

@@ -5,6 +5,8 @@
   <link rel="stylesheet" href="/css/detail-activity.css" />
 @endsection
 
+{{-- @include('mentor.top') --}}
+
 @section('content')
   @if (Auth::user()->is_mentor)
     <div class="back">
