@@ -20,7 +20,7 @@
                     <h3>Sholat Wajib</h3>
                   </div>
                   <div class="inner">
-                    <div class="chart">
+                    <div class="chart category-chart">
                       <canvas id="wajibChart"></canvas>
                     </div>
                   </div>
@@ -30,7 +30,7 @@
                     <h3>Sholat Rawatib</h3>
                   </div>
                   <div class="inner">
-                    <div class="chart">
+                    <div class="chart category-chart">
                       <canvas id="rawatibChart"></canvas>
                     </div>
                   </div>
@@ -40,7 +40,7 @@
                     <h3>Sholat Sunnah</h3>
                   </div>
                   <div class="inner">
-                    <div class="chart">
+                    <div class="chart category-chart">
                       <canvas id="sunnahChart"></canvas>
                     </div>
                   </div>
@@ -50,7 +50,7 @@
                     <h3>Sholat Sunnah Lainnya</h3>
                   </div>
                   <div class="inner">
-                    <div class="chart">
+                    <div class="chart category-chart">
                       <canvas id="lainnyaChart"></canvas>
                     </div>
                   </div>
@@ -60,14 +60,14 @@
                     <h3>Dzikir</h3>
                   </div>
                   <div class="inner">
-                    <div class="chart">
+                    <div class="chart category-chart">
                       <canvas id="dzikirChart"></canvas>
                     </div>
                   </div>
           @endswitch
         <div class="legend">
-          <span><span></span>Kemarin</span>
-          <span><span></span>Hari Ini</span>
+          <span><span></span>Pekan Lalu</span>
+          <span><span></span>Pekan Ini</span>
         </div>
     </div>
     @endforeach
@@ -243,28 +243,65 @@
       let labelsToday = [];
       let yesterday = [];
       let today = [];
+      let dataDay = {};
       for (let activity in activityDetail[key]) {
         labelsToday.push(activity.split(' '));
         yesterday.push(activityDetail[key][activity][0]);
         today.push(activityDetail[key][activity][1]);
       }
 
-      let dataDay = {
-        labels: labelsToday,
-        datasets: [{
-          data: yesterday,
-          backgroundColor: '#CCEDEC',
-          categoryPercentage: 0.3,
-          barPercentage: 0.2,
-          borderRadius: 20,
-        },{
-          data: today,
-          backgroundColor: '#00A7A0',
-          categoryPercentage: 0.3,
-          barPercentage: 0.2,
-          borderRadius: 20,
-        }]
-      };
+      if (Object.keys(activityDetail[key]).length == 1) {
+        dataDay = {
+          labels: labelsToday,
+          datasets: [{
+            data: yesterday,
+            backgroundColor: '#CCEDEC',
+            categoryPercentage: 0.1,
+            barPercentage: 0.5,
+            borderRadius: 20,
+          },{
+            data: today,
+            backgroundColor: '#00A7A0',
+            categoryPercentage: 0.1,
+            barPercentage: 0.5,
+            borderRadius: 20,
+          }]
+        };
+      } else if (Object.keys(activityDetail[key]).length == 2) {
+        dataDay = {
+          labels: labelsToday,
+          datasets: [{
+            data: yesterday,
+            backgroundColor: '#CCEDEC',
+            categoryPercentage: 0.3,
+            barPercentage: 0.35,
+            borderRadius: 20,
+          },{
+            data: today,
+            backgroundColor: '#00A7A0',
+            categoryPercentage: 0.3,
+            barPercentage: 0.35,
+            borderRadius: 20,
+          }]
+        };
+      } else if (Object.keys(activityDetail[key]).length >= 3) {
+        dataDay = {
+          labels: labelsToday,
+          datasets: [{
+            data: yesterday,
+            backgroundColor: '#CCEDEC',
+            categoryPercentage: 0.3,
+            barPercentage: 0.5,
+            borderRadius: 20,
+          },{
+            data: today,
+            backgroundColor: '#00A7A0',
+            categoryPercentage: 0.3,
+            barPercentage: 0.5,
+            borderRadius: 20,
+          }]
+        };
+      }
 
       let configDay = {
         type: 'bar',
@@ -297,7 +334,6 @@
 
       switch (key) {
         case "1":
-          console.log(configDay)
           const wajibChart = new Chart(
             document.getElementById('wajibChart'),
             configDay

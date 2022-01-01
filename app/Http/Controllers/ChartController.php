@@ -32,8 +32,7 @@ class ChartController extends Controller
     $endLastWeek = $now->endOfWeek()->copy()->subDays(7)->format('Y-m-d');
     $strCurentWeek = $now->startOfWeek()->format('Y-m-d');
     $endCurentWeek = $now->endOfWeek()->format('Y-m-d');
-
-    $diffDayEndWeek = Carbon::parse(Carbon::now())->diffInDays($endCurentWeek);
+    $diffDayEndWeek = 7 - Carbon::now()->dayOfWeek;
 
     // LABEL DATE CHART
     $dates = [
@@ -152,7 +151,7 @@ class ChartController extends Controller
 
     // AUTO GENERATE DATE  ||  DATE UNTUK FILTER SUBMISSION BY WEEK  ||  DIMULAI SAAT HARI SENIN - MINGGU
     $now = Carbon::now();
-    $yesterday = $now->copy()->subDays(1)->format('Y-m-d');
+    // $yesterday = $now->copy()->subDays(1)->format('Y-m-d');
     $strLastWeek = $now->startOfWeek()->copy()->subDays(7)->format('Y-m-d');
     $endLastWeek = $now->endOfWeek()->copy()->subDays(7)->format('Y-m-d');
     $strCurentWeek = $now->startOfWeek()->format('Y-m-d');
@@ -171,11 +170,13 @@ class ChartController extends Controller
 
       if (count($activity->submission->where("date", ">=", $strCurentWeek)->where("date", "<=", $endCurentWeek))) {
         $taskCurent[] = $activity->submission->where("date", ">=", $strCurentWeek)->where("date", "<=", $endCurentWeek);
-        $activityYesterday[] = $activity->submission->where("date", $yesterday);
+        // $activityYesterday[] = $activity->submission->where("date", $yesterday);
+        $activityYesterday[] = $activity->submission->where("date", ">=", $strCurentWeek)->where("date", "<=", $endCurentWeek);
       }
       if (count($activity->submission->where("date", ">=", $strLastWeek)->where("date", "<=", $endLastWeek))) {
         $taskPass[] = $activity->submission->where("date", ">=", $strLastWeek)->where("date", "<=", $endLastWeek);
-        $activityToday[] = $activity->submission->where("date", Carbon::now()->format('Y-m-d'));
+        // $activityToday[] = $activity->submission->where("date", Carbon::now()->format('Y-m-d'));
+        $activityToday[] = $activity->submission->where("date", ">=", $strLastWeek)->where("date", "<=", $endLastWeek);
       }
     }
 
@@ -210,10 +211,6 @@ class ChartController extends Controller
       $activityDetail[$task->groupActivity->activity->category][$task->groupActivity->activity->name][] = $values;
       $values = 0;
     }
-
-    // dump(($activityToday));
-    // dd(($activityYesterday));
-    // dd($activityDetail);
 
     // URUTKAN ARRAY BERDASARKAN VALUE TERBESAR, FILTER UNIQUE VALUE, AMBIL PERINGKAT 3 BESAR
     arsort($scoreMember);   
