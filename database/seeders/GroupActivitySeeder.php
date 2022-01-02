@@ -20,58 +20,24 @@ class GroupActivitySeeder extends Seeder
 
 
     // GRUP 1
-    GroupActivity::create([
-      "group_id" => 1,
-      "activity_id" => 3
-    ]);
-    GroupActivity::create([
-      "group_id" => 1,
-      "activity_id" => 6
-    ]);
-    GroupActivity::create([
-      "group_id" => 1,
-      "activity_id" => 7
-    ]);
-    GroupActivity::create([
-      "group_id" => 1,
-      "activity_id" => 14
-    ]);
-    GroupActivity::create([
-      "group_id" => 1,
-      "activity_id" => 22
-    ]);
-
+    GroupActivity::create([ "group_id" => 1, "activity_id" => 3 ]);
+    GroupActivity::create([ "group_id" => 1, "activity_id" => 6 ]);
+    GroupActivity::create([ "group_id" => 1, "activity_id" => 7 ]);
+    GroupActivity::create([ "group_id" => 1, "activity_id" => 14 ]);
+    GroupActivity::create([ "group_id" => 1, "activity_id" => 22 ]);
 
     // GRUP 2
-    GroupActivity::create([
-      "group_id" => 2,
-      "activity_id" => 1
-    ]);
-    GroupActivity::create([
-      "group_id" => 2,
-      "activity_id" => 8
-    ]);
-    GroupActivity::create([
-      "group_id" => 2,
-      "activity_id" => 10
-    ]);
-    GroupActivity::create([
-      "group_id" => 2,
-      "activity_id" => 11
-    ]);
-    GroupActivity::create([
-      "group_id" => 2,
-      "activity_id" => 19
-    ]);
+    GroupActivity::create([ "group_id" => 2, "activity_id" => 1 ]);
+    GroupActivity::create([ "group_id" => 2, "activity_id" => 8 ]);
+    GroupActivity::create([ "group_id" => 2, "activity_id" => 10 ]);
+    GroupActivity::create([ "group_id" => 2, "activity_id" => 11 ]);
+    GroupActivity::create([ "group_id" => 2, "activity_id" => 19 ]);
 
-
-    // GroupActivity::create([
-    //   "group_id" => 2,
-    //   "activity_id" => 3
-    // ]);
-    // GroupActivity::create([
-    //   "group_id" => 2,
-    //   "activity_id" => 4
-    // ]);
+    // GRUP 3 - FWD UKHTI
+    GroupActivity::create([ "group_id" => 3, "activity_id" => 1 ]);
+    GroupActivity::create([ "group_id" => 3, "activity_id" => 2 ]);
+    GroupActivity::create([ "group_id" => 3, "activity_id" => 17 ]);
+    GroupActivity::create([ "group_id" => 3, "activity_id" => 18 ]);
+    GroupActivity::create([ "group_id" => 3, "activity_id" => 19 ]);
   }
 }
