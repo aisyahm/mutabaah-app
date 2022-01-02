@@ -87,24 +87,23 @@
               @default
                   <h3>Dzikir</h3>
           @endswitch
-
             <div class="activity-container">
                 <table>
                   <tr>
                       <th></th>
-                      <th class="{{ $today == 1 ? "today" : "" }}">Sen</th>
-                      <th class="{{ $today == 2 ? "today" : "" }}">Sel</th>
-                      <th class="{{ $today == 3 ? "today" : "" }}">Rab</th>
-                      <th class="{{ $today == 4 ? "today" : "" }}">Kam</th>
-                      <th class="{{ $today == 5 ? "today" : "" }}">Jum</th>
-                      <th class="{{ $today == 6 ? "today" : "" }}">Sab</th>
-                      <th class="{{ $today == 7 ? "today" : "" }}">Ahd</th>
+                      <th class="{{ $today == 0 ? "today" : "" }}">Sen</th>
+                      <th class="{{ $today == 1 ? "today" : "" }}">Sel</th>
+                      <th class="{{ $today == 2 ? "today" : "" }}">Rab</th>
+                      <th class="{{ $today == 3 ? "today" : "" }}">Kam</th>
+                      <th class="{{ $today == 4 ? "today" : "" }}">Jum</th>
+                      <th class="{{ $today == 5 ? "today" : "" }}">Sab</th>
+                      <th class="{{ $today == 6 ? "today" : "" }}">Ahd</th>
                   </tr>
                 @foreach ($value as $activity => $submissions)
                 <tr>
                     <td class="name-activity">{{ $activity }}</td>
                     @foreach ($submissions as $index => $sub)
-                      <td class="{{ $index == $today - 1 ? "today" : "" }}">
+                      <td class="{{ $index == $today ? "today" : "" }}">
                         @switch($sub)
                           @case(1)
                             <div class="dot doing"></div>

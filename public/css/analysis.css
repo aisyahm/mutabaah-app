@@ -180,10 +180,11 @@
     transition: visibility 0.3s;
 }
 .chart-container::before {
-    content: "Anggota";
+    content: "Kumulatif Amalan";
+    letter-spacing: 0.5px;
     position: absolute;
-    left: 0;
-    top: 44%;
+    left: -38px;
+    top: 47%;
     transform: translateY(-50%) rotate(270deg);
     color: #9ba8a4;
     font-size: 0.85rem;

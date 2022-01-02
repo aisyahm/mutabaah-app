@@ -159,11 +159,11 @@ class MentorExport implements WithEvents, WithDrawings, WithCustomStartCell, Sho
                         ->setKeywords("Laporan Istiqomah Web");
             },
             BeforeSheet::class => function(BeforeSheet $event){
-                $event->sheet->setCellValue('E3','Laporan Grup ' . session("group")->name);
-                $event->sheet->setCellValue('E4', 'di bulan ' . Carbon::now()->isoFormat('MMMM'));
+                $event->sheet->setCellValue('D3','Laporan Grup ' . session("group")->name);
+                $event->sheet->setCellValue('D4', 'di bulan ' . Carbon::now()->isoFormat('MMMM'));
             },
             AfterSheet::class => function(AfterSheet $event){
-                $event->sheet->getStyle('B8:E8')->applyFromArray([
+                $event->sheet->getStyle('B8:D8')->applyFromArray([
                     'font' => [
                         'bold' => true,
                         'name' => 'Arial',
@@ -179,7 +179,7 @@ class MentorExport implements WithEvents, WithDrawings, WithCustomStartCell, Sho
                         'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
                     ]
                 ]);
-                $event->sheet->getStyle('E3:E4')->applyFromArray([
+                $event->sheet->getStyle('D3:D4')->applyFromArray([
                     'font' => [
                         'bold' => true,
                         'name' => 'Arial',
@@ -220,8 +220,8 @@ class MentorExport implements WithEvents, WithDrawings, WithCustomStartCell, Sho
                 
                 // $event->sheet->getStyle('B8:F13')
                 // ->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_TOP);
-                $event->sheet->mergeCells('E3:M3');
-                $event->sheet->mergeCells('E4:M4');
+                $event->sheet->mergeCells('D3:M3');
+                $event->sheet->mergeCells('D4:M4');
                 // $event->sheet->insertNewRowBefore(1, 2);
                 $event->sheet->getStyle(
                     'B8:' . 
