@@ -2,6 +2,19 @@
   use Illuminate\Support\Facades\Auth;
   use App\Models\User;
   use App\Models\GroupActivity;  
+  use App\Models\UserGroup;
+
+  $users = UserGroup::where("group_id", $group->id)->get();
+  $usersIn = $users->where("is_accept", true);
+
+  $membersIn = [];
+  foreach ($usersIn as $user) {
+    $user->user->is_mentor == false ? $membersIn[] = $user->user : "";
+  }
+
+  use Carbon\Carbon;
+
+  $today = Carbon::now()->isoFormat('D MMMM Y');
 @endphp
 
 <link rel="stylesheet" href="/css/layouttop/style.css" >
@@ -70,26 +83,20 @@
           </div>
         </div>
       </div>
-      <div class="info2 info-all">
-        <div class="text1 text-all {{ Request::segment(2) == "analysis" ? "active" : "" }}">
-          @if (count(GroupActivity::where("group_id", $group->id)->get()))
-            <a href="/groups/analysis/{{ $group->id }}">Analisis</a>
-          @endif
+      @if (count(GroupActivity::where("group_id", $group->id)->get()))
+        <div class="info2 info-all">
+          <div class="text1 text-all {{ Request::segment(2) == "chart" ? "active" : "" }}">
+            <a href="/groups/chart/{{ $group->id }}">Analisis</a>
+          </div>
+          <div class="text2 text-all {{ Request::segment(2) == "anggota" ? "active" : "" }}">
+            <a href="/groups/anggota/{{ $group->id }}">Anggota ({{ count($membersIn) }})</a>
+          </div>
+          <div class="text3 text-all {{ Request::segment(2) == "activities" ? "active" : "" }}">
+            <a href={{ route("group-activities", $group->id) }}>Target</a>
+          </div>
         </div>
-        <div class="text2 text-all {{ Request::segment(2) == "anggota" ? "active" : "" }}">
-          @if (count(GroupActivity::where("group_id", $group->id)->get()))
-            <a href="/groups/anggota/{{ $group->id }}">Anggota ({{ count($membersIn) }} Orang)</a>
-          @endif
-        </div>
-        <div class="text3 text-all {{ Request::segment(2) == "target" ? "active" : "" }}">
-          @if (count(GroupActivity::where("group_id", $group->id)->get()))
-          <a href={{ route("group-activities", $group->id) }}>Target</a>
-          @else
-            <a href="./add-activities/{{ $group->id }}">Tambah Aktivitas</a>
-          @endif
-        </div>
-      </div>
-  </div>
+      @endif
+    </div>
    {{-- Edit Grup --}}
     <div class="pop-up mentor-group-pop-up">
         <div class="pop-up-title">
@@ -184,9 +191,11 @@
         container.classList.add("active");
       });
 
-      body.addEventListener('click', () => {
-        container.classList.remove("active");
-      });
+      if (body) {
+        body.addEventListener('click', () => {
+          container.classList.remove("active");
+        });
+      }
 
 
       function copy(element) {
@@ -246,16 +255,18 @@
       // edit
       const mentoredit = () => {
         mentorgrupedit.classList.add("active");
-
           closeBtn.forEach((close) => {
               close.addEventListener("click", () => {
                 mentorgrupedit.classList.remove("active");
               });
           });
       };
-      body3.addEventListener('click', () => {
-          mentorgrupedit.classList.remove("active");
-      });
+
+      if (body3) {
+        body3.addEventListener('click', () => {
+            mentorgrupedit.classList.remove("active");
+        });
+      }
       boxedit.addEventListener("click", mentoredit);
 
       // Hapus
@@ -268,8 +279,11 @@
               });
           });
       };
-      body3.addEventListener('click', () => {
-        mentorgruphapus.classList.remove("active");
-      });
+      if(body3){
+        body3.addEventListener('click', () => {
+          mentorgruphapus.classList.remove("active");
+        });
+      }
+    
       boxhapus.addEventListener("click", mentorhapus);
   </script>

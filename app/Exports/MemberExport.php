@@ -30,38 +30,15 @@ use Maatwebsite\Excel\Concerns\WithMapping; //mengelompokkan untuk hide
 use Carbon\Carbon;
 
 
-class SubmissionExport implements WithEvents, WithDrawings, WithCustomStartCell, ShouldAutoSize, FromCollection
-// FromCollection FromQuery WithMapping, WithTitle,WithHeadings,FromCollection
+class MemberExport implements WithEvents, WithDrawings, WithCustomStartCell, ShouldAutoSize, FromCollection,WithHeadings
+// FromCollection FromQuery WithMapping, WithTitle,FromCollection
 {
-    // Exportable Trait
     use Exportable;
 
-    // Responsable Interface (simple)
-    // private $fileName = "activity.xlsx";
     /**
     * @return \Illuminate\Support\Collection
     */
-    // public function collection()
-    // {
-    //     return Submission::all();
-    // }
 
-    // private $submission;
-
-    // Multiple Sheets
-    private $year;
-    private $month;
-    
-    public function __construct(int $year, int $month)
-    {
-        $this->year = $year;
-        $this->month = $month;
-        // $this->submission = $pts;
-    }
-
-
-    // large data dengan query
-    // public function query()
     public function collection()
     {
       $strMonth = Carbon::now()->startOfMonth()->format('Y-m-d');
@@ -72,10 +49,6 @@ class SubmissionExport implements WithEvents, WithDrawings, WithCustomStartCell,
       $activityUser = GroupActivity::with("submission", "activity")->where("group_id", $group->id)->get();
       foreach ($activityUser as $activities) {
         $activitiesSub = $activities->submission->where("user_id", $user->id)->where("date", ">=", $strMonth)->where("date", "<=", $endMonth);
-        // $activitiesSub = $activities->submission->where("user_id", $user->id)
-        //                     ->whereYear('created_at', $this->year)
-        //                     ->whereMonth('created_at', $this->month);
-        
         $activitiesName[] = $activities->activity->name;
         $value = [];
         $userDate = [];
@@ -95,66 +68,30 @@ class SubmissionExport implements WithEvents, WithDrawings, WithCustomStartCell,
         $userPoint[] = $value;
       }
 
-      $activitiesName = ["Date", ...$activitiesName];
-    //   dd($userDate);
-      $activitiesName;                                // TABLE HEAD NAME ACTIVITY
-      $query = [$userDate, $userPoint, $userHaid];    // DATA VALUE TABLE
-      $query = collect($userDate);    // DATA VALUE TABLE
-    //   $query = [[$userDate], [$userPoint], [$userHaid]];    // DATA VALUE TABLE
+      $activitiesName = ["Date", ...$activitiesName, "Haid"];
 
-    //   dump($activitiesName);
-    //   dd($query);
+      for ($i=0; $i < count($userDate); $i++) { 
+        $pointQuery = [];
+        for ($j=0; $j < count($userPoint); $j++) { 
+          $pointQuery[] = $userPoint[$j][$i];
+        }
+        $userQuery[] = [$userDate[$i], ...$pointQuery, $userHaid[$i]];
+      }
 
-    return $query;
-
-    // return new Collection([
-    //     ['nama','email'], 
-    //     [$userDate,$userPoint], 
-    // ]);
-        // return $query;
-        // return $query;
-        // $export = new SubmissionExport();
-        // return $export->map([$query]);
+      return new Collection($userQuery);
     }
 
     // // heading
-    // public function headings(): array
-    // {
-    //     $groupActivity = GroupActivity::with('submission','activity','group')->where("group_id", 1)->get();
-    //     foreach ($groupActivity as $activityG) {
-    //       $userGroup = $activityG->group->userGroup;
-    //       $activities[] = $activityG->activity->name;
-    //     }
-
-    //     return ["Nama", ...$activities];
-        
-        
-
-    //     // return [
-    //     //     '#',
-    //     //     'Name',
-    //     //     'Username',
-    //     //     'is_mentor',
-    //     //     'Aktivitas',
-    //     //     // 'value',
-    //     //     'date',
-    //     //     'is_haid',
-    //     //     'created_at',
-    //     //     'updated_at'
-    //     // ];
-    // }
-
-    // mapping (yang muncul hanya)
-    public function map($query): array
+    public function headings(): array
     {
-        // $haid = $submission->submission->is_haid ? "haid" : "tidak haid";
-        // $done = $submission->submission->is_done ? "ngerjain" : "gak ngerjain";
-        return [
-            // FIELD DALAM EXCEL
-            // nama | activity | is_done | date | is_haid
-            $query[0],
-            $query[2],
-        ];
+        $group = session("group");
+
+        $activityUser = GroupActivity::with("submission", "activity")->where("group_id", $group->id)->get();
+        foreach ($activityUser as $activities) {
+          $activitiesName[] = $activities->activity->name;
+        }
+        
+        return ["Date", ...$activitiesName, "Haid"];
     }
 
     public function registerEvents(): array
@@ -172,13 +109,16 @@ class SubmissionExport implements WithEvents, WithDrawings, WithCustomStartCell,
                         ->setKeywords("Laporan Istiqomah Web");
             },
             BeforeSheet::class => function(BeforeSheet $event){
-                $event->sheet->setCellValue('F3','Laporan Istiqomah Web');
-                $event->sheet->setCellValue('F4','Mengenai Salat Wajib dan Sunnah');
+                $event->sheet->setCellValue('E3','Laporan ' . session("user")->name);
+                $event->sheet->setCellValue('E4', 'Grup ' . session("group")->name . ' di bulan ' . Carbon::now()->isoFormat('MMMM'));
             },
             AfterSheet::class => function(AfterSheet $event){
-                $event->sheet->getStyle('B7:J7')->applyFromArray([
+                $event->sheet->getStyle( 'B8:' . 
+                $event->sheet->getHighestColumn() . 
+                $event->sheet->getHighestRow()
+                )->applyFromArray([
                     'font' => [
-                        'bold' => true,
+                        'bold' => false,
                         'name' => 'Arial',
                         'size' => 11,
                     ],
@@ -192,7 +132,7 @@ class SubmissionExport implements WithEvents, WithDrawings, WithCustomStartCell,
                         'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
                     ]
                 ]);
-                $event->sheet->getStyle('F3:F4')->applyFromArray([
+                $event->sheet->getStyle('E3:E4')->applyFromArray([
                     'font' => [
                         'bold' => true,
                         'name' => 'Arial',
@@ -202,7 +142,10 @@ class SubmissionExport implements WithEvents, WithDrawings, WithCustomStartCell,
                         'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
                     ]
                 ]);
-                $event->sheet->getStyle('B8:J11')->applyFromArray([
+                $event->sheet->getStyle( 'B9:' . 
+                $event->sheet->getHighestColumn() . 
+                $event->sheet->getHighestRow()
+                )->applyFromArray([
                     'borders' => [
                         'allBorders' => [
                             'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
@@ -214,36 +157,26 @@ class SubmissionExport implements WithEvents, WithDrawings, WithCustomStartCell,
                         ],
                     ],
                     'alignment' => [
-                        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_JUSTIFY,
+                        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
                     ],
                     'fill' => [
                         'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                         'rotation' => 90,
                         'startColor' => [
-                            'argb' => '#00FFFF',
+                            'argb' => '00A7A0',
                         ],
                         'endColor' => [
-                            'argb' => '#00FFFF',
+                            'argb' => '00A7A0',
                         ],
                     ],
                 ]);
-              
-                // $event->sheet->getPageMargins()->setTop(5);
-                // $event->sheet->getPageMargins()->setRight(4.75);
-                // $event->sheet->getPageMargins()->setLeft(3.75);
-                // $event->sheet->getPageMargins()->setBottom(9);
-                // $event->sheet->getPageSetup()->setHorizontalCentered(true);
-                // $event->sheet->getPageSetup()->setVerticalCentered(false);
-                // $event->sheet->getPageSetup()->setPrintArea('A1:E2,G4:M20');
-                // $event->sheet->getSheetView()->setZoomScale(75);
-                // $event->sheet->getDefaultRowDimension()->setRowHeight(100, 'pt');
-                $event->sheet->getStyle('B8:G13')
-                ->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_TOP);
-                $event->sheet->mergeCells('F3:J3');
-                $event->sheet->mergeCells('F4:J4');
+                // $event->sheet->getStyle('B8:G13')
+                // ->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_TOP);
+                $event->sheet->mergeCells('E3:M3');
+                $event->sheet->mergeCells('E4:M4');
                 // $event->sheet->insertNewRowBefore(1, 2);
                 $event->sheet->getStyle(
-                    'B7:' . 
+                    'B8:' . 
                     $event->sheet->getHighestColumn() . 
                     $event->sheet->getHighestRow()
                 )->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
@@ -267,12 +200,6 @@ class SubmissionExport implements WithEvents, WithDrawings, WithCustomStartCell,
     // startcell
     public function startCell(): string
     {
-        return 'B7';
+        return 'B8';
     }
-
-    // // nama bulan di multipleexport
-    // public function title(): string
-    // {
-    //     return DateTime::createFromFormat('!m', $this->month)->format('F');
-    // }
 }

@@ -1,8 +1,6 @@
 @php
   use App\Models\GroupActivity; 
   use Illuminate\Support\Facades\Auth;
-
-  
 @endphp
 
 @extends('member.template')
@@ -12,14 +10,10 @@
   <link rel="stylesheet" href="/css/list-member.css" />
 @endsection
 
-@include(!Auth::user()->is_mentor ? 'member.top' : "")
+@include('member.top')
 
 @section('content')
-{{-- @include('user.analysis-member') --}}
-
-
-
-  {{-- <div class="content-list">
+  <div class="content-list">
     <div class="head-content">
       <p class=""><b>Daftar Anggota ({{ count($membersIn) }} Orang)</b></p>
     </div>
@@ -37,8 +31,7 @@
                   <span class="hp">{{ $member->no_telp }}</span>
                 </div>
               </div>
-              
-              <a href="profile/{{ $member->id }}/{{ $group->id }}"><button
+              <a href="/groups/profile/{{ $member->id }}/{{ $group->id }}"><button
                 class="lihat-profile btn btn-outline-success my-color"
                 style="border-color: #01a6a0"
               >Lihat Profil</button></a>
@@ -49,29 +42,7 @@
         </div>
       </div>
     </div>
-  </div> --}}
-
-  <div class="content-list">
-    @if (count(GroupActivity::where("group_id", $group->id)->get()))
-      <a href="./activities/{{ $group->id }}">Target</a>
-    @else
-      <h4>Belum ada target aktivitas di grup ini, silahkan hubungi mentor grup untuk membuat target aktivitas grup</h4>
-    @endif
   </div>
-
-  <div class="content-list">
-    <a href="{{ route("chart-member", ["userId" => Auth::user()->id, "groupId" => $group->id]) }}">Analisis</a>
-  </div>
-
-  {{-- <div class="content-list">
-    <div class="danger-container">
-      <form action="{{ route("delete") }}" method="post">
-        @csrf
-        <input type="hidden" name="group_id" value="{{ $group->id }}">
-        <button type="submit" id="danger-btn" name="leave" value="1" onclick="return confirm('Yakin ingin keluar grup?')">Keluar grup ini</button>
-      </form>
-    </div>
-  </div> --}}
 @endsection
 
 

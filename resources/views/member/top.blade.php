@@ -1,6 +1,16 @@
 @php
   use Illuminate\Support\Facades\Auth;
   use App\Models\User;
+  use App\Models\UserGroup;
+  use App\Models\GroupActivity;  
+
+  $users = UserGroup::where("group_id", $group->id)->get();
+  $usersIn = $users->where("is_accept", true);
+
+  $membersIn = [];
+  foreach ($usersIn as $user) {
+    $user->user->is_mentor == false ? $membersIn[] = $user->user : "";
+  }
 @endphp
 
 <link rel="stylesheet" href="/css/layouttop/style.css" >
@@ -70,11 +80,19 @@
           </div>
         </div>
       </div>
-      <div class="info2 info-all">
-        <div class="text3 text-all {{ Request::segment(2) == "target" ? "active" : "" }}">Target</div>
-        <div class="text1 text-all {{ Request::segment(2) == "analysis" ? "active" : "" }}">Analisis</div>
-        <div class="text2 text-all {{ Request::segment(2) == "anggota" ? "active" : "" }}">Anggota({{ count($membersIn) }} Orang)</div>
-      </div>
+      @if (count(GroupActivity::where("group_id", $group->id)->get()))
+          <div class="info2 info-all">
+            <div class="text3 text-all {{ Request::segment(2) == "activities" ? "active" : "" }}">
+                <a href="{{ route("group-activities", $group->id) }}">Target</a>
+            </div>
+            <div class="text1 text-all {{ Request::segment(2) == "analysis" ? "active" : "" }}">
+              <a href="{{ route("chart-member", ["userId" => Auth::user()->id, "groupId" => $group->id]) }}">Analisis</a>
+            </div>
+            <div class="text2 text-all {{ Request::segment(2) == "anggota" ? "active" : "" }}">
+              <a href="/groups/anggota/{{ $group->id }}">Anggota ({{ count($membersIn) }})</a>
+            </div>
+          </div>
+      @endif
     </div>
     
       {{-- Keluar Grup --}}

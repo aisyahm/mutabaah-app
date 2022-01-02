@@ -1,14 +1,27 @@
 @php
   $i = 1;
+
+  use Carbon\Carbon;
+  use App\models\GroupActivity;
+
+$today = Carbon::now()->isoFormat('D MMMM Y');
 @endphp
 @extends("mentor.template")
+@include('mentor.top')
 
 @section('meta')
   <link rel="stylesheet" href="/css/analysis.css" />
 @endsection
 
 @section('content')
+  @if (count(GroupActivity::where("group_id", $group->id)->get()))
+    <div class="info3 info-all">
+      <h1>Statistik Amalan Pribadi <span><?php echo $today; ?></span></h1>
+      <a href="{{ route("mentoranalisis", ["group" => $group->id])}}"><button>Download laporan</button> </a>
+    </div>
+  @endif
   @if (count($activities) != 0)
+  <div class="wrap-chart">
 
     {{-- CHART PER CATEGORY ACTIVITY --}}
     @foreach ($activityDetail as $key => $value)
@@ -70,7 +83,10 @@
         </div>
     </div>
     @endforeach
+
+  </div>
   @endif
+
 
   @if (count($rangking) != 0)
   <div class="rank-container">
@@ -140,9 +156,10 @@
   </div>
   @endif
 
-  <a href={{ route("report-group", $group->id) }}>Download Laporan</a>
+  {{-- <a href={{ route("report-group", $group->id) }}>Download Laporan</a> --}}
 
   @if (count($activities) != 0)
+  <div class="wrap-average">
     <div class="chart-container">
       <div class="chart-title">
         <h3>Rata-Rata Amalan Sepekan</h3>
@@ -160,7 +177,16 @@
         <span><span></span>Pekan Ini</span>
       </div>
     </div>
+  </div>
   @endif
+
+
+  @if (!count(GroupActivity::where("group_id", $group->id)->get()))
+    <div class="no-activity">
+      <a href="{{ route("add-activities", $group->id)}}">Tambah Aktivitas</a>
+    </div>
+  @endif
+
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
@@ -169,9 +195,14 @@
     let weekBefore = {!! json_encode($averagePass) !!};
     const rangking = {!! json_encode($rangking) !!};
     const member = document.querySelectorAll(".grid-rank > div");
-    document.querySelector(".chart").style.setProperty("--activity", labels.length);
+
+    if (labels.length) {
+      console.log(labels);
+      document.querySelector(".chart").style.setProperty("--activity", labels.length);
+    }
     
-    if (rangking) {
+    
+    if (rangking.length) {
       document.querySelector(".grid-rank").style.setProperty("--row", Math.ceil(member.length / 2));
     }
 
@@ -226,6 +257,7 @@
       config
     );
   </script>
+
   <script>
     const activityDetail = {!! json_encode($activityDetail) !!};
     let labelsToday = [];
@@ -237,7 +269,7 @@
       let yesterday = [];
       let today = [];
       for (let activity in activityDetail[key]) {
-        labelsToday.push(activity);
+        labelsToday.push(activity.split(' '));
         yesterday.push(activityDetail[key][activity][0]);
         today.push(activityDetail[key][activity][1]);
       }

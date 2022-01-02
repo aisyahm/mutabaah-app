@@ -1,4 +1,4 @@
-@extends('member.template')
+@extends(Auth::user()->is_mentor ? 'mentor.template' : 'member.template')
 
 @section('meta')
     <link rel="stylesheet" href="/css/profile.css" />
@@ -8,8 +8,9 @@
 @section('content')
   <div class="content-list">
     <div>
-      {{-- /groups/chart/{{ $user->id }}/{{ $group->id }} --}}
-      <a href="/groups/chart/{{ $member->id }}/{{ last(request()->segments()) }}">
+      {{-- Buat apabila member balik ke profile apabila mentor balik ke analisis --}}
+      <a href="{{ URL::previous() }}">
+      {{-- <a href="{{ route(back()) }}"> --}}
         <i class="fas fa-arrow-left"></i>
         <h3>Kembali</h3>
       </a>

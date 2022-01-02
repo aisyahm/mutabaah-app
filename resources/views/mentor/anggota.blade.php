@@ -67,7 +67,7 @@
                     </div>
                   </div>
                   
-                  <a href="/groups/chart/{{ $member->id }}/{{ $group->id }}">
+                  <a href="/groups/analysis/{{ $member->id }}/{{ $group->id }}">
                     <button class="lihat-profile btn btn-outline-success my-color">Lihat Amalan</button>
                   </a>
                   
@@ -79,7 +79,7 @@
         </div>
       </div>
     @else
-      <div class="content-list">
+      <div class="no-member">
         <h3>Belum ada anggota di grub ini.</h3>
       </div>
     @endif

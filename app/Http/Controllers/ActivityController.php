@@ -57,13 +57,20 @@ class ActivityController extends Controller
     $group_activities = $request->input('group_activity');
     $group_id = $request->input('group_id');
     $activities_before = GroupActivity::where("group_id", $group_id)->get();
+    $memberGroup = [];
     $activitiy_id_before = [];
+    $userGroup = UserGroup::with("user")->where("group_id", $group_id)->where("is_accept", true)->get();
+    $daySubmission = Carbon::now()->startOfWeek()->copy()->subDays(7)->format('Y-m-d');
+    $diffDay = Carbon::parse(Carbon::now())->diffInDays($daySubmission);
 
+    foreach ($userGroup as $user) {
+      if (!$user->user->is_mentor) $memberGroup[] = $user->user->id;
+    }
     foreach ($activities_before as $activity) {
       $activitiy_id_before[] = $activity->activity_id;
     }
 
-    // EDIT: TAMBAHKAN TARGET AKTIVITAS LAINNYA ||  HAPUS TARGET AKTIVITAS YANG TIDAK DICENTANG
+    // EDIT: TAMBAHKAN TARGET AKTIVITAS LAINNYA  ||  HAPUS TARGET AKTIVITAS YANG TIDAK DICENTANG
     if (!is_null($activities_before) && !is_null($group_activities)) {
       foreach ($group_activities as $activity) {
       // JIKA AKTIVITAS YANG DICENTANG TIDAK TERDAPAT DALAM AKTIVITAS GRUP, BUAT BARU AKTIVITAS TERSEBUT PADA GRUP
@@ -72,12 +79,27 @@ class ActivityController extends Controller
             "group_id" => $group_id,
             "activity_id" => $activity
           ]);
+
+          // BUAT SUBMISSION SESUAI JUMLAH USER DAN AKTIVITAS YANG BARU
+          if (count($memberGroup)) {
+            for ($i=0; $i < count($memberGroup); $i++) { 
+              for ($j=0; $j <= $diffDay; $j++) { 
+                Submission::create([
+                  "user_id" => $memberGroup[$i],
+                  "group_activity_id" => GroupActivity::all()->count(),
+                  "date" => Carbon::now()->subDays($j)->format('Y-m-d')
+                ]);
+              }
+            }
+          }
         }
       }
       foreach ($activities_before as $activity) {
         // JIKA AKTIVITAS GRUP TIDAK TERDAPAT DALAM AKTIVITAS YANG DICENTANG, HAPUS ROW AKTIVITAS TERSEBUT
         if (!in_array($activity->activity_id, $group_activities)) {
           $activity->delete();
+
+          Submission::where("group_activity_id", $activity->id)->delete();
         }
       }
     }
@@ -143,6 +165,8 @@ class ActivityController extends Controller
             }
       }
 
+      // dd($activities);
+
       // GET WAKTU HARI INI
       $date = Carbon::now()->isoFormat('dddd, D MMMM Y');
 
@@ -155,30 +179,16 @@ class ActivityController extends Controller
       ]);
     }
 
-     // GET MEMBER DALAM GRUP(Tambahan link Target)
-     $users = UserGroup::where("group_id", $group->id)->get();
-     $usersIn = $users->where("is_accept", true);
-     $membersIn = [];
-     foreach ($usersIn as $user) {
-       $user->user->is_mentor == false ? $membersIn[] = $user->user : "";
-     }
-
     return view("mentor.target", [
       "activities" => $activities,
-      "membersIn" => $membersIn,
       "group" => $group,
     ]);
-
-    // return view("mentor.list", [
-    //   "activities" => $activities,
-    //   "group" => $group,
-    // ]);
   }
 
   // STORE INPUT FORM SUBMISSION
   public function newSubmission(Request $request){
     $group_id = $request->input('group_id');
-    $activities_before = GroupActivity::where("group_id", $group_id)->with("submission")->get();
+    $activities_before = GroupActivity::with("submission")->where("group_id", $group_id)->with("submission")->get();
     $activities_check = $request->input('group_activity');
     $haid = $request->input('haid');
     $now = Carbon::now()->format('Y-m-d');

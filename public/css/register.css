@@ -88,9 +88,8 @@ a {
 
 /* LOGIN STYLING ================================*/
 .login {
-    /* margin-top: 120px; */
     width: 40%;
-    max-width: 440px;
+    max-width: 480px;
     justify-content: center;
     padding: 2rem 2.2rem;
     background-color: white;
@@ -116,6 +115,113 @@ a {
 .login .input {
     border-style: none;
     height: 48px;
+}
+.user > div {
+    border: 2px solid #ffffff00;
+}
+.user > div.active {
+    background: #e6f7f6;
+    border: 2px solid #00a7a0;
+}
+input[type="radio"] {
+    --active: #fff;
+    --active-inner: #00a7a0;
+    --focus: 2px rgba(39, 94, 254, 0.3);
+    --border: #bbc1e1;
+    --border-hover: #00a7a0;
+    --background: #fff;
+    --disabled: #f6f8ff;
+    --disabled-inner: #e1e6f9;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    height: 21px;
+    outline: none;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    margin: 0;
+    cursor: pointer;
+    border: 1px solid var(--bc, var(--border));
+    background: var(--b, var(--background));
+    transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;
+}
+input[type="radio"]:after {
+    content: "";
+    display: block;
+    left: 0;
+    top: 0;
+    position: absolute;
+    transition: transform var(--d-t, 0.3s) var(--d-t-e, ease),
+        opacity var(--d-o, 0.2s);
+}
+input[type="radio"]:checked {
+    --b: var(--active);
+    --bc: var(--active);
+    --d-o: 0.3s;
+    --d-t: 0.6s;
+    --d-t-e: cubic-bezier(0.2, 0.85, 0.32, 1.2);
+}
+input[type="radio"]:disabled {
+    --b: var(--disabled);
+    cursor: not-allowed;
+    opacity: 0.9;
+}
+input[type="radio"]:checked:disabled {
+    --b: var(--disabled-inner);
+    --bc: var(--border);
+}
+input[type="radio"]:disabled + label {
+    cursor: not-allowed;
+}
+input[type="radio"]:hover:not(:checked):not(:disabled) {
+    --bc: var(--border-hover);
+}
+input[type="radio"]:focus {
+    box-shadow: 0 0 0 var(--focus);
+}
+input[type="radio"]:not(.switch) {
+    width: 21px;
+}
+input[type="radio"]:not(.switch):after {
+    opacity: var(--o, 0);
+}
+input[type="radio"]:not(.switch):checked {
+    --o: 1;
+}
+input[type="radio"] + label {
+    font-size: 14px;
+    line-height: 21px;
+    display: inline-block;
+    vertical-align: top;
+    cursor: pointer;
+    margin-left: 4px;
+}
+input[type="radio"] {
+    border-radius: 50%;
+}
+input[type="radio"]:after {
+    width: 19px;
+    height: 19px;
+    border-radius: 50%;
+    background: var(--active-inner);
+    opacity: 0;
+    transform: scale(var(--s, 0.7));
+}
+input[type="radio"]:checked {
+    --s: 0.5;
+}
+.check-member {
+    display: none;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #00a7a0;
+    background: #e6f7f6;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+}
+.check-member.active {
+    display: block;
 }
 .user div {
     display: flex;

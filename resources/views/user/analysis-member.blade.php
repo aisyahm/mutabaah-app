@@ -5,6 +5,10 @@
   <link rel="stylesheet" href="/css/detail-activity.css" />
 @endsection
 
+@if (!Auth::user()->is_mentor)
+  @include('member.top')
+@endif
+
 @section('content')
   @if (Auth::user()->is_mentor)
     <div class="back">
@@ -26,24 +30,26 @@
       <a href="/groups/profile/{{ $user->id }}/{{ $group->id }}">Lihat Detail Akun</a>
     </div>
   @endif
-
+  
   <div class="excel-content">
     <h2>Statistik Amalan Pribadi</h2>
-    <a href={{ route("exportlaporanmember", ["user" => $user->id, "group" => $group->id]) }}>Download Laporan</a>
+    <a href={{ route("memberanalisis", ["user" => $user->id, "group" => $group->id]) }}>Download Laporan</a>
   </div>
-  <div class="chart-container">
-    <div class="chart-title">
-      <h3>Amalan Sepekan</h3>
-      <h4>{{ $dates[0] . ' - ' . $dates[1] }} vs  <span>{{ $dates[2] . ' - ' . $dates[3] }}</span></h4>
-    </div>
-    <div class="inner">
-      <div class="chart">
-        <canvas id="myChart"></canvas>
+  <div class="wrap-average">
+    <div class="chart-container">
+      <div class="chart-title">
+        <h3>Amalan Sepekan</h3>
+        <h4>{{ $dates[0] . ' - ' . $dates[1] }} vs  <span>{{ $dates[2] . ' - ' . $dates[3] }}</span></h4>
       </div>
-    </div>
-    <div class="legend">
-      <span><span></span>Pekan lalu</span>
-      <span><span></span>Pekan Ini</span>
+      <div class="inner">
+        <div class="chart">
+          <canvas id="myChart"></canvas>
+        </div>
+      </div>
+      <div class="legend">
+        <span><span></span>Pekan lalu</span>
+        <span><span></span>Pekan Ini</span>
+      </div>
     </div>
   </div>
 
@@ -60,6 +66,7 @@
           <div class="keterangan-info"><span></span>Belum Mengisi</div>
         </div>
     </div>
+
     <div class="parent">
       @foreach ($activityDetail as $key => $value)
         <div class="div1">
@@ -85,28 +92,30 @@
                 <table>
                   <tr>
                       <th></th>
-                      <th>Sen</th>
-                      <th>Sel</th>
-                      <th>Rab</th>
-                      <th>Kam</th>
-                      <th>Jum</th>
-                      <th>Sab</th>
-                      <th>Ahd</th>
+                      <th class="{{ $today == 1 ? "today" : "" }}">Sen</th>
+                      <th class="{{ $today == 2 ? "today" : "" }}">Sel</th>
+                      <th class="{{ $today == 3 ? "today" : "" }}">Rab</th>
+                      <th class="{{ $today == 4 ? "today" : "" }}">Kam</th>
+                      <th class="{{ $today == 5 ? "today" : "" }}">Jum</th>
+                      <th class="{{ $today == 6 ? "today" : "" }}">Sab</th>
+                      <th class="{{ $today == 7 ? "today" : "" }}">Ahd</th>
                   </tr>
                 @foreach ($value as $activity => $submissions)
                 <tr>
                     <td class="name-activity">{{ $activity }}</td>
-                    @foreach ($submissions as $sub)
-                      @switch($sub)
-                        @case(1)
-                          <td><div class="dot past-true"></div></td>
-                          @break
-                        @case(0)
-                          <td><div class="dot haid"></div></td>
-                          @break
-                        @default
-                          <td><div class="dot no-value"></div></td>
-                      @endswitch
+                    @foreach ($submissions as $index => $sub)
+                      <td class="{{ $index == $today - 1 ? "today" : "" }}">
+                        @switch($sub)
+                          @case(1)
+                            <div class="dot doing"></div>
+                            @break
+                          @case(0)
+                            <div class="dot not-doing"></div>
+                            @break
+                          @default
+                            <div class="dot no-value"></div>
+                        @endswitch
+                      </td>
                     @endforeach
                   </tr>
                 @endforeach

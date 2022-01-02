@@ -1,5 +1,8 @@
 @php
   use App\Models\GroupActivity;  
+  use Carbon\Carbon;
+
+  $today = Carbon::now()->isoFormat('D MMMM Y');
   $i = 1;
 @endphp
 
@@ -9,28 +12,7 @@
 
 @section('content')
 <!-- ======= KONFIRMASI ANGGOTA ======= -->
-<div class="info3 info-all">
-  <h1>Statistik Amalan Pribadi <span>21 Nov 2021</span></h1>
-  <a href="/home/mentoranalisis/exportsubmission"><button>Download laporan</button> </a>
-</div>
 @include('mentor.analysis-group')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     {{-- @include('mentor.view-activities') --}}
     {{-- @if (count($membersOut))

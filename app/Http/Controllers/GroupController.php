@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Group;
 use App\Models\User;
 use App\Models\GroupActivity;
+use App\Models\Submission;
 use App\Models\UserGroup;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -52,92 +53,12 @@ class GroupController extends Controller
         $membersOut[] = $user->user;
       }
 
-      // ANALISIS RANKING
-                      // list ranking
-                      if (!Auth::user()->is_mentor) return back();
-                    
-                    // AMBIL GRUP AKTIVITAS BERDASARKAN GRUP YANG DIPILIH
-                    $group_activity = GroupActivity::with("submission")->where("group_id", $group->id)->get();
-                    $totalMember = count($group->userGroup->where("is_accept", true)) - 1;
-                    $userGroup = UserGroup::with("user")->where("group_id", $group->id)->where("is_accept", true)->get();
-                    $activities = [];
-                    $taskCurent = [];
-                    $taskPass = [];
-                    $averageCurent = [];
-                    $averagePass = [];
-                    $values = 0;
-                    $scoreMember = [];
-                    $topRated = [];
+      // ANALISIS GROUP Mentor
+      return redirect(route("chart-overall"));
 
-                    foreach ($userGroup as $user) {
-                      if ($user->user->is_mentor == false) $scoreMember[$user->user->name] = 0;
-                    }
-
-                    // AUTO GENERATE DATE  ||  DATE UNTUK FILTER SUBMISSION BY WEEK  ||  DIMULAI SAAT HARI SENIN - MINGGU
-                    $now = Carbon::now();
-                    $strLastWeek = $now->startOfWeek()->copy()->subDays(7)->format('Y-m-d');
-                    $endLastWeek = $now->endOfWeek()->copy()->subDays(7)->format('Y-m-d');
-                    $strCurentWeek = $now->startOfWeek()->format('Y-m-d');
-                    $endCurentWeek = $now->endOfWeek()->format('Y-m-d');
-
-                    // LABEL DATE CHART
-                    $dates = [
-                      Carbon::parse($strLastWeek)->isoFormat('D MMM'),
-                      Carbon::parse($endLastWeek)->isoFormat('D MMM Y'),
-                      Carbon::parse($strCurentWeek)->isoFormat('D MMM'),
-                      Carbon::parse($endCurentWeek)->isoFormat('D MMM Y'),
-                    ];
-
-                    foreach ($group_activity as $activity) {
-                      $activities[] = explode(" ", $activity->activity->name);
-
-                      if (count($activity->submission->where("date", ">=", $strCurentWeek)->where("date", "<=", $endCurentWeek))) {
-                        $taskCurent[] = $activity->submission->where("date", ">=", $strCurentWeek)->where("date", "<=", $endCurentWeek);
-                      }
-                      if (count($activity->submission->where("date", ">=", $strLastWeek)->where("date", "<=", $endLastWeek))) {
-                        $taskPass[] = $activity->submission->where("date", ">=", $strLastWeek)->where("date", "<=", $endLastWeek);
-                      }
-                    }
-
-                    // JUMLAHKAN VALUE IS DONE TIAP ACTIVITY (RATA-RATA)  ||  JUMLAHKAN VALUE BERDASARKAN NAMA USER (RANGKING)
-                    foreach ($taskCurent as $submission) {
-                      foreach ($submission as $task) {
-                        $values += $task->is_done;
-                        $scoreMember[$task->user->name] += $task->is_done;
-                      }
-                      $averageCurent[] = round($values / $totalMember, 1);
-                      $values = 0;
-                    }
-                    foreach ($taskPass as $submission) {
-                      foreach ($submission as $task) {
-                        $values += $task->is_done;
-                      }
-                      $averagePass[] = round($values / $totalMember, 1);
-                      $values = 0;
-                    }
-
-                    // URUTKAN ARRAY BERDASARKAN VALUE TERBESAR, FILTER UNIQUE VALUE, AMBIL PERINGKAT 3 BESAR
-                    arsort($scoreMember);   
-                    $rangking = array_unique($scoreMember);
-                    $keys = array_keys($rangking);
-                    foreach ($keys as $key) {
-                      $topRated[] = $rangking[$key];
-                    }
-
-                    return view("mentor.list", [
-                      "group" => $group,
-                      "activities" => $activities,
-                      "averageCurent" => $averageCurent,
-                      "averagePass" => $averagePass,
-                      "dates" => $dates,
-                      "rangking" => $scoreMember,
-                      "topRated" => $topRated,
-                      "totalActivity" => count($group_activity),
-                      "membersIn" => $membersIn,
-                      "membersOut" => $membersOut,
-                      "group" => $group,
-                      "mentors" => $mentors
-                    ]);
+      // Analisis Group Member
+      return redirect(route("chart-member"));
+          
       // return view("mentor.list", [
       //   "membersIn" => $membersIn,
       //   "membersOut" => $membersOut,
@@ -204,6 +125,22 @@ class GroupController extends Controller
       // CARI DATA MEMBER DALAM TABEL USER_GRUP, UPDATE IS_ACCEPT = TRUE
       $member = UserGroup::where("user_id", $user)->where("group_id", $group)->first();
       $member->update(["is_accept" => true]);
+
+      $daySubmission = Carbon::now()->startOfWeek()->copy()->subDays(7)->format('Y-m-d');
+      $diffDay = Carbon::parse(Carbon::now())->diffInDays($daySubmission);
+
+      $groupActivity = GroupActivity::where("group_id", $group)->get();
+
+      foreach ($groupActivity as $activity) {
+        for ($j=0; $j <= $diffDay; $j++) { 
+          Submission::create([
+            "user_id" => $user,
+            "group_activity_id" => $activity->id,
+            "date" => Carbon::now()->subDays($j)->format('Y-m-d')
+          ]);
+        }
+      }
+
       return back();
     }
 
@@ -226,15 +163,20 @@ class GroupController extends Controller
       // dd($request->all());
 
       if ($request->delete) {
+        // dd($request->all());
         $userGroup = UserGroup::where("group_id", $request->group_id);
         $group = Group::find($request->group_id);
         $groupActivity = GroupActivity::where("group_id", $request->group_id);
-        
-        // dd($groupActivity);
 
         $userGroup->delete();
         $group->delete();
         $groupActivity->delete();
+
+        $groupActivity = GroupActivity::where("group_id", $request->group_id)->get();
+        foreach ($groupActivity as $activity) {
+          // dd(Submission::where("group_activity_id", $activity->id)->get());
+          Submission::where("group_activity_id", $activity->id)->delete();
+        }
       } 
       // JIKA REQUEST KELUAR GRUP  ||  DILAKUKAN OLEH MEMBER
       // HAPUS DATA USER DI TABEL USER_GRUP YANG GROUP_ID == GROUP->ID DAN USER_ID == USER->ID
@@ -242,13 +184,25 @@ class GroupController extends Controller
         $userGroup = UserGroup::where("user_id", Auth::user()->id)->where("group_id", $request->group_id)->get()->first();
         
         $userGroup->delete();
+        // dd(Auth::user()->id);
+        $groupActivity = GroupActivity::where("group_id", $request->group_id)->get();
+        foreach ($groupActivity as $activity) {
+          // dd(Submission::where("user_id", Auth::user()->id)->where("group_activity_id", $activity->id)->get());
+          Submission::where("user_id", Auth::user()->id)->where("group_activity_id", $activity->id)->delete();
+        }
+
+        // dd("done");
       }
       // JIKA REQUEST KELUARKAN MEMBER DARI GRUP  ||  DILAKUKAN OLEH MENTOR
       // HAPUS DATA USER DI TABEL USER_GRUP YANG GROUP_ID == GROUP->ID DAN USER_ID == USER->ID
       else if ($request->kick) {
         $user = UserGroup::where("user_id", $request->user_id)->where("group_id", $request->group_id)->first();
-  
+        
         $user->delete();
+        $groupActivity = GroupActivity::where("group_id", $request->group_id)->get();
+        foreach ($groupActivity as $activity) {
+          Submission::where("user_id", $request->user_id)->where("group_activity_id", $activity->id)->delete();
+        }
       }
       
       return redirect(route("home"));
@@ -274,7 +228,7 @@ class GroupController extends Controller
       }
 
       if (!Auth::user()->is_mentor) {
-        return view("member.list", [
+        return view("member.anggota", [
           "mentors" => $mentors,
           "membersIn" => $membersIn,
           "group" => $group
