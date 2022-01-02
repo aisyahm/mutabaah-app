@@ -81,15 +81,13 @@ class ActivityController extends Controller
           ]);
 
           // BUAT SUBMISSION SESUAI JUMLAH USER DAN AKTIVITAS YANG BARU
-          if (count($memberGroup)) {
-            for ($i=0; $i < count($memberGroup); $i++) { 
-              for ($j=0; $j <= $diffDay; $j++) { 
-                Submission::create([
-                  "user_id" => $memberGroup[$i],
-                  "group_activity_id" => GroupActivity::all()->count(),
-                  "date" => Carbon::now()->subDays($j)->format('Y-m-d')
-                ]);
-              }
+          for ($i=0; $i < count($memberGroup); $i++) { 
+            for ($j=0; $j <= $diffDay; $j++) { 
+              Submission::create([
+                "user_id" => $memberGroup[$i],
+                "group_activity_id" => GroupActivity::all()->count(),
+                "date" => Carbon::now()->subDays($j)->format('Y-m-d')
+              ]);
             }
           }
         }
