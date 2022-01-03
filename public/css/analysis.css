@@ -141,7 +141,7 @@
 }
 .wrap-chart {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 50%);
     gap: 1rem;
     margin: 1rem;
 }
@@ -180,10 +180,11 @@
     transition: visibility 0.3s;
 }
 .chart-container::before {
-    content: "Anggota";
+    content: "Kumulatif Amalan";
+    letter-spacing: 0.5px;
     position: absolute;
-    left: 0;
-    top: 44%;
+    left: -38px;
+    top: 47%;
     transform: translateY(-50%) rotate(270deg);
     color: #9ba8a4;
     font-size: 0.85rem;
@@ -201,6 +202,9 @@
     width: calc(var(--activity) * 82px);
     min-width: 100%;
     height: 98%;
+}
+.category-chart {
+    width: 100%;
 }
 .legend {
     flex-direction: row;

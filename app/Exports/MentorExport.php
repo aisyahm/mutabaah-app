@@ -52,9 +52,12 @@ class MentorExport implements WithEvents, WithDrawings, WithCustomStartCell, Sho
       $haid = 0;
       $i = 1;
       $false = "\u{000D7}";
+      $activitiesSub = [];
 
+      
       foreach ($activityUser as $activities) {
-        $activitiesSub = $activities->submission->where("date", ">=", $strMonth)->where("date", "<=", $endMonth);
+        $activitiesSub = $activities->submission->where("date", ">=", $strMonth)->where("date", "<=", $endMonth)->sortByDesc("user_id");
+        // dd($activitiesSub);
         $memberGroup = $activities->group->userGroup->where("is_accept", true);
         $activitiesName[] = $activities->activity->name;
 
@@ -63,8 +66,9 @@ class MentorExport implements WithEvents, WithDrawings, WithCustomStartCell, Sho
             if (!$member->user->is_mentor) $memberName[] = $member->user->name;
           }
         }
-        
+
         foreach ($activitiesSub as $activity) {
+          // dd($activitiesSub);
           $date[] = $activity->date;
           if ($activity->user->id == $userBefore) {
             $value += $activity->is_done;
@@ -75,23 +79,23 @@ class MentorExport implements WithEvents, WithDrawings, WithCustomStartCell, Sho
               $userHaid[$userBefore] = $haid;
               $haid = 0;
             }
-
+            
             $userPoint[$userBefore][] = $value == 0 ? json_decode('"'.$false.'"') : $value;
             $value = 0;
+            // dd($userPoint);
             $userBefore = $activity->user->id;
             if ($activity->user->id == $userBefore) {
               $value += $activity->is_done;
               $haid += $activity->is_haid;
-
-              if (++$i == count($activitiesSub)) {
-                $userPoint[$userBefore][] = $value == 0 ? json_decode('"'.$false.'"') : $value;
-              }
             }
+            
           }
         }
       }
 
+      
       $userPoint[$userBefore][] = $value;
+      // dd($userPoint);
 
       foreach ($userHaid as $key => $haid) {
         $haidQuery[$key] = $haid == 0 ? json_decode('"'.$false.'"') : "";
@@ -107,6 +111,8 @@ class MentorExport implements WithEvents, WithDrawings, WithCustomStartCell, Sho
         }
       }
 
+      // dd($userPoint);
+
       for ($i=0; $i < count($activitiesName); $i++) { 
         $pointQuery = [];
         foreach ($userPoint as $key => $user) {
@@ -117,6 +123,9 @@ class MentorExport implements WithEvents, WithDrawings, WithCustomStartCell, Sho
 
       $memberName = ["Aktivitas", ...$memberName];   // TABLE HEAD NAME MEMBER
       $userQuery[] = ["Haid", ...$haidQuery];        // DATA VALUE TABLE
+
+      // dump($memberName);
+      // dd($userQuery);
       return new Collection($userQuery);
     }
 
@@ -159,11 +168,11 @@ class MentorExport implements WithEvents, WithDrawings, WithCustomStartCell, Sho
                         ->setKeywords("Laporan Istiqomah Web");
             },
             BeforeSheet::class => function(BeforeSheet $event){
-                $event->sheet->setCellValue('E3','Laporan Grup ' . session("group")->name);
-                $event->sheet->setCellValue('E4', 'di bulan ' . Carbon::now()->isoFormat('MMMM'));
+                $event->sheet->setCellValue('D3','Laporan Grup ' . session("group")->name);
+                $event->sheet->setCellValue('D4', 'di bulan ' . Carbon::now()->isoFormat('MMMM'));
             },
             AfterSheet::class => function(AfterSheet $event){
-                $event->sheet->getStyle('B8:E8')->applyFromArray([
+                $event->sheet->getStyle('B8:D8')->applyFromArray([
                     'font' => [
                         'bold' => true,
                         'name' => 'Arial',
@@ -179,7 +188,7 @@ class MentorExport implements WithEvents, WithDrawings, WithCustomStartCell, Sho
                         'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
                     ]
                 ]);
-                $event->sheet->getStyle('E3:E4')->applyFromArray([
+                $event->sheet->getStyle('D3:D4')->applyFromArray([
                     'font' => [
                         'bold' => true,
                         'name' => 'Arial',
@@ -220,8 +229,8 @@ class MentorExport implements WithEvents, WithDrawings, WithCustomStartCell, Sho
                 
                 // $event->sheet->getStyle('B8:F13')
                 // ->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_TOP);
-                $event->sheet->mergeCells('E3:M3');
-                $event->sheet->mergeCells('E4:M4');
+                $event->sheet->mergeCells('D3:M3');
+                $event->sheet->mergeCells('D4:M4');
                 // $event->sheet->insertNewRowBefore(1, 2);
                 $event->sheet->getStyle(
                     'B8:' . 

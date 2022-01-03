@@ -27,8 +27,6 @@ class ChartController extends Controller
     $totalPass = [];
     $values = 0;
 
-    // dd("group_activity");
-
     // AUTO GENERATE DATE  ||  DATE UNTUK FILTER SUBMISSION BY WEEK  ||  DIMULAI SAAT HARI SENIN - MINGGU
     $now = Carbon::now();
     $strLastWeek = $now->startOfWeek()->copy()->subDays(7)->format('Y-m-d');
@@ -36,8 +34,12 @@ class ChartController extends Controller
     $strCurentWeek = $now->startOfWeek()->format('Y-m-d');
     $endCurentWeek = $now->endOfWeek()->format('Y-m-d');
     $diffDayEndWeek = 7 - Carbon::now()->dayOfWeek;
-    $today = Carbon::now()->dayOfWeek;
+    $today = Carbon::now()->dayOfWeek - 1;
+    
+    $today = $today < 0 ? 6 : "";
+    // dd($today);    
 
+    
     // LABEL DATE CHART
     $dates = [
       Carbon::parse($strLastWeek)->isoFormat('D MMM'),
@@ -45,15 +47,10 @@ class ChartController extends Controller
       Carbon::parse($strCurentWeek)->isoFormat('D MMM'),
       Carbon::parse($endCurentWeek)->isoFormat('D MMM Y'),
     ];
-
-    // dd($group_activity->last()->submission);
     
     foreach ($group_activity as $activity) {
       $activities[] = explode(" ", $activity->activity->name);
-      // dd("foreach");
-      // dd($group_activity);
-      // dump(count($activity->submission->where("user_id", $user->id)->where("date", ">=", $strCurentWeek)
-      // ->where("date", "<=", $endCurentWeek)));
+
       // AMBIL VALUE BERDASARKAN USER ID YANG SEDANG LOGIN SAJA, DATE SAAT INI, DAN DATE MINGGU INI DAN MINGGU SEBELUMNYA
       if (count($activity->submission->where("user_id", $user->id)->where("date", ">=", $strCurentWeek)
       ->where("date", "<=", $endCurentWeek))) {
@@ -62,7 +59,6 @@ class ChartController extends Controller
         
         $activitySubmission = $activity->submission->where("user_id", $user->id)->where("date", ">=", $strCurentWeek)
         ->where("date", "<=", $endCurentWeek);
-        // dd($activitySubmission);
         foreach ($activitySubmission as $submission) {
             $activityDetail[$activity->activity->category][$activity->activity->name][] = $submission->is_done;
         }
@@ -80,7 +76,6 @@ class ChartController extends Controller
           }
         }
       }
-      // dd($diffDayEndWeek);
 
       // JIKA KURANG DARI 7 (MINGGU INI MASIH BERJALAN), ISI -2 SAMPAI COUNT ARRAY == 7
       if (count($activityDetail[$activity->activity->category][$activity->activity->name]) < 7 &&
@@ -88,7 +83,6 @@ class ChartController extends Controller
         for ($i=0; $i < 7 - count($activityDetail[$activity->activity->category][$activity->activity->name]); $i+1) { 
           $activityDetail[$activity->activity->category][$activity->activity->name][] = -2;
         }
-        // dd("benar");
       } 
       
       // JIKA HARI TERSEBUT ADALAH END WEEK
@@ -104,24 +98,16 @@ class ChartController extends Controller
           }
         }
       }
-
-      // dd("unshift");
-
       
-
       if (count($activity->submission->where("user_id", $user->id)->where("date", ">=", $strLastWeek)
           ->where("date", "<=", $endLastWeek))) {
         $taskPass[] = $activity->submission->where("user_id", $user->id)->where("date", ">=", $strLastWeek)
         ->where("date", "<=", $endLastWeek);
       }
-      // dd("taskPass");
-      
     }
 
-    // dd("done");
     // URUTKAN BERDASARKAN AKTIVITAS TERBANYAK  ||  ESTETIKA DETAIL AKTIVITAS
     arsort($activityDetail);
-    // dd("arsort");
 
     // JUMLAHKAN VALUE IS DONE TIAP AKTIVITAS
     foreach ($taskCurent as $submission) {
@@ -139,8 +125,6 @@ class ChartController extends Controller
       $values = 0;
     }
 
-    // dd($activityDetail);
-
     return view("user.analysis-member", [
       "group" => $group,
       "user" => $user,
@@ -149,7 +133,7 @@ class ChartController extends Controller
       "totalPass" => $totalPass,
       "dates" => $dates,
       "activityDetail" => $activityDetail,
-      "today" => Carbon::now()->dayOfWeek,
+      "today" => $today,
     ]);
   }
 
@@ -210,7 +194,6 @@ class ChartController extends Controller
 
     // AUTO GENERATE DATE  ||  DATE UNTUK FILTER SUBMISSION BY WEEK  ||  DIMULAI SAAT HARI SENIN - MINGGU
     $now = Carbon::now();
-    $yesterday = $now->copy()->subDays(1)->format('Y-m-d');
     $strLastWeek = $now->startOfWeek()->copy()->subDays(7)->format('Y-m-d');
     $endLastWeek = $now->endOfWeek()->copy()->subDays(7)->format('Y-m-d');
     $strCurentWeek = $now->startOfWeek()->format('Y-m-d');
@@ -229,13 +212,11 @@ class ChartController extends Controller
 
       if (count($activity->submission->where("date", ">=", $strCurentWeek)->where("date", "<=", $endCurentWeek))) {
         $taskCurent[] = $activity->submission->where("date", ">=", $strCurentWeek)->where("date", "<=", $endCurentWeek);
-        $activityYesterday[] = $activity->submission->where("date", $yesterday);
-        // dd("current");
+        $activityCurrentWeek[] = $activity->submission->where("date", ">=", $strCurentWeek)->where("date", "<=", $endCurentWeek);
       }
       if (count($activity->submission->where("date", ">=", $strLastWeek)->where("date", "<=", $endLastWeek))) {
         $taskPass[] = $activity->submission->where("date", ">=", $strLastWeek)->where("date", "<=", $endLastWeek);
-        $activityToday[] = $activity->submission->where("date", Carbon::now()->format('Y-m-d'));
-        // dd("yesterday");
+        $activityLastWeek[] = $activity->submission->where("date", ">=", $strLastWeek)->where("date", "<=", $endLastWeek);
       }
     }
 
@@ -256,24 +237,20 @@ class ChartController extends Controller
       $values = 0;
     }
 
-    foreach ($activityYesterday as $submission) {
+    foreach ($activityLastWeek as $submission) {
       foreach ($submission as $task) {
         $values += $task->is_done;
       }
       $activityDetail[$task->groupActivity->activity->category][$task->groupActivity->activity->name][] = $values;
       $values = 0;
     }
-    foreach ($activityToday as $submission) {
+    foreach ($activityCurrentWeek as $submission) {
       foreach ($submission as $task) {
         $values += $task->is_done;
       }
       $activityDetail[$task->groupActivity->activity->category][$task->groupActivity->activity->name][] = $values;
       $values = 0;
     }
-
-    // dump(($activityToday));
-    // dd(($activityYesterday));
-    // dd($activityDetail);
 
     // URUTKAN ARRAY BERDASARKAN VALUE TERBESAR, FILTER UNIQUE VALUE, AMBIL PERINGKAT 3 BESAR
     arsort($scoreMember);   
