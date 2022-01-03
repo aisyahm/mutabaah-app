@@ -66,7 +66,7 @@
       <div class="info1 info-all">
         <div class="text1">
           <img src="/assets/ava/{{ $group->avatar }}.svg">
-          <div class="group">
+          <div class="group" style="cursor: default">
             <h6>{{ $group->name }}</h6>
             <p>{{ $group->description}}</p>
           </div>

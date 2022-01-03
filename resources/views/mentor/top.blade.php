@@ -60,13 +60,13 @@
       <div class="info1 info-all">
         <div class="text1">
           <img src="/assets/ava/{{ $group->avatar }}.svg">
-          <div class="group">
+          <div class="group" style="cursor: default">
             <h6>{{ $group->name }}</h6>
             <p>{{ $group->description }}</p>
             <div class="input-code">
-              <button>
+              <button style="cursor: default">
                 <p>Kode Grup: <span id="p1" class="text-kode" >{{ $group->invitation_code }}</span></p>
-                <span class="text-salin" onclick="copy('#p1')">Salin</span>
+                <span class="text-salin" style="cursor: pointer" onclick="copy('#p1')">Salin</span>
               </button>
             </div>
           </div>

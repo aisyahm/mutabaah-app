@@ -14,60 +14,6 @@ use Carbon\Carbon;
 
 class GroupController extends Controller
 {
-    // HALAMAN AWAL GROUP
-    public function groups(Group $group) {
-      // GET USER DALAM GRUP, SUDAH DITERIMA, ATAU MASIH PENDING (MENUNGGU KONFIRMASI BERGABUNG)
-      $users = UserGroup::with("user")->where("group_id", $group->id)->get();
-      $usersOut = $users->where("is_accept", false);
-      $usersIn = $users->where("is_accept", true);
-
-      // GET MENTOR DALAM GRUP
-      $mentors = [];
-      foreach ($usersIn as $mentor) {
-        if ($mentor->user->is_mentor) $mentors[] = $mentor->user->name;
-      }
-
-      // GET MEMBER DALAM GRUP
-      $membersIn = [];
-      foreach ($usersIn as $user) {
-        $user->user->is_mentor == false ? $membersIn[] = $user->user : "";
-      }
-
-      if (!Auth::user()->is_mentor) {
-        return view("member.list", [
-          "mentors" => $mentors,
-          "membersIn" => $membersIn,
-          "group" => $group
-        ]);
-
-        // return view("member.top", [
-        //   "mentors" => $mentors,
-        //   "membersIn" => $membersIn,
-        //   "group" => $group
-        // ]);
-      }
-
-      // GET PENDING MEMBER  ||  MENUNGGU KONFIRMASI BERGAUNG 
-      $membersOut = [];
-      foreach ($usersOut as $user) {
-        $membersOut[] = $user->user;
-      }
-
-      // ANALISIS GROUP Mentor
-      return redirect(route("chart-overall"));
-
-      // Analisis Group Member
-      return redirect(route("chart-member"));
-          
-      // return view("mentor.list", [
-      //   "membersIn" => $membersIn,
-      //   "membersOut" => $membersOut,
-      //   "group" => $group,
-      //   "mentors" => $mentors
-      // ]);
-
-    }
-
     // STORE INPUT FORM BUAT GRUP BARU
     public function storeCreate(Request $request) {
       $groups = Group::all();
@@ -95,6 +41,7 @@ class GroupController extends Controller
         "avatar" => $request->avatar,
         "invitation_code" => $code,
       ]);
+      
       // MASUKKAN DATA MENTOR KE TABEL USER_GRUP
       UserGroup::create([
         "user_id" => Auth::user()->id,
@@ -126,13 +73,15 @@ class GroupController extends Controller
       $member = UserGroup::where("user_id", $user)->where("group_id", $group)->first();
       $member->update(["is_accept" => true]);
 
-      $daySubmission = Carbon::now()->startOfWeek()->copy()->subDays(7)->format('Y-m-d');
-      $diffDay = Carbon::parse(Carbon::now())->diffInDays($daySubmission);
+      $strWeekBefore = Carbon::now()->startOfWeek()->copy()->subDays(7)->format('Y-m-d');
+      $diffWeek = Carbon::parse(Carbon::now())->diffInDays($strWeekBefore);
+      $strMonth = Carbon::now()->startOfMonth()->format('Y-m-d');
+      $diffMonth = Carbon::parse(Carbon::now())->diffInDays($strMonth);
 
       $groupActivity = GroupActivity::where("group_id", $group)->get();
 
       foreach ($groupActivity as $activity) {
-        for ($j=0; $j <= $diffDay; $j++) { 
+        for ($j=0; $j <= ($diffWeek < $diffMonth ? $diffMonth : $diffWeek); $j++) { 
           Submission::create([
             "user_id" => $user,
             "group_activity_id" => $activity->id,
@@ -140,7 +89,7 @@ class GroupController extends Controller
           ]);
         }
       }
-
+      
       return back();
     }
 
@@ -160,10 +109,7 @@ class GroupController extends Controller
       // JIKA REQUEST HAPUS GRUP  ||  DILAKUKAN OLEH MENTOR
       // HAPUS SEMUA USER DI TABEL USER_GRUP YANG GROUP_ID == GROUP->ID, 
       // HAPUS GRUP DARI TABEL GRUP, HAPUS AKTIVITAS GRUP DI TABEL GROUP_ACTIVITY
-      // dd($request->all());
-
       if ($request->delete) {
-        // dd($request->all());
         $userGroup = UserGroup::where("group_id", $request->group_id);
         $group = Group::find($request->group_id);
         $groupActivity = GroupActivity::where("group_id", $request->group_id);
@@ -174,25 +120,22 @@ class GroupController extends Controller
 
         $groupActivity = GroupActivity::where("group_id", $request->group_id)->get();
         foreach ($groupActivity as $activity) {
-          // dd(Submission::where("group_activity_id", $activity->id)->get());
           Submission::where("group_activity_id", $activity->id)->delete();
         }
       } 
+
       // JIKA REQUEST KELUAR GRUP  ||  DILAKUKAN OLEH MEMBER
       // HAPUS DATA USER DI TABEL USER_GRUP YANG GROUP_ID == GROUP->ID DAN USER_ID == USER->ID
       else if ($request->leave) {
         $userGroup = UserGroup::where("user_id", Auth::user()->id)->where("group_id", $request->group_id)->get()->first();
         
         $userGroup->delete();
-        // dd(Auth::user()->id);
         $groupActivity = GroupActivity::where("group_id", $request->group_id)->get();
         foreach ($groupActivity as $activity) {
-          // dd(Submission::where("user_id", Auth::user()->id)->where("group_activity_id", $activity->id)->get());
           Submission::where("user_id", Auth::user()->id)->where("group_activity_id", $activity->id)->delete();
         }
-
-        // dd("done");
       }
+
       // JIKA REQUEST KELUARKAN MEMBER DARI GRUP  ||  DILAKUKAN OLEH MENTOR
       // HAPUS DATA USER DI TABEL USER_GRUP YANG GROUP_ID == GROUP->ID DAN USER_ID == USER->ID
       else if ($request->kick) {
@@ -203,12 +146,14 @@ class GroupController extends Controller
         foreach ($groupActivity as $activity) {
           Submission::where("user_id", $request->user_id)->where("group_activity_id", $activity->id)->delete();
         }
+
+        return redirect(route("chart-overall", $request->group_id));
       }
       
       return redirect(route("home"));
     }
 
-    // Halaman Anggota
+    // HALAMAN ANGGOTA
     public function anggota(Group $group) {
       // GET USER DALAM GRUP, SUDAH DITERIMA, ATAU MASIH PENDING (MENUNGGU KONFIRMASI BERGABUNG)
       $users = UserGroup::where("group_id", $group->id)->get();
@@ -241,13 +186,11 @@ class GroupController extends Controller
         $membersOut[] = $user->user;
       }
       
-      // anggota
       return view("mentor.anggota", [
         "membersIn" => $membersIn,
         "membersOut" => $membersOut,
         "group" => $group,
         "mentors" => $mentors
       ]);
-
     }
 }

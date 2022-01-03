@@ -143,25 +143,14 @@ class ChartController extends Controller
   public function overall(Group $group) {
     if (!Auth::user()->is_mentor) return back();
 
-            $users = UserGroup::with("user")->where("group_id", $group->id)->get();
-            // $usersOut = $users->where("is_accept", false);
-            $usersIn = $users->where("is_accept", true);
+    $users = UserGroup::with("user")->where("group_id", $group->id)->get();
+    $usersIn = $users->where("is_accept", true);
 
-            // GET MENTOR DALAM GRUP
-            // $mentors = [];
-            // foreach ($usersIn as $mentor) {
-            //   if ($mentor->user->is_mentor) $mentors[] = $mentor->user->name;
-            // }
-
-            // GET MEMBER DALAM GRUP
-            $membersIn = [];
-            foreach ($usersIn as $user) {
-              $user->user->is_mentor == false ? $membersIn[] = $user->user : "";
-            }
-            // $membersOut = [];
-            // foreach ($usersOut as $user) {
-            //   $membersOut[] = $user->user;
-            // }
+    // GET MEMBER DALAM GRUP
+    $membersIn = [];
+    foreach ($usersIn as $user) {
+      $user->user->is_mentor == false ? $membersIn[] = $user->user : "";
+    }
     
     // AMBIL GRUP AKTIVITAS BERDASARKAN GRUP YANG DIPILIH
     $group_activity = GroupActivity::with("submission.user", "activity")->where("group_id", $group->id)->get();
@@ -179,21 +168,6 @@ class ChartController extends Controller
     $scoreMember = [];
     $topRated = [];
 
-    if (!count(GroupActivity::where("group_id", $group->id)->get())) {
-      return view("mentor.analysis-group", [
-        "group" => $group,
-        "activities" => [],
-        "rangking" => [],
-        "averagePass" => [],
-        "averageCurent" => [],
-        "activityDetail" => []
-      ]);
-    }
-
-    foreach ($userGroup as $user) {
-      if ($user->user->is_mentor == false) $scoreMember[$user->user->name] = 0;
-    }
-
     // AUTO GENERATE DATE  ||  DATE UNTUK FILTER SUBMISSION BY WEEK  ||  DIMULAI SAAT HARI SENIN - MINGGU
     $now = Carbon::now();
     $strLastWeek = $now->startOfWeek()->copy()->subDays(7)->format('Y-m-d');
@@ -209,6 +183,42 @@ class ChartController extends Controller
       Carbon::parse($endCurentWeek)->isoFormat('D MMM Y'),
     ];
 
+    if (!count(GroupActivity::where("group_id", $group->id)->get())) {
+      return view("mentor.analysis-group", [
+        "group" => $group,
+        "activities" => [],
+        "rangking" => [],
+        "averagePass" => [],
+        "averageCurent" => [],
+        "activityDetail" => []
+      ]);
+    }
+
+    if (count($userGroup) == 1) {
+      foreach ($group_activity as $activity) {
+        $averageCurent[] = 0;
+        $averagePass[] = 0;
+        $activities[] = explode(" ", $activity->activity->name);
+        $activityDetail[$activity->activity->category][$activity->activity->name] = [0, 0];
+      }
+
+      return view("mentor.analysis-group", [
+        "group" => $group,
+        "activities" => $activities,
+        "averageCurent" => 0,
+        "averagePass" => 0,
+        "dates" => $dates,
+        "rangking" => [],
+        "totalActivity" => count($group_activity),
+        "activityDetail" => $activityDetail,
+        "membersIn" => $membersIn
+      ]);
+    }
+
+    foreach ($userGroup as $user) {
+      if ($user->user->is_mentor == false) $scoreMember[$user->user->name] = 0;
+    }
+
     foreach ($group_activity as $activity) {
       $activities[] = explode(" ", $activity->activity->name);
 
@@ -216,10 +226,11 @@ class ChartController extends Controller
         $taskCurent[] = $activity->submission->where("date", ">=", $strCurentWeek)->where("date", "<=", $endCurentWeek);
         $activityCurrentWeek[] = $activity->submission->where("date", ">=", $strCurentWeek)->where("date", "<=", $endCurentWeek);
       }
+      
       if (count($activity->submission->where("date", ">=", $strLastWeek)->where("date", "<=", $endLastWeek))) {
         $taskPass[] = $activity->submission->where("date", ">=", $strLastWeek)->where("date", "<=", $endLastWeek);
         $activityLastWeek[] = $activity->submission->where("date", ">=", $strLastWeek)->where("date", "<=", $endLastWeek);
-      }
+      } 
     }
 
     // JUMLAHKAN VALUE IS DONE TIAP ACTIVITY (RATA-RATA)  ||  JUMLAHKAN VALUE BERDASARKAN NAMA USER (RANGKING)
@@ -273,8 +284,6 @@ class ChartController extends Controller
       "totalActivity" => count($group_activity),
       "activityDetail" => $activityDetail,
       "membersIn" => $membersIn
-      // "membersOut" => $membersOut,
-      // "mentors" => $mentors
     ]);
   }
 }

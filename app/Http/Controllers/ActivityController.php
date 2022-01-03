@@ -232,6 +232,7 @@ class ActivityController extends Controller
       }
     }
     
-    return redirect(route("chart-member", ["userId" => Auth::user()->id, "groupId" => $group_id]));
+    // return redirect(route("chart-member", ["userId" => Auth::user()->id, "groupId" => $group_id]));
+    return redirect(route("group-activities", $group_id));
   }
 }

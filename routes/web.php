@@ -42,13 +42,9 @@ Route::get('/groups/profile/{user}/{group}', [AccountController::class, 'info'])
 Route::post('/update-profile', [AccountController::class, 'updateProfile'])->name("update");
 
 // OPEN GROUP 
-Route::get('/groups/analysis/{group:id}', [GroupController::class, 'groups'])->name("group")->middleware('auth');
-// halaman anggota
 Route::get('/groups/anggota/{group:id}', [GroupController::class, 'anggota'])->name("anggota")->middleware('auth');
-
-// CHART
-Route::get('/groups/analysis/{userId}/{groupId}', [ChartController::class, 'self'])->name('chart-member')->middleware('auth');
 Route::get('/groups/chart/{group:id}', [ChartController::class, 'overall'])->name('chart-overall')->middleware('auth');
+Route::get('/groups/analysis/{userId}/{groupId}', [ChartController::class, 'self'])->name('chart-member')->middleware('auth');
 
 // DELETE & LEAVE GROUP
 Route::post('/delete', [GroupController::class, 'dangerGroup'])->name("delete");
@@ -60,13 +56,11 @@ Route::get('/groups/add-activities/{group:id}', [ActivityController::class, 'add
 Route::post('/groups/add-activities', [ActivityController::class, 'storeAdd']);
 Route::get('/groups/activities/{group:id}', [ActivityController::class, 'activities'])->name('group-activities')->middleware('auth');
 
-// Mentor  & Laporan Export Excel 
+// Mentor & Member Laporan Export Excel 
 Route::get('/home/memberlaporan/{user:id}/{group:id}', [LaporanController::class, 'laporanMember'])->name('memberanalisis')->middleware('auth');
 Route::get('/home/member/export', [LaporanController::class, 'memberexport'])->name('exportlaporanmember')->middleware('auth');
-//Mentor 
 Route::get('/home/mentorlaporan/{group:id}', [LaporanController::class, 'laporanMentor'])->name('mentoranalisis')->middleware('auth');
 Route::get('/home/mentor/export', [LaporanController::class, 'mentorexport'])->name('exportlaporanmentor')->middleware('auth');
-// Route::post('/delete', [LaporanController::class, 'dangerGroup'])->name("delete");
 
 Route::post('/submit-submission', [ActivityController::class, 'newSubmission'])->name('new-submission')->middleware('auth');
 
