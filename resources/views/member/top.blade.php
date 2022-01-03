@@ -19,7 +19,7 @@
   <style>
       /* none */
       .info1{
-          height: 96px;
+          height: 83px;
       }
       .info1 .icon .box-ubah{
           height: 55px;
@@ -82,15 +82,15 @@
       </div>
       @if (count(GroupActivity::where("group_id", $group->id)->get()))
           <div class="info2 info-all">
-            <div class="text3 text-all {{ Request::segment(2) == "activities" ? "active" : "" }}">
-                <a href="{{ route("group-activities", $group->id) }}">Target</a>
-            </div>
-            <div class="text1 text-all {{ Request::segment(2) == "analysis" ? "active" : "" }}">
-              <a href="{{ route("chart-member", ["userId" => Auth::user()->id, "groupId" => $group->id]) }}">Analisis</a>
-            </div>
-            <div class="text2 text-all {{ Request::segment(2) == "anggota" ? "active" : "" }}">
-              <a href="/groups/anggota/{{ $group->id }}">Anggota ({{ count($membersIn) }})</a>
-            </div>
+            <a href="{{ route("group-activities", $group->id) }}" class="text1 text-all {{ Request::segment(2) == "activities" ? "active" : "" }}" >
+              Target
+            </a>
+            <a href="{{ route("chart-member", ["userId" => Auth::user()->id, "groupId" => $group->id]) }}" class="text1 text-all {{ Request::segment(2) == "analysis" ? "active" : "" }}">
+              Analisis
+            </a>
+            <a href="/groups/anggota/{{ $group->id }}" class="text2 text-all {{ Request::segment(2) == "anggota" ? "active" : "" }}">
+              Anggota ({{ count($membersIn) }})
+            </a>
           </div>
       @endif
     </div>
@@ -121,12 +121,13 @@
       const body = document.querySelector('.info2');
       const container = document.querySelector('.box-ubah');
 
-      icon.addEventListener('click', () => {
-        container.classList.add("active");
+      icon.addEventListener('click', (e) => {
+        container.classList.toggle("active");
       });
 
-      body.addEventListener('click', () => {
-        container.classList.remove("active");
+      body.addEventListener('click', (ev) => {
+        // container.classList.remove("active");
+        ev.stopPropagation();
       });
 
       const boxkeluar = document.querySelector(".box-keluar");

@@ -3,7 +3,7 @@
     position: sticky;
     top: 0;
     background: #ffffff;
-    /* width: 80%; */
+    padding-top: 1rem;
     z-index: 1;
     margin-left: 280px; /*menyesuaikan mentor.template */
 }
@@ -13,9 +13,8 @@
 }
 .info1 {
     position: relative;
-    padding: 1rem 1rem;
-    width: 100%;
-    height: 137px;
+    width: 98%;
+    height: 110px;
     display: flex;
     align-items: stretch;
     justify-content: space-between;
@@ -26,30 +25,28 @@
     left: 1rem;
     border-radius: 50%;
     width: 60px;
-    margin-right: 1.5rem;
     height: 60px;
 }
 .info1 .text1 {
     display: flex;
-    flex-direction: row;
+    gap: 2rem;
 }
 .info1 .text1 .group {
     position: relative;
+    display: flex;
     flex-direction: column;
 }
 .info1 .text1 .group h6 {
-    margin-left: 0.5rem;
     cursor: default;
-    font-weight: 500;
+    font-weight: bold;
     font-size: 14px;
-    line-height: 20px;
+    text-transform: uppercase;
 }
 .info1 .text1 .group p {
     font-style: normal;
     font-weight: normal;
     font-size: 14px;
-    line-height: 20px;
-    margin: 4px 0 4px 0.5rem;
+    line-height: 30px;
 }
 .info1 .text1 .group .input-code {
     position: relative;
@@ -146,7 +143,6 @@
 .info2 {
     position: relative;
     width: 100%;
-    /* height: 10%; */
     height: 60px;
     border-top: 1px solid #c8cbd9;
     border-bottom: 1px solid #c8cbd9;
@@ -157,10 +153,6 @@
 .info2 .text-all {
     text-align: center;
     max-width: 100%;
-    margin-right: 1rem;
-}
-.info2 .text-all:not(:last-child) {
-    margin-right: 1.5rem;
 }
 .info2 .text1,
 .info2 .text2,
@@ -171,26 +163,21 @@
     justify-content: center;
     align-items: center;
     width: 160px;
-    height: 56px;
+    height: 100%;
     color: #00a7a0;
 }
 .info2 .active {
     color: #00a7a0;
     background: linear-gradient(rgba(230, 247, 246, 1), rgba(230, 247, 246, 1));
+    border-bottom: 5px solid #00a7a0;
+    font-weight: bold;
 }
 .info2 .text1 a,
 .info2 .text2 a,
 .info2 .text3 a {
     color: #00a7a0;
 }
-.info2 .active::after {
-    position: absolute;
-    bottom: -0.3rem;
-    content: "";
-    width: 100%;
-    height: 5px;
-    border-bottom: 5px solid #00a7a0;
-}
+
 /* info3 */
 .info3 {
     background: #f6f6f6;

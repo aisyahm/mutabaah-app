@@ -56,7 +56,8 @@ class MentorExport implements WithEvents, WithDrawings, WithCustomStartCell, Sho
 
       
       foreach ($activityUser as $activities) {
-        $activitiesSub = $activities->submission->where("date", ">=", $strMonth)->where("date", "<=", $endMonth)->sortByDesc("user_id");
+        // $activitiesSub = $activities->submission->where("date", ">=", $strMonth)->where("date", "<=", $endMonth)->sortByDesc("user_id");
+        $activitiesSub = $activities->submission->where("date", ">=", $strMonth)->where("date", "<=", $endMonth)->sortBy("user_id");
         // dd($activitiesSub);
         $memberGroup = $activities->group->userGroup->where("is_accept", true);
         $activitiesName[] = $activities->activity->name;
@@ -94,7 +95,7 @@ class MentorExport implements WithEvents, WithDrawings, WithCustomStartCell, Sho
       }
 
       
-      $userPoint[$userBefore][] = $value;
+      $userPoint[$userBefore][] = $value == 0 ? json_decode('"'.$false.'"') : $value;
       // dd($userPoint);
 
       foreach ($userHaid as $key => $haid) {
@@ -169,7 +170,7 @@ class MentorExport implements WithEvents, WithDrawings, WithCustomStartCell, Sho
             },
             BeforeSheet::class => function(BeforeSheet $event){
                 $event->sheet->setCellValue('D3','Laporan Grup ' . session("group")->name);
-                $event->sheet->setCellValue('D4', 'di bulan ' . Carbon::now()->isoFormat('MMMM'));
+                $event->sheet->setCellValue('D4', 'di bulan ' . Carbon::now()->isoFormat('MMMM Y'));
             },
             AfterSheet::class => function(AfterSheet $event){
                 $event->sheet->getStyle('B8:D8')->applyFromArray([

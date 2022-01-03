@@ -197,7 +197,6 @@ $today = Carbon::now()->isoFormat('D MMMM Y');
     const member = document.querySelectorAll(".grid-rank > div");
 
     if (labels.length) {
-      console.log(labels);
       document.querySelector(".chart").style.setProperty("--activity", labels.length);
     }
     

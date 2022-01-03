@@ -36,7 +36,7 @@ class ChartController extends Controller
     $diffDayEndWeek = 7 - Carbon::now()->dayOfWeek;
     $today = Carbon::now()->dayOfWeek - 1;
     
-    $today = $today < 0 ? 6 : "";
+    $today = $today < 0 ? 6 : 0;
     // dd($today);    
 
     
@@ -124,6 +124,8 @@ class ChartController extends Controller
       $totalPass[] = $values;
       $values = 0;
     }
+
+    // dd($today);
 
     return view("user.analysis-member", [
       "group" => $group,

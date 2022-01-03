@@ -85,18 +85,19 @@
       </div>
       @if (count(GroupActivity::where("group_id", $group->id)->get()))
         <div class="info2 info-all">
-          <div class="text1 text-all {{ Request::segment(2) == "chart" ? "active" : "" }}">
-            <a href="/groups/chart/{{ $group->id }}">Analisis</a>
-          </div>
-          <div class="text2 text-all {{ Request::segment(2) == "anggota" ? "active" : "" }}">
-            <a href="/groups/anggota/{{ $group->id }}">Anggota ({{ count($membersIn) }})</a>
-          </div>
-          <div class="text3 text-all {{ Request::segment(2) == "activities" ? "active" : "" }}">
-            <a href={{ route("group-activities", $group->id) }}>Target</a>
-          </div>
+          <a href="/groups/chart/{{ $group->id }}" class="text1 text-all {{ Request::segment(2) == "chart" ? "active" : "" }}">
+            Analisis
+          </a>
+          <a href="/groups/anggota/{{ $group->id }}" class="text2 text-all {{ Request::segment(2) == "anggota" ? "active" : "" }}">
+            Anggota ({{ count($membersIn) }})
+          </a>
+          <a href={{ route("group-activities", $group->id) }} class="text3 text-all {{ Request::segment(2) == "activities" ? "active" : "" }}">
+            Target
+          </a>
         </div>
       @endif
     </div>
+
    {{-- Edit Grup --}}
     <div class="pop-up mentor-group-pop-up">
         <div class="pop-up-title">
@@ -118,7 +119,7 @@
               <img src="/assets/ava/2.svg">
               </div>
               <div class="ava">
-              <input type="radio" name="avatar" value="3" {{  $group->avatar == "" ? "checked" : $group->avatar == 3 ? "checked" : "" }}>
+              <input type="radio" name="avatar" value="3" {{  $group->avatar == 3 ? "checked" : "checked" }}>
               <span id="mentor"></span>
               <img src="/assets/ava/3.svg">
               </div>

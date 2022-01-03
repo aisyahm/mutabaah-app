@@ -87,6 +87,7 @@
               @default
                   <h3>Dzikir</h3>
           @endswitch
+          
             <div class="activity-container">
                 <table>
                   <tr>
