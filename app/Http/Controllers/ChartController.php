@@ -107,7 +107,7 @@ class ChartController extends Controller
     }
 
     // URUTKAN BERDASARKAN AKTIVITAS TERBANYAK  ||  ESTETIKA DETAIL AKTIVITAS
-    arsort($activityDetail);
+    // arsort($activityDetail);
 
     // JUMLAHKAN VALUE IS DONE TIAP AKTIVITAS
     foreach ($taskCurent as $submission) {

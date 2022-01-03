@@ -32,7 +32,7 @@ $today = Carbon::now()->isoFormat('D MMMM Y');
                     <h3>Sholat Wajib</h3>
                   </div>
                   <div class="inner">
-                    <div class="chart category-chart">
+                    <div id="wajib-chart" class="chart category-chart">
                       <canvas id="wajibChart"></canvas>
                     </div>
                   </div>
@@ -42,7 +42,7 @@ $today = Carbon::now()->isoFormat('D MMMM Y');
                     <h3>Sholat Rawatib</h3>
                   </div>
                   <div class="inner">
-                    <div class="chart category-chart">
+                    <div id="rawatib-chart" class="chart category-chart">
                       <canvas id="rawatibChart"></canvas>
                     </div>
                   </div>
@@ -52,7 +52,7 @@ $today = Carbon::now()->isoFormat('D MMMM Y');
                     <h3>Sholat Sunnah</h3>
                   </div>
                   <div class="inner">
-                    <div class="chart category-chart">
+                    <div id="sunnah-chart" class="chart category-chart">
                       <canvas id="sunnahChart"></canvas>
                     </div>
                   </div>
@@ -62,7 +62,7 @@ $today = Carbon::now()->isoFormat('D MMMM Y');
                     <h3>Sholat Sunnah Lainnya</h3>
                   </div>
                   <div class="inner">
-                    <div class="chart category-chart">
+                    <div id="lainnya-chart" class="chart category-chart">
                       <canvas id="lainnyaChart"></canvas>
                     </div>
                   </div>
@@ -72,7 +72,7 @@ $today = Carbon::now()->isoFormat('D MMMM Y');
                     <h3>Dzikir</h3>
                   </div>
                   <div class="inner">
-                    <div class="chart category-chart">
+                    <div id="dzikir-chart" class="chart category-chart">
                       <canvas id="dzikirChart"></canvas>
                     </div>
                   </div>
@@ -197,7 +197,7 @@ $today = Carbon::now()->isoFormat('D MMMM Y');
     const member = document.querySelectorAll(".grid-rank > div");
 
     if (labels.length) {
-      document.querySelector(".chart").style.setProperty("--activity", labels.length);
+      document.querySelector(".wrap-average .chart").style.setProperty("--activity", labels.length);
     }
     
     
@@ -314,13 +314,13 @@ $today = Carbon::now()->isoFormat('D MMMM Y');
           datasets: [{
             data: yesterday,
             backgroundColor: '#CCEDEC',
-            categoryPercentage: 0.3,
+            categoryPercentage: 0.4,
             barPercentage: 0.5,
             borderRadius: 20,
           },{
             data: today,
             backgroundColor: '#00A7A0',
-            categoryPercentage: 0.3,
+            categoryPercentage: 0.4,
             barPercentage: 0.5,
             borderRadius: 20,
           }]
@@ -358,30 +358,40 @@ $today = Carbon::now()->isoFormat('D MMMM Y');
 
       switch (key) {
         case "1":
+          document.getElementById("wajib-chart").style.setProperty("--activity", Object.keys(activityDetail[key]).length);
+
           const wajibChart = new Chart(
             document.getElementById('wajibChart'),
             configDay
           );
           break;
         case "2":
+          document.getElementById("rawatib-chart").style.setProperty("--activity", Object.keys(activityDetail[key]).length);
+
           const rawatibChart = new Chart(
             document.getElementById('rawatibChart'),
             configDay
           );
           break;
         case "3":
+          document.getElementById("sunnah-chart").style.setProperty("--activity", Object.keys(activityDetail[key]).length);
+
           const sunnahChart = new Chart(
             document.getElementById('sunnahChart'),
             configDay
           );
           break;
         case "4":
+          document.getElementById("lainnya-chart").style.setProperty("--activity", Object.keys(activityDetail[key]).length);
+
           const lainnyaChart = new Chart(
             document.getElementById('lainnyaChart'),
             configDay
           );
           break;
         default:
+          document.getElementById("dzikir-chart").style.setProperty("--activity", Object.keys(activityDetail[key]).length);
+
           const dzikirChart = new Chart(
             document.getElementById('dzikirChart'),
             configDay

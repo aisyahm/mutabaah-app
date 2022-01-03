@@ -1,7 +1,9 @@
 @php
   use App\Models\UserGroup;
+  use App\Models\User;
   use Illuminate\Support\Facades\Auth;
 
+  $userTemplate = User::with("userGroup")->find(Auth::user()->id)->userGroup;
   $groupsTemplate = UserGroup::with("group")->where("user_id", Auth::user()->id)->get();
   $groupsInTemplate = [];
   $membersInTemplate = [];
@@ -14,13 +16,8 @@
     $membersInTemplate[] = $groupAcc->where("group_id", $groupAcc->group->id)->where("is_accept", true)->count() - 1;
   }
 
-  $memberPending = [];
-  foreach ($groupsTemplate as $group) {
-    if (!is_null(UserGroup::with("group")->where("group_id", $group->group_id)->where("is_accept", false)->first())) {
-      $memberPending[] = true;
-    } else {
-      $memberPending[] = false;
-    }
+  foreach ($userTemplate as $user) {
+    $memberPending[] = UserGroup::with("group")->where("group_id", $user->group_id)->where("is_accept", false)->count();
   }
 @endphp
 
@@ -46,7 +43,6 @@
             <h3>Buat grup</h3>
             <i class="new-group-btn fas fa-plus"></i>
           </div>
-          {{-- @dd(count($memberPending)) --}}
 
             @if ($groupsInTemplate)
               @for ($i = 0; $i < count($groupsInTemplate); $i++)
@@ -59,9 +55,8 @@
                       <h4>{{ $groupsInTemplate[$i]->name }}</h4>
                       <h4>{{ $membersInTemplate[$i] }} anggota</h4>
                     </div>
-                    @if ($memberPending[$i])
-                        {{-- <img class="pending" src="/assets/img/alert-warning.svg"> --}}
-                        <div class="pending"></div>
+                    @if ($memberPending[$i] != 0)
+                      <div class="pending">{{ $memberPending[$i] }}</div>
                     @endif
                   </div> 
                 </a>
