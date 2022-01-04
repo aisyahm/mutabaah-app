@@ -82,7 +82,7 @@
               {{ $message }}
             </div>
           @enderror
-          <input name="no_telp" type="text" placeholder="Masukkan nomor telepon" class="shadow-sm rounded form-control my-fo-size my-bg-color-2 input @error('no_telp') is-invalid @enderror" id="no_telp" required value="{{ old('no_telp') }}" />
+          <input name="no_telp" type="number" placeholder="Masukkan nomor telepon" class="shadow-sm rounded form-control my-fo-size my-bg-color-2 input @error('no_telp') is-invalid @enderror" id="no_telp" required value="{{ old('no_telp') }}" />
           
           <label class="gender">Gender<span class="my-color-red">*</span></label>
           <div class="user">
@@ -137,7 +137,8 @@
           radioRole[index].parentElement.classList.contains('active') ? '' : radio.parentElement.classList.remove('active');
         });
 
-        checkMember.classList.toggle("active");
+        if (index == 0) checkMember.classList.add("active");
+        else checkMember.classList.remove("active");
         
         radioRole[index].parentElement.classList.toggle('active');
       }

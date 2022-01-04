@@ -75,10 +75,6 @@
               <input type="checkbox" name="remember" >
               <label for="remember">Ingat saya</label>
             </div>
-
-            <div>
-              <a href="{{ route("forgot") }}">Lupa password?</a>
-            </div>
           </div>
 
           <button type="submit" class="btn btn-login my-bg-color my-mt-login">Login</button>

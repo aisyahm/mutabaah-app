@@ -24,9 +24,8 @@ Route::get('/auth/google/callback', [LoginController::class, 'handleProviderCall
 Route::get('/complete', [LoginController::class, 'completeGoogle'])->name("complete")->middleware('auth');
 Route::post('/complete', [LoginController::class, 'storeComplete']);
 
-// LOGOUT ACCOUNT & FORGOT PASSWORD
+// LOGOUT ACCOUNT
 Route::post('/logout', [LoginController::class, 'logout']);
-Route::get('/forgot', [LoginController::class, 'forgot'])->name("forgot")->middleware("guest");
 
 // HOME, JOIN GROUP, & CREATE GROUP
 Route::get('/home', [LoginController::class, 'home'])->name('home')->middleware('auth');
